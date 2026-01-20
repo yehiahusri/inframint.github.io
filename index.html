@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InfraMint - Collective AI Art Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=Syne:wght@700;800&display=swap');
         
@@ -1009,7 +1010,66 @@
 </footer>
 
 <script>
+    // Initialize Supabase
+    const SUPABASE_URL = 'https://vyibnkztkacifahhlxof.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5aWJua3p0a2FjaWZhaGhseG9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc0NzU0NzYsImV4cCI6MjA1MzA1MTQ3Nn0.sM0GwKHfyLjTiYXHCCOWMmGbcuDWfL6JVcUGSw1VVcI';
+    
+    const { createClient } = supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
     let uploadedFile = null;
+    let currentUser = null;
+
+    // Check if user is logged in on page load
+    async function checkAuth() {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (session) {
+            currentUser = session.user;
+            updateNavForLoggedInUser();
+        }
+    }
+
+    // Update navigation when user is logged in
+    function updateNavForLoggedInUser() {
+        const desktopNav = document.querySelector('.hidden.md\\:flex.items-center.gap-8');
+        if (desktopNav && currentUser) {
+            // Get user profile to determine type
+            supabaseClient
+                .from('profiles')
+                .select('user_type, full_name')
+                .eq('id', currentUser.id)
+                .single()
+                .then(({ data: profile }) => {
+                    if (profile) {
+                        const dashboardPage = profile.user_type === 'contributor' ? 'dashboard-contributor' : 'dashboard-collector';
+                        desktopNav.innerHTML = `
+                            <button onclick="showPage('home')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Home</button>
+                            <button onclick="showPage('how')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">How It Works</button>
+                            <button onclick="showPage('gallery')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Gallery</button>
+                            <button onclick="showPage('ethics')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Ethics</button>
+                            <button onclick="showPage('contribute')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Dashboard</button>
+                            <button onclick="signOut()" class="px-6 py-2 bg-white/10 border border-gray-700 rounded-full text-sm font-semibold hover:bg-white/20 transition-all">
+                                Sign Out
+                            </button>
+                        `;
+                    }
+                });
+        }
+    }
+
+    // Initialize on page load
+    checkAuth();
+
+    // Listen for auth changes
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+        if (event === 'SIGNED_IN' && session) {
+            currentUser = session.user;
+            updateNavForLoggedInUser();
+        } else if (event === 'SIGNED_OUT') {
+            currentUser = null;
+            location.reload(); // Refresh to reset nav
+        }
+    });
 
     function showPage(pageId) {
         document.querySelectorAll('.page-content').forEach(page => {
@@ -1038,7 +1098,13 @@
         }
     }
 
-    function submitContribution() {
+    async function submitContribution() {
+        if (!currentUser) {
+            alert('Please sign in to contribute');
+            showPage('signin');
+            return;
+        }
+
         const consent = document.getElementById('consent-checkbox').checked;
         
         if (!uploadedFile) {
@@ -1051,13 +1117,42 @@
             return;
         }
 
-        alert('Thank you! Your contribution has been submitted. You\'ll receive an email confirmation shortly.');
-        
-        document.getElementById('upload-placeholder').classList.remove('hidden');
-        document.getElementById('upload-preview').classList.add('hidden');
-        document.getElementById('consent-checkbox').checked = false;
-        uploadedFile = null;
-        document.getElementById('face-upload').value = '';
+        try {
+            // Upload file to Supabase Storage
+            const fileExt = uploadedFile.name.split('.').pop();
+            const fileName = `${currentUser.id}/${Date.now()}.${fileExt}`;
+            
+            const { data: uploadData, error: uploadError } = await supabaseClient.storage
+                .from('contributions')
+                .upload(fileName, uploadedFile);
+
+            if (uploadError) throw uploadError;
+
+            // Create contribution record
+            const { data: contribution, error: dbError } = await supabaseClient
+                .from('contributions')
+                .insert({
+                    contributor_id: currentUser.id,
+                    image_url: fileName,
+                    status: 'pending',
+                    consent_given: true
+                });
+
+            if (dbError) throw dbError;
+
+            alert('Thank you! Your contribution has been submitted successfully!');
+            
+            // Reset form
+            document.getElementById('upload-placeholder').classList.remove('hidden');
+            document.getElementById('upload-preview').classList.add('hidden');
+            document.getElementById('consent-checkbox').checked = false;
+            uploadedFile = null;
+            document.getElementById('face-upload').value = '';
+
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error submitting contribution: ' + error.message);
+        }
     }
 
     // Authentication Functions
@@ -1070,7 +1165,7 @@
         return password.length >= 8;
     }
 
-    function submitContributorSignup() {
+    async function submitContributorSignup() {
         const name = document.getElementById('contributor-name').value.trim();
         const email = document.getElementById('contributor-email').value.trim();
         const password = document.getElementById('contributor-password').value;
@@ -1099,17 +1194,35 @@
             return;
         }
 
-        // Store email for verification page
-        document.getElementById('verification-email').textContent = email;
+        try {
+            const { data, error } = await supabaseClient.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    data: {
+                        full_name: name,
+                        user_type: 'contributor',
+                        country: country
+                    },
+                    emailRedirectTo: 'https://inframint.io'
+                }
+            });
 
-        // In real implementation, this would call your backend API
-        console.log('Contributor signup:', { name, email, country, type: 'contributor' });
+            if (error) throw error;
 
-        // Show verification page
-        showPage('verify-email');
+            // Store email for verification page
+            document.getElementById('verification-email').textContent = email;
+            
+            // Show verification page
+            showPage('verify-email');
+
+        } catch (error) {
+            console.error('Signup error:', error);
+            alert('Error signing up: ' + error.message);
+        }
     }
 
-    function submitCollectorSignup() {
+    async function submitCollectorSignup() {
         const name = document.getElementById('collector-name').value.trim();
         const email = document.getElementById('collector-email').value.trim();
         const password = document.getElementById('collector-password').value;
@@ -1138,17 +1251,35 @@
             return;
         }
 
-        // Store email for verification page
-        document.getElementById('verification-email').textContent = email;
+        try {
+            const { data, error } = await supabaseClient.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    data: {
+                        full_name: name,
+                        user_type: 'collector',
+                        country: country
+                    },
+                    emailRedirectTo: 'https://inframint.io'
+                }
+            });
 
-        // In real implementation, this would call your backend API
-        console.log('Collector signup:', { name, email, country, type: 'collector' });
+            if (error) throw error;
 
-        // Show verification page
-        showPage('verify-email');
+            // Store email for verification page
+            document.getElementById('verification-email').textContent = email;
+            
+            // Show verification page
+            showPage('verify-email');
+
+        } catch (error) {
+            console.error('Signup error:', error);
+            alert('Error signing up: ' + error.message);
+        }
     }
 
-    function submitSignin() {
+    async function submitSignin() {
         const email = document.getElementById('signin-email').value.trim();
         const password = document.getElementById('signin-password').value;
 
@@ -1161,17 +1292,79 @@
             return;
         }
 
-        // In real implementation, this would call your backend API
-        console.log('Sign in attempt:', { email });
+        try {
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
 
-        // For demo purposes, show success
-        alert('Sign in successful! (Demo mode)');
-        showPage('home');
+            if (error) throw error;
+
+            currentUser = data.user;
+            alert('Welcome back!');
+            showPage('home');
+            updateNavForLoggedInUser();
+
+        } catch (error) {
+            console.error('Sign in error:', error);
+            alert('Error signing in: ' + error.message);
+        }
     }
 
-    function resendVerification() {
+    async function signOut() {
+        try {
+            const { error } = await supabaseClient.auth.signOut();
+            if (error) throw error;
+            
+            currentUser = null;
+            alert('You have been signed out');
+            location.reload();
+
+        } catch (error) {
+            console.error('Sign out error:', error);
+            alert('Error signing out: ' + error.message);
+        }
+    }
+
+    async function resendVerification() {
         const email = document.getElementById('verification-email').textContent;
-        alert('Verification email resent to ' + email + ' (Demo mode)');
+        
+        try {
+            const { error } = await supabaseClient.auth.resend({
+                type: 'signup',
+                email: email
+            });
+
+            if (error) throw error;
+            
+            alert('Verification email resent to ' + email);
+
+        } catch (error) {
+            console.error('Resend error:', error);
+            alert('Error resending email: ' + error.message);
+        }
+    }
+
+    // Google Sign In
+    async function signInWithGoogle(userType) {
+        try {
+            const { data, error } = await supabaseClient.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    redirectTo: 'https://inframint.io',
+                    queryParams: {
+                        access_type: 'offline',
+                        prompt: 'consent'
+                    }
+                }
+            });
+
+            if (error) throw error;
+
+        } catch (error) {
+            console.error('Google sign in error:', error);
+            alert('Error signing in with Google: ' + error.message);
+        }
     }
 </script>
 
