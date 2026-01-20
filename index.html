@@ -1234,7 +1234,7 @@
 
 <!-- Edit Profile Page -->
 <div id="page-edit-profile" class="page-content hidden pt-20">
-    <div class="max-w-2xl mx-auto px-6 py-12 fade-in">
+    <div class="max-w-4xl mx-auto px-6 py-12 fade-in">
         <button onclick="goToDashboard()" class="text-gray-400 hover:text-white mb-8 flex items-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -1242,69 +1242,385 @@
             Back to Dashboard
         </button>
 
-        <h1 class="text-4xl font-bold mb-8">Edit Profile</h1>
+        <h1 class="text-4xl font-bold mb-8">My Profile</h1>
 
-        <div class="glass-effect p-8 rounded-2xl space-y-6">
-            <!-- Avatar -->
-            <div class="flex items-center gap-6">
-                <div class="w-24 h-24 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-3xl font-bold" id="edit-profile-avatar">
-                    ?
+        <!-- Profile Tabs -->
+        <div class="flex gap-2 mb-8 border-b border-gray-800 overflow-x-auto">
+            <button onclick="showProfileTab('personal')" id="tab-personal" class="profile-tab px-6 py-3 text-sm font-medium border-b-2 border-pink-500 text-white whitespace-nowrap">
+                Personal Info
+            </button>
+            <button onclick="showProfileTab('contributions')" id="tab-contributions" class="profile-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+                My Contributions
+            </button>
+            <button onclick="showProfileTab('earnings')" id="tab-earnings" class="profile-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+                Earnings & Payouts
+            </button>
+            <button onclick="showProfileTab('privacy')" id="tab-privacy" class="profile-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+                Privacy & Settings
+            </button>
+        </div>
+
+        <!-- Tab Content: Personal Info -->
+        <div id="profile-tab-personal" class="profile-tab-content">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Left: Avatar & Quick Info -->
+                <div class="md:col-span-1">
+                    <div class="glass-effect p-6 rounded-2xl text-center">
+                        <div class="w-32 h-32 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-5xl font-bold mx-auto mb-4" id="profile-page-avatar">
+                            ?
+                        </div>
+                        <button class="px-4 py-2 bg-white/10 rounded-xl text-sm hover:bg-white/20 transition-colors">
+                            Change Photo
+                        </button>
+                        <div class="mt-6 pt-6 border-t border-gray-800">
+                            <div class="text-2xl font-bold" id="profile-page-name">-</div>
+                            <div class="text-gray-400 text-sm" id="profile-page-email">-</div>
+                            <div class="mt-3 inline-block px-3 py-1 bg-pink-500/20 text-pink-400 text-xs font-semibold rounded-full" id="profile-page-type">
+                                Contributor
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="glass-effect p-6 rounded-2xl mt-6">
+                        <h3 class="font-semibold mb-4">Quick Stats</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Member Since</span>
+                                <span id="profile-page-joined">-</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Contributions</span>
+                                <span id="profile-page-contributions">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">In Artworks</span>
+                                <span id="profile-page-artworks">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Total Earned</span>
+                                <span class="text-green-400" id="profile-page-earned">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <button class="px-4 py-2 bg-white/10 rounded-xl text-sm hover:bg-white/20 transition-colors">
-                        Change Avatar
-                    </button>
-                    <p class="text-gray-500 text-xs mt-2">JPG, PNG. Max 2MB</p>
+
+                <!-- Right: Edit Form -->
+                <div class="md:col-span-2">
+                    <div class="glass-effect p-8 rounded-2xl space-y-6">
+                        <h2 class="text-2xl font-bold mb-6">Personal Information</h2>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+                                <input type="text" id="edit-name" placeholder="Your name" 
+                                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Display Name</label>
+                                <input type="text" id="edit-display-name" placeholder="How others see you" 
+                                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                            <input type="email" id="edit-email" disabled
+                                class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-gray-500 cursor-not-allowed">
+                            <p class="text-gray-500 text-xs mt-1">Email cannot be changed. Contact support if needed.</p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Country</label>
+                                <select id="edit-country" 
+                                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-pink-500 transition-colors">
+                                    <option value="" class="bg-gray-900">Select your country</option>
+                                    <option value="US" class="bg-gray-900">United States</option>
+                                    <option value="UK" class="bg-gray-900">United Kingdom</option>
+                                    <option value="CA" class="bg-gray-900">Canada</option>
+                                    <option value="AU" class="bg-gray-900">Australia</option>
+                                    <option value="DE" class="bg-gray-900">Germany</option>
+                                    <option value="FR" class="bg-gray-900">France</option>
+                                    <option value="AE" class="bg-gray-900">United Arab Emirates</option>
+                                    <option value="OTHER" class="bg-gray-900">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Phone (Optional)</label>
+                                <input type="tel" id="edit-phone" placeholder="+1 234 567 8900" 
+                                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Bio (Optional)</label>
+                            <textarea id="edit-bio" rows="3" placeholder="Tell us a bit about yourself..." 
+                                class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors resize-none"></textarea>
+                        </div>
+
+                        <div class="pt-4">
+                            <button onclick="saveProfile()" class="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Form Fields -->
-            <div>
-                <label class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
-                <input type="text" id="edit-name" placeholder="Your name" 
-                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
-                <input type="email" id="edit-email" disabled
-                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-gray-500 cursor-not-allowed">
-                <p class="text-gray-500 text-xs mt-1">Email cannot be changed</p>
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-300 mb-2">Country</label>
-                <select id="edit-country" 
-                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-pink-500 transition-colors">
-                    <option value="" class="bg-gray-900">Select your country</option>
-                    <option value="US" class="bg-gray-900">United States</option>
-                    <option value="UK" class="bg-gray-900">United Kingdom</option>
-                    <option value="CA" class="bg-gray-900">Canada</option>
-                    <option value="AU" class="bg-gray-900">Australia</option>
-                    <option value="DE" class="bg-gray-900">Germany</option>
-                    <option value="FR" class="bg-gray-900">France</option>
-                    <option value="AE" class="bg-gray-900">United Arab Emirates</option>
-                    <option value="OTHER" class="bg-gray-900">Other</option>
-                </select>
-            </div>
-
-            <div class="pt-4 flex gap-4">
-                <button onclick="saveProfile()" class="flex-1 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
-                    Save Changes
-                </button>
-                <button onclick="goToDashboard()" class="px-6 py-3 bg-white/5 border border-gray-700 rounded-xl font-semibold hover:bg-white/10 transition-colors">
-                    Cancel
-                </button>
             </div>
         </div>
 
-        <!-- Danger Zone -->
-        <div class="mt-8 glass-effect p-6 rounded-2xl border border-red-500/20">
-            <h3 class="text-xl font-bold text-red-400 mb-4">Danger Zone</h3>
-            <p class="text-gray-400 text-sm mb-4">Once you delete your account, there is no going back. Please be certain.</p>
-            <button class="px-4 py-2 bg-red-500/20 border border-red-500/50 rounded-xl text-red-400 text-sm hover:bg-red-500/30 transition-colors">
-                Delete Account
-            </button>
+        <!-- Tab Content: My Contributions -->
+        <div id="profile-tab-contributions" class="profile-tab-content hidden">
+            <div class="glass-effect p-8 rounded-2xl">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold">My Contributions</h2>
+                    <button onclick="showPage('contribute')" class="px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl text-sm font-semibold">
+                        + Add New
+                    </button>
+                </div>
+                
+                <div id="profile-contributions-list">
+                    <!-- Empty State -->
+                    <div id="profile-contributions-empty" class="text-center py-16">
+                        <div class="w-20 h-20 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-10 h-10 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">No contributions yet</h3>
+                        <p class="text-gray-400 mb-6">Upload your first face photo to start earning from AI artworks</p>
+                        <button onclick="showPage('contribute')" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-semibold">
+                            Make Your First Contribution
+                        </button>
+                    </div>
+
+                    <!-- Contributions Grid (will be populated dynamically) -->
+                    <div id="profile-contributions-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 hidden">
+                        <!-- Contribution cards will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Earnings & Payouts -->
+        <div id="profile-tab-earnings" class="profile-tab-content hidden">
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="glass-effect p-6 rounded-2xl">
+                    <div class="text-sm text-gray-400 mb-1">Total Earned</div>
+                    <div class="text-3xl font-bold text-green-400" id="earnings-total">$0.00</div>
+                </div>
+                <div class="glass-effect p-6 rounded-2xl">
+                    <div class="text-sm text-gray-400 mb-1">Pending Payout</div>
+                    <div class="text-3xl font-bold text-yellow-400" id="earnings-pending">$0.00</div>
+                </div>
+                <div class="glass-effect p-6 rounded-2xl">
+                    <div class="text-sm text-gray-400 mb-1">Paid Out</div>
+                    <div class="text-3xl font-bold text-white" id="earnings-paid">$0.00</div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Payout Method -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h2 class="text-2xl font-bold mb-6">Payout Method</h2>
+                    
+                    <div id="payout-not-connected" class="text-center py-8">
+                        <div class="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold mb-2">No payout method connected</h3>
+                        <p class="text-gray-400 text-sm mb-6">Connect your Stripe account to receive automatic payouts when artworks sell</p>
+                        <button class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-semibold">
+                            Connect Stripe Account
+                        </button>
+                    </div>
+
+                    <div id="payout-connected" class="hidden">
+                        <div class="flex items-center gap-4 p-4 bg-green-500/10 border border-green-500/30 rounded-xl mb-6">
+                            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-green-400">Stripe Connected</div>
+                                <div class="text-sm text-gray-400">Payouts are sent automatically</div>
+                            </div>
+                        </div>
+                        <button class="text-sm text-gray-400 hover:text-white">Manage Stripe Settings →</button>
+                    </div>
+                </div>
+
+                <!-- Earnings History -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h2 class="text-2xl font-bold mb-6">Earnings History</h2>
+                    
+                    <div id="earnings-history-empty" class="text-center py-8">
+                        <p class="text-gray-400">No earnings yet. When artworks featuring your contributions sell, your earnings will appear here.</p>
+                    </div>
+
+                    <div id="earnings-history-list" class="space-y-3 hidden">
+                        <!-- Earnings items will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Privacy & Settings -->
+        <div id="profile-tab-privacy" class="profile-tab-content hidden">
+            <div class="space-y-6">
+                <!-- Notification Settings -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h2 class="text-2xl font-bold mb-6">Notification Settings</h2>
+                    
+                    <div class="space-y-4">
+                        <label class="flex items-center justify-between cursor-pointer">
+                            <div>
+                                <div class="font-medium">Email notifications</div>
+                                <div class="text-sm text-gray-400">Receive updates about your contributions and earnings</div>
+                            </div>
+                            <input type="checkbox" id="notify-email" checked class="w-5 h-5 accent-pink-500">
+                        </label>
+                        
+                        <label class="flex items-center justify-between cursor-pointer">
+                            <div>
+                                <div class="font-medium">Artwork sold notifications</div>
+                                <div class="text-sm text-gray-400">Get notified when an artwork featuring you is sold</div>
+                            </div>
+                            <input type="checkbox" id="notify-sold" checked class="w-5 h-5 accent-pink-500">
+                        </label>
+                        
+                        <label class="flex items-center justify-between cursor-pointer">
+                            <div>
+                                <div class="font-medium">Payout notifications</div>
+                                <div class="text-sm text-gray-400">Get notified when you receive a payout</div>
+                            </div>
+                            <input type="checkbox" id="notify-payout" checked class="w-5 h-5 accent-pink-500">
+                        </label>
+                        
+                        <label class="flex items-center justify-between cursor-pointer">
+                            <div>
+                                <div class="font-medium">Marketing emails</div>
+                                <div class="text-sm text-gray-400">Receive news and updates about InfraMint</div>
+                            </div>
+                            <input type="checkbox" id="notify-marketing" class="w-5 h-5 accent-pink-500">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Privacy Settings -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h2 class="text-2xl font-bold mb-6">Privacy Settings</h2>
+                    
+                    <div class="space-y-4">
+                        <label class="flex items-center justify-between cursor-pointer">
+                            <div>
+                                <div class="font-medium">Show profile publicly</div>
+                                <div class="text-sm text-gray-400">Allow others to see your contributor profile</div>
+                            </div>
+                            <input type="checkbox" id="privacy-public" class="w-5 h-5 accent-pink-500">
+                        </label>
+                        
+                        <label class="flex items-center justify-between cursor-pointer">
+                            <div>
+                                <div class="font-medium">Show in contributor count</div>
+                                <div class="text-sm text-gray-400">Your contribution will be counted in artwork stats</div>
+                            </div>
+                            <input type="checkbox" id="privacy-count" checked class="w-5 h-5 accent-pink-500">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Data & Face Usage -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h2 class="text-2xl font-bold mb-6">Data & Face Usage</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl">
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-blue-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <div class="text-sm text-gray-300">
+                                    Your face is transformed into abstract, non-identifiable artistic elements. We never use facial recognition or store identifiable biometric data.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button class="text-pink-400 hover:text-pink-300 text-sm font-medium">
+                                Download my data →
+                            </button>
+                        </div>
+
+                        <div>
+                            <button class="text-pink-400 hover:text-pink-300 text-sm font-medium">
+                                Request data deletion →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h2 class="text-2xl font-bold mb-6">Security</h2>
+                    
+                    <div class="space-y-4">
+                        <button class="w-full flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                                </svg>
+                                <span>Change password</span>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+
+                        <button class="w-full flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                                <span>Two-factor authentication</span>
+                            </div>
+                            <span class="text-xs text-gray-500">Coming soon</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Danger Zone -->
+                <div class="glass-effect p-8 rounded-2xl border border-red-500/20">
+                    <h2 class="text-2xl font-bold text-red-400 mb-6">Danger Zone</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="font-medium">Pause contributions</div>
+                                <div class="text-sm text-gray-400">Temporarily stop your face from being used in new artworks</div>
+                            </div>
+                            <button class="px-4 py-2 bg-yellow-500/20 border border-yellow-500/50 rounded-xl text-yellow-400 text-sm hover:bg-yellow-500/30 transition-colors">
+                                Pause
+                            </button>
+                        </div>
+                        
+                        <div class="border-t border-gray-800 pt-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="font-medium text-red-400">Delete account</div>
+                                    <div class="text-sm text-gray-400">Permanently delete your account and all data</div>
+                                </div>
+                                <button class="px-4 py-2 bg-red-500/20 border border-red-500/50 rounded-xl text-red-400 text-sm hover:bg-red-500/30 transition-colors">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -1910,12 +2226,98 @@
     // Load edit profile page
     function loadEditProfile() {
         if (currentProfile) {
+            // Personal Info
             document.getElementById('edit-name').value = currentProfile.full_name || '';
             document.getElementById('edit-email').value = currentProfile.email || '';
             document.getElementById('edit-country').value = currentProfile.country || '';
             
+            // Avatar and quick info
             const initial = (currentProfile.full_name || currentProfile.email || '?')[0].toUpperCase();
-            document.getElementById('edit-profile-avatar').textContent = initial;
+            document.getElementById('profile-page-avatar').textContent = initial;
+            document.getElementById('profile-page-name').textContent = currentProfile.full_name || 'Not set';
+            document.getElementById('profile-page-email').textContent = currentProfile.email || '';
+            document.getElementById('profile-page-type').textContent = currentProfile.user_type === 'collector' ? 'Collector' : 'Contributor';
+            document.getElementById('profile-page-joined').textContent = new Date(currentProfile.created_at).toLocaleDateString();
+            document.getElementById('profile-page-earned').textContent = '$' + (currentProfile.total_earnings || 0).toFixed(2);
+            
+            // Load contribution stats
+            loadProfileStats();
+            
+            // Earnings tab
+            document.getElementById('earnings-total').textContent = '$' + (currentProfile.total_earnings || 0).toFixed(2);
+        }
+    }
+
+    async function loadProfileStats() {
+        if (!currentUser) return;
+        
+        try {
+            // Get contributions count
+            const { data: contributions } = await supabaseClient
+                .from('contributions')
+                .select('*')
+                .eq('contributor_id', currentUser.id);
+            
+            if (contributions) {
+                document.getElementById('profile-page-contributions').textContent = contributions.length;
+                
+                // Show contributions in grid if any exist
+                if (contributions.length > 0) {
+                    document.getElementById('profile-contributions-empty').classList.add('hidden');
+                    const grid = document.getElementById('profile-contributions-grid');
+                    grid.classList.remove('hidden');
+                    grid.innerHTML = contributions.map(c => `
+                        <div class="aspect-square rounded-xl bg-gray-800 overflow-hidden relative group">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
+                                <div class="text-xs text-gray-400">${new Date(c.created_at).toLocaleDateString()}</div>
+                                <div class="text-xs capitalize ${c.status === 'approved' ? 'text-green-400' : c.status === 'pending' ? 'text-yellow-400' : 'text-gray-400'}">${c.status}</div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+            
+            // Get artwork contributions count
+            const { data: artworkContribs } = await supabaseClient
+                .from('artwork_contributions')
+                .select('artwork_id')
+                .eq('contributor_id', currentUser.id);
+            
+            if (artworkContribs) {
+                document.getElementById('profile-page-artworks').textContent = artworkContribs.length;
+            }
+            
+        } catch (error) {
+            console.error('Error loading profile stats:', error);
+        }
+    }
+
+    // Profile tab switching
+    function showProfileTab(tabName) {
+        // Hide all tab contents
+        document.querySelectorAll('.profile-tab-content').forEach(content => {
+            content.classList.add('hidden');
+        });
+        
+        // Show selected tab content
+        document.getElementById('profile-tab-' + tabName).classList.remove('hidden');
+        
+        // Update tab button styles
+        document.querySelectorAll('.profile-tab').forEach(tab => {
+            tab.classList.remove('border-pink-500', 'text-white');
+            tab.classList.add('border-transparent', 'text-gray-400');
+        });
+        
+        // Activate selected tab button
+        const activeTab = document.getElementById('tab-' + tabName);
+        if (activeTab) {
+            activeTab.classList.remove('border-transparent', 'text-gray-400');
+            activeTab.classList.add('border-pink-500', 'text-white');
         }
     }
 
