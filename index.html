@@ -957,6 +957,358 @@
     </div>
 </div>
 
+<!-- Contributor Dashboard -->
+<div id="page-dashboard-contributor" class="page-content hidden pt-20">
+    <div class="max-w-6xl mx-auto px-6 py-12 fade-in">
+        <!-- Dashboard Header -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
+            <div>
+                <h1 class="text-4xl font-bold mb-2">Welcome back, <span id="dashboard-name" class="gradient-text">Contributor</span></h1>
+                <p class="text-gray-400">Manage your contributions and track your earnings</p>
+            </div>
+            <div class="mt-4 md:mt-0">
+                <button onclick="showPage('contribute')" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
+                    + New Contribution
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid md:grid-cols-4 gap-6 mb-12">
+            <div class="glass-effect p-6 rounded-2xl">
+                <div class="text-3xl font-bold gradient-text mb-1" id="stat-contributions">0</div>
+                <div class="text-gray-400 text-sm">Contributions</div>
+            </div>
+            <div class="glass-effect p-6 rounded-2xl">
+                <div class="text-3xl font-bold gradient-text mb-1" id="stat-artworks">0</div>
+                <div class="text-gray-400 text-sm">In Artworks</div>
+            </div>
+            <div class="glass-effect p-6 rounded-2xl">
+                <div class="text-3xl font-bold text-green-400 mb-1" id="stat-earnings">$0.00</div>
+                <div class="text-gray-400 text-sm">Total Earnings</div>
+            </div>
+            <div class="glass-effect p-6 rounded-2xl">
+                <div class="text-3xl font-bold text-yellow-400 mb-1" id="stat-pending">$0.00</div>
+                <div class="text-gray-400 text-sm">Pending Payout</div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Left Column: Profile -->
+            <div class="md:col-span-1 space-y-6">
+                <!-- Profile Card -->
+                <div class="glass-effect p-6 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-4">Profile</h3>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-2xl font-bold" id="profile-avatar">
+                            ?
+                        </div>
+                        <div>
+                            <div class="font-semibold" id="profile-name">Loading...</div>
+                            <div class="text-gray-400 text-sm" id="profile-email">Loading...</div>
+                        </div>
+                    </div>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Account Type</span>
+                            <span class="text-pink-400 font-semibold">Contributor</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Country</span>
+                            <span id="profile-country">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Member Since</span>
+                            <span id="profile-joined">-</span>
+                        </div>
+                    </div>
+                    <button onclick="showPage('edit-profile')" class="w-full mt-6 px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-sm hover:bg-white/10 transition-colors">
+                        Edit Profile
+                    </button>
+                </div>
+
+                <!-- Payout Settings -->
+                <div class="glass-effect p-6 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-4">Payout Settings</h3>
+                    <div id="payout-status" class="text-center py-8">
+                        <div class="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">Set up your payout method to receive earnings</p>
+                        <button class="px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl text-sm font-semibold">
+                            Connect Stripe
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Contributions -->
+            <div class="md:col-span-2 space-y-6">
+                <!-- Recent Contributions -->
+                <div class="glass-effect p-6 rounded-2xl">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold">Your Contributions</h3>
+                        <button class="text-pink-400 text-sm hover:text-pink-300">View All</button>
+                    </div>
+                    
+                    <div id="contributions-list" class="space-y-4">
+                        <!-- Empty State -->
+                        <div id="contributions-empty" class="text-center py-12">
+                            <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <p class="text-gray-400 mb-4">You haven't made any contributions yet</p>
+                            <button onclick="showPage('contribute')" class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-sm font-semibold">
+                                Make Your First Contribution
+                            </button>
+                        </div>
+                        
+                        <!-- Contribution items will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Earnings History -->
+                <div class="glass-effect p-6 rounded-2xl">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold">Earnings History</h3>
+                        <button class="text-pink-400 text-sm hover:text-pink-300">View All</button>
+                    </div>
+                    
+                    <div id="earnings-list">
+                        <!-- Empty State -->
+                        <div id="earnings-empty" class="text-center py-8">
+                            <p class="text-gray-400">No earnings yet. Once artworks featuring your contributions sell, your earnings will appear here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Collector Dashboard -->
+<div id="page-dashboard-collector" class="page-content hidden pt-20">
+    <div class="max-w-6xl mx-auto px-6 py-12 fade-in">
+        <!-- Dashboard Header -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
+            <div>
+                <h1 class="text-4xl font-bold mb-2">Welcome back, <span id="collector-dashboard-name" class="gradient-text">Collector</span></h1>
+                <p class="text-gray-400">Browse exclusive artworks and manage your collection</p>
+            </div>
+            <div class="mt-4 md:mt-0">
+                <button onclick="showPage('gallery')" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all">
+                    Browse Gallery
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+            <div class="glass-effect p-6 rounded-2xl">
+                <div class="text-3xl font-bold gradient-text mb-1" id="collector-stat-owned">0</div>
+                <div class="text-gray-400 text-sm">Artworks Owned</div>
+            </div>
+            <div class="glass-effect p-6 rounded-2xl">
+                <div class="text-3xl font-bold text-green-400 mb-1" id="collector-stat-value">$0</div>
+                <div class="text-gray-400 text-sm">Collection Value</div>
+            </div>
+            <div class="glass-effect p-6 rounded-2xl">
+                <div class="text-3xl font-bold text-purple-400 mb-1" id="collector-stat-available">5</div>
+                <div class="text-gray-400 text-sm">Available to Purchase</div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Left Column: Profile -->
+            <div class="md:col-span-1 space-y-6">
+                <!-- Profile Card -->
+                <div class="glass-effect p-6 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-4">Profile</h3>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center text-2xl font-bold" id="collector-profile-avatar">
+                            ?
+                        </div>
+                        <div>
+                            <div class="font-semibold" id="collector-profile-name">Loading...</div>
+                            <div class="text-gray-400 text-sm" id="collector-profile-email">Loading...</div>
+                        </div>
+                    </div>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Account Type</span>
+                            <span class="text-purple-400 font-semibold">Collector</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Country</span>
+                            <span id="collector-profile-country">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Member Since</span>
+                            <span id="collector-profile-joined">-</span>
+                        </div>
+                    </div>
+                    <button onclick="showPage('edit-profile')" class="w-full mt-6 px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-sm hover:bg-white/10 transition-colors">
+                        Edit Profile
+                    </button>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="glass-effect p-6 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-4">Payment Method</h3>
+                    <div class="text-center py-8">
+                        <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">Add a payment method to purchase artworks</p>
+                        <button class="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-sm font-semibold">
+                            Add Payment Method
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Collection -->
+            <div class="md:col-span-2 space-y-6">
+                <!-- Your Collection -->
+                <div class="glass-effect p-6 rounded-2xl">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold">Your Collection</h3>
+                    </div>
+                    
+                    <div id="collection-list">
+                        <!-- Empty State -->
+                        <div id="collection-empty" class="text-center py-12">
+                            <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                </svg>
+                            </div>
+                            <p class="text-gray-400 mb-4">You don't own any artworks yet</p>
+                            <button onclick="showPage('gallery')" class="px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full text-sm font-semibold">
+                                Browse Gallery
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Available -->
+                <div class="glass-effect p-6 rounded-2xl">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold">Available Artworks</h3>
+                        <button onclick="showPage('gallery')" class="text-purple-400 text-sm hover:text-purple-300">View All</button>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="aspect-square rounded-xl overflow-hidden relative group cursor-pointer" onclick="showPage('gallery')">
+                            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
+                                <div>
+                                    <div class="font-semibold">Impressions at Dawn</div>
+                                    <div class="text-purple-400 font-bold">$12,500</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aspect-square rounded-xl overflow-hidden relative group cursor-pointer" onclick="showPage('gallery')">
+                            <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
+                                <div>
+                                    <div class="font-semibold">Garden of Faces</div>
+                                    <div class="text-purple-400 font-bold">$9,500</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Profile Page -->
+<div id="page-edit-profile" class="page-content hidden pt-20">
+    <div class="max-w-2xl mx-auto px-6 py-12 fade-in">
+        <button onclick="goToDashboard()" class="text-gray-400 hover:text-white mb-8 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Back to Dashboard
+        </button>
+
+        <h1 class="text-4xl font-bold mb-8">Edit Profile</h1>
+
+        <div class="glass-effect p-8 rounded-2xl space-y-6">
+            <!-- Avatar -->
+            <div class="flex items-center gap-6">
+                <div class="w-24 h-24 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-3xl font-bold" id="edit-profile-avatar">
+                    ?
+                </div>
+                <div>
+                    <button class="px-4 py-2 bg-white/10 rounded-xl text-sm hover:bg-white/20 transition-colors">
+                        Change Avatar
+                    </button>
+                    <p class="text-gray-500 text-xs mt-2">JPG, PNG. Max 2MB</p>
+                </div>
+            </div>
+
+            <!-- Form Fields -->
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+                <input type="text" id="edit-name" placeholder="Your name" 
+                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                <input type="email" id="edit-email" disabled
+                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-gray-500 cursor-not-allowed">
+                <p class="text-gray-500 text-xs mt-1">Email cannot be changed</p>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Country</label>
+                <select id="edit-country" 
+                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-pink-500 transition-colors">
+                    <option value="" class="bg-gray-900">Select your country</option>
+                    <option value="US" class="bg-gray-900">United States</option>
+                    <option value="UK" class="bg-gray-900">United Kingdom</option>
+                    <option value="CA" class="bg-gray-900">Canada</option>
+                    <option value="AU" class="bg-gray-900">Australia</option>
+                    <option value="DE" class="bg-gray-900">Germany</option>
+                    <option value="FR" class="bg-gray-900">France</option>
+                    <option value="AE" class="bg-gray-900">United Arab Emirates</option>
+                    <option value="OTHER" class="bg-gray-900">Other</option>
+                </select>
+            </div>
+
+            <div class="pt-4 flex gap-4">
+                <button onclick="saveProfile()" class="flex-1 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
+                    Save Changes
+                </button>
+                <button onclick="goToDashboard()" class="px-6 py-3 bg-white/5 border border-gray-700 rounded-xl font-semibold hover:bg-white/10 transition-colors">
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="mt-8 glass-effect p-6 rounded-2xl border border-red-500/20">
+            <h3 class="text-xl font-bold text-red-400 mb-4">Danger Zone</h3>
+            <p class="text-gray-400 text-sm mb-4">Once you delete your account, there is no going back. Please be certain.</p>
+            <button class="px-4 py-2 bg-red-500/20 border border-red-500/50 rounded-xl text-red-400 text-sm hover:bg-red-500/30 transition-colors">
+                Delete Account
+            </button>
+        </div>
+    </div>
+</div>
+
 <!-- Footer -->
 <footer class="border-t border-gray-800 mt-32">
     <div class="max-w-7xl mx-auto px-6 py-16">
@@ -1041,14 +1393,13 @@
                 .single()
                 .then(({ data: profile }) => {
                     if (profile) {
-                        const dashboardPage = profile.user_type === 'contributor' ? 'dashboard-contributor' : 'dashboard-collector';
+                        const dashboardPage = profile.user_type === 'collector' ? 'dashboard-collector' : 'dashboard-contributor';
                         desktopNav.innerHTML = `
                             <button onclick="showPage('home')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Home</button>
                             <button onclick="showPage('how')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">How It Works</button>
                             <button onclick="showPage('gallery')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Gallery</button>
-                            <button onclick="showPage('ethics')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Ethics</button>
-                            <button onclick="showPage('contribute')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Dashboard</button>
-                            <button onclick="signOut()" class="px-6 py-2 bg-white/10 border border-gray-700 rounded-full text-sm font-semibold hover:bg-white/20 transition-all">
+                            <button onclick="showPage('${dashboardPage}')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Dashboard</button>
+                            <button onclick="signOut()" class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-sm font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
                                 Sign Out
                             </button>
                         `;
@@ -1301,9 +1652,9 @@
             if (error) throw error;
 
             currentUser = data.user;
-            alert('Welcome back!');
-            showPage('home');
-            updateNavForLoggedInUser();
+            
+            // Load profile and redirect to appropriate dashboard
+            await loadUserProfileAndRedirect();
 
         } catch (error) {
             console.error('Sign in error:', error);
@@ -1317,6 +1668,7 @@
             if (error) throw error;
             
             currentUser = null;
+            currentProfile = null;
             alert('You have been signed out');
             location.reload();
 
@@ -1366,6 +1718,227 @@
             alert('Error signing in with Google: ' + error.message);
         }
     }
+
+    // Dashboard Functions
+    let currentProfile = null;
+
+    async function loadUserProfileAndRedirect() {
+        if (!currentUser) return;
+
+        try {
+            // First try to get existing profile
+            let { data: profile, error } = await supabaseClient
+                .from('profiles')
+                .select('*')
+                .eq('id', currentUser.id)
+                .single();
+
+            // If no profile exists, create one
+            if (error && error.code === 'PGRST116') {
+                const { data: newProfile, error: insertError } = await supabaseClient
+                    .from('profiles')
+                    .insert({
+                        id: currentUser.id,
+                        email: currentUser.email,
+                        full_name: currentUser.user_metadata?.full_name || '',
+                        user_type: currentUser.user_metadata?.user_type || 'contributor',
+                        country: currentUser.user_metadata?.country || ''
+                    })
+                    .select()
+                    .single();
+
+                if (insertError) {
+                    console.error('Error creating profile:', insertError);
+                } else {
+                    profile = newProfile;
+                }
+            }
+
+            if (profile) {
+                currentProfile = profile;
+                updateNavForLoggedInUser();
+                
+                // Redirect to appropriate dashboard
+                if (profile.user_type === 'collector') {
+                    loadCollectorDashboard(profile);
+                    showPage('dashboard-collector');
+                } else {
+                    loadContributorDashboard(profile);
+                    showPage('dashboard-contributor');
+                }
+            }
+
+        } catch (error) {
+            console.error('Error loading profile:', error);
+        }
+    }
+
+    function loadContributorDashboard(profile) {
+        // Set profile info
+        document.getElementById('dashboard-name').textContent = profile.full_name || 'Contributor';
+        document.getElementById('profile-name').textContent = profile.full_name || 'Not set';
+        document.getElementById('profile-email').textContent = profile.email;
+        document.getElementById('profile-country').textContent = profile.country || '-';
+        document.getElementById('profile-joined').textContent = new Date(profile.created_at).toLocaleDateString();
+        
+        // Set avatar initial
+        const initial = (profile.full_name || profile.email || '?')[0].toUpperCase();
+        document.getElementById('profile-avatar').textContent = initial;
+
+        // Load stats
+        document.getElementById('stat-earnings').textContent = '$' + (profile.total_earnings || 0).toFixed(2);
+        
+        // Load contributions count
+        loadContributorStats(profile.id);
+    }
+
+    async function loadContributorStats(userId) {
+        try {
+            // Get contributions count
+            const { data: contributions, error } = await supabaseClient
+                .from('contributions')
+                .select('id', { count: 'exact' })
+                .eq('contributor_id', userId);
+
+            if (!error && contributions) {
+                document.getElementById('stat-contributions').textContent = contributions.length;
+            }
+
+            // Get artworks count (where this contributor's faces are used)
+            const { data: artworkContribs } = await supabaseClient
+                .from('artwork_contributions')
+                .select('artwork_id', { count: 'exact' })
+                .eq('contributor_id', userId);
+
+            if (artworkContribs) {
+                document.getElementById('stat-artworks').textContent = artworkContribs.length;
+            }
+
+        } catch (error) {
+            console.error('Error loading stats:', error);
+        }
+    }
+
+    function loadCollectorDashboard(profile) {
+        // Set profile info
+        document.getElementById('collector-dashboard-name').textContent = profile.full_name || 'Collector';
+        document.getElementById('collector-profile-name').textContent = profile.full_name || 'Not set';
+        document.getElementById('collector-profile-email').textContent = profile.email;
+        document.getElementById('collector-profile-country').textContent = profile.country || '-';
+        document.getElementById('collector-profile-joined').textContent = new Date(profile.created_at).toLocaleDateString();
+        
+        // Set avatar initial
+        const initial = (profile.full_name || profile.email || '?')[0].toUpperCase();
+        document.getElementById('collector-profile-avatar').textContent = initial;
+
+        // Load stats
+        document.getElementById('collector-stat-value').textContent = '$' + (profile.total_spent || 0).toFixed(0);
+        
+        // Load collection count
+        loadCollectorStats(profile.id);
+    }
+
+    async function loadCollectorStats(userId) {
+        try {
+            // Get owned artworks count
+            const { data: artworks } = await supabaseClient
+                .from('artworks')
+                .select('id', { count: 'exact' })
+                .eq('buyer_id', userId);
+
+            if (artworks) {
+                document.getElementById('collector-stat-owned').textContent = artworks.length;
+            }
+
+            // Get available artworks count
+            const { data: available } = await supabaseClient
+                .from('artworks')
+                .select('id', { count: 'exact' })
+                .eq('status', 'available');
+
+            if (available) {
+                document.getElementById('collector-stat-available').textContent = available.length;
+            }
+
+        } catch (error) {
+            console.error('Error loading collector stats:', error);
+        }
+    }
+
+    function goToDashboard() {
+        if (currentProfile) {
+            if (currentProfile.user_type === 'collector') {
+                showPage('dashboard-collector');
+            } else {
+                showPage('dashboard-contributor');
+            }
+        } else {
+            showPage('home');
+        }
+    }
+
+    async function saveProfile() {
+        if (!currentUser) return;
+
+        const name = document.getElementById('edit-name').value.trim();
+        const country = document.getElementById('edit-country').value;
+
+        try {
+            const { data, error } = await supabaseClient
+                .from('profiles')
+                .update({
+                    full_name: name,
+                    country: country,
+                    updated_at: new Date().toISOString()
+                })
+                .eq('id', currentUser.id)
+                .select()
+                .single();
+
+            if (error) throw error;
+
+            currentProfile = data;
+            alert('Profile updated successfully!');
+            goToDashboard();
+
+        } catch (error) {
+            console.error('Error saving profile:', error);
+            alert('Error saving profile: ' + error.message);
+        }
+    }
+
+    // Load edit profile page
+    function loadEditProfile() {
+        if (currentProfile) {
+            document.getElementById('edit-name').value = currentProfile.full_name || '';
+            document.getElementById('edit-email').value = currentProfile.email || '';
+            document.getElementById('edit-country').value = currentProfile.country || '';
+            
+            const initial = (currentProfile.full_name || currentProfile.email || '?')[0].toUpperCase();
+            document.getElementById('edit-profile-avatar').textContent = initial;
+        }
+    }
+
+    // Override showPage to load data for certain pages
+    const originalShowPage = showPage;
+    showPage = function(pageId) {
+        if (pageId === 'edit-profile') {
+            loadEditProfile();
+        }
+        originalShowPage(pageId);
+    };
+
+    // Check for existing session on page load and redirect to dashboard if logged in
+    async function initializeApp() {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (session) {
+            currentUser = session.user;
+            await loadUserProfileAndRedirect();
+        }
+    }
+
+    // Run initialization
+    initializeApp();
 </script>
 
 </body>
