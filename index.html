@@ -127,8 +127,9 @@
                 <button onclick="showPage('how')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">How It Works</button>
                 <button onclick="showPage('gallery')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Gallery</button>
                 <button onclick="showPage('ethics')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Ethics</button>
-                <button onclick="showPage('contribute')" class="px-6 py-2 bg-gradient-to-r from-purple-600 to-purple-800 rounded-full text-sm font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all">
-                    Contribute
+                <button onclick="showPage('signin')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Sign In</button>
+                <button onclick="showPage('signup')" class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-sm font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
+                    Get Started
                 </button>
             </div>
 
@@ -146,7 +147,8 @@
             <button onclick="showPage('how'); toggleMobileMenu()" class="block w-full text-left text-gray-400 hover:text-white">How It Works</button>
             <button onclick="showPage('gallery'); toggleMobileMenu()" class="block w-full text-left text-gray-400 hover:text-white">Gallery</button>
             <button onclick="showPage('ethics'); toggleMobileMenu()" class="block w-full text-left text-gray-400 hover:text-white">Ethics</button>
-            <button onclick="showPage('contribute'); toggleMobileMenu()" class="block w-full text-left text-gray-400 hover:text-white">Contribute</button>
+            <button onclick="showPage('signin'); toggleMobileMenu()" class="block w-full text-left text-gray-400 hover:text-white">Sign In</button>
+            <button onclick="showPage('signup'); toggleMobileMenu()" class="block w-full text-left text-pink-400 hover:text-pink-300 font-semibold">Get Started</button>
         </div>
     </div>
 </nav>
@@ -579,6 +581,381 @@
     </div>
 </div>
 
+<!-- Sign Up Page - Choose Account Type -->
+<div id="page-signup" class="page-content hidden pt-20">
+    <div class="min-h-screen flex items-center justify-center px-6 py-24 fade-in">
+        <div class="max-w-4xl w-full">
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-bold mb-4">
+                    Join <span class="gradient-text">InfraMint</span>
+                </h1>
+                <p class="text-xl text-gray-400">Choose how you want to participate</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Contributor Card -->
+                <div class="glass-effect p-8 rounded-2xl hover-lift cursor-pointer" onclick="showPage('signup-contributor')">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl font-bold mb-3">Contributor</h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Upload your face to become part of unique AI artworks. Earn automatic revenue share when artworks featuring your contribution are sold.
+                    </p>
+                    <ul class="space-y-3 text-gray-400 mb-8">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-pink-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Earn 75% revenue share</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-pink-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Automatic payouts via Stripe</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-pink-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Full privacy protection</span>
+                        </li>
+                    </ul>
+                    <div class="flex items-center gap-2 text-pink-400 font-semibold">
+                        <span>Sign up as Contributor</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Collector Card -->
+                <div class="glass-effect p-8 rounded-2xl hover-lift cursor-pointer" onclick="showPage('signup-collector')">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl font-bold mb-3">Collector</h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Purchase exclusive one-of-one AI artworks. Own unique pieces created by thousands of contributors, with full authenticity certification.
+                    </p>
+                    <ul class="space-y-3 text-gray-400 mb-8">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Exclusive one-of-one artworks</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Certificate of authenticity</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>High-resolution files included</span>
+                        </li>
+                    </ul>
+                    <div class="flex items-center gap-2 text-purple-400 font-semibold">
+                        <span>Sign up as Collector</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-center text-gray-500 mt-8">
+                Already have an account? <button onclick="showPage('signin')" class="text-pink-400 hover:text-pink-300 font-semibold">Sign in</button>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Sign Up - Contributor Form -->
+<div id="page-signup-contributor" class="page-content hidden pt-20">
+    <div class="min-h-screen flex items-center justify-center px-6 py-24 fade-in">
+        <div class="max-w-md w-full">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-4xl font-bold mb-2">Become a Contributor</h1>
+                <p class="text-gray-400">Create your account to start earning</p>
+            </div>
+
+            <div class="glass-effect p-8 rounded-2xl space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+                    <input type="text" id="contributor-name" placeholder="John Doe" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                    <input type="email" id="contributor-email" placeholder="john@example.com" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                    <input type="password" id="contributor-password" placeholder="••••••••" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                    <p class="text-xs text-gray-500 mt-1">Minimum 8 characters</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Country</label>
+                    <select id="contributor-country" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-pink-500 transition-colors">
+                        <option value="" class="bg-gray-900">Select your country</option>
+                        <option value="US" class="bg-gray-900">United States</option>
+                        <option value="UK" class="bg-gray-900">United Kingdom</option>
+                        <option value="CA" class="bg-gray-900">Canada</option>
+                        <option value="AU" class="bg-gray-900">Australia</option>
+                        <option value="DE" class="bg-gray-900">Germany</option>
+                        <option value="FR" class="bg-gray-900">France</option>
+                        <option value="AE" class="bg-gray-900">United Arab Emirates</option>
+                        <option value="OTHER" class="bg-gray-900">Other</option>
+                    </select>
+                </div>
+
+                <div class="glass-effect p-4 rounded-xl">
+                    <label class="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" id="contributor-terms" class="mt-1 w-5 h-5 rounded accent-pink-500">
+                        <span class="text-sm text-gray-400">
+                            I agree to the <a href="#" class="text-pink-400 hover:underline">Terms of Service</a> and 
+                            <a href="#" class="text-pink-400 hover:underline">Privacy Policy</a>, and consent to my facial data being used as described.
+                        </span>
+                    </label>
+                </div>
+
+                <button onclick="submitContributorSignup()" 
+                    class="w-full px-6 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl text-lg font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
+                    Create Account
+                </button>
+
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-700"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-4 bg-transparent text-gray-500">or continue with</span>
+                    </div>
+                </div>
+
+                <button class="w-full px-6 py-3 bg-white/5 border border-gray-700 rounded-xl font-medium hover:bg-white/10 transition-colors flex items-center justify-center gap-3">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Continue with Google
+                </button>
+            </div>
+
+            <p class="text-center text-gray-500 mt-6">
+                <button onclick="showPage('signup')" class="text-gray-400 hover:text-white">← Back to options</button>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Sign Up - Collector Form -->
+<div id="page-signup-collector" class="page-content hidden pt-20">
+    <div class="min-h-screen flex items-center justify-center px-6 py-24 fade-in">
+        <div class="max-w-md w-full">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-4xl font-bold mb-2">Become a Collector</h1>
+                <p class="text-gray-400">Create your account to start collecting</p>
+            </div>
+
+            <div class="glass-effect p-8 rounded-2xl space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+                    <input type="text" id="collector-name" placeholder="John Doe" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                    <input type="email" id="collector-email" placeholder="john@example.com" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                    <input type="password" id="collector-password" placeholder="••••••••" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors">
+                    <p class="text-xs text-gray-500 mt-1">Minimum 8 characters</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Country</label>
+                    <select id="collector-country" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-purple-500 transition-colors">
+                        <option value="" class="bg-gray-900">Select your country</option>
+                        <option value="US" class="bg-gray-900">United States</option>
+                        <option value="UK" class="bg-gray-900">United Kingdom</option>
+                        <option value="CA" class="bg-gray-900">Canada</option>
+                        <option value="AU" class="bg-gray-900">Australia</option>
+                        <option value="DE" class="bg-gray-900">Germany</option>
+                        <option value="FR" class="bg-gray-900">France</option>
+                        <option value="AE" class="bg-gray-900">United Arab Emirates</option>
+                        <option value="OTHER" class="bg-gray-900">Other</option>
+                    </select>
+                </div>
+
+                <div class="glass-effect p-4 rounded-xl">
+                    <label class="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" id="collector-terms" class="mt-1 w-5 h-5 rounded accent-purple-500">
+                        <span class="text-sm text-gray-400">
+                            I agree to the <a href="#" class="text-purple-400 hover:underline">Terms of Service</a> and 
+                            <a href="#" class="text-purple-400 hover:underline">Privacy Policy</a>.
+                        </span>
+                    </label>
+                </div>
+
+                <button onclick="submitCollectorSignup()" 
+                    class="w-full px-6 py-4 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all">
+                    Create Account
+                </button>
+
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-700"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-4 bg-transparent text-gray-500">or continue with</span>
+                    </div>
+                </div>
+
+                <button class="w-full px-6 py-3 bg-white/5 border border-gray-700 rounded-xl font-medium hover:bg-white/10 transition-colors flex items-center justify-center gap-3">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Continue with Google
+                </button>
+            </div>
+
+            <p class="text-center text-gray-500 mt-6">
+                <button onclick="showPage('signup')" class="text-gray-400 hover:text-white">← Back to options</button>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Sign In Page -->
+<div id="page-signin" class="page-content hidden pt-20">
+    <div class="min-h-screen flex items-center justify-center px-6 py-24 fade-in">
+        <div class="max-w-md w-full">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold mb-2">Welcome Back</h1>
+                <p class="text-gray-400">Sign in to your account</p>
+            </div>
+
+            <div class="glass-effect p-8 rounded-2xl space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                    <input type="email" id="signin-email" placeholder="john@example.com" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                    <input type="password" id="signin-password" placeholder="••••••••" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="remember-me" class="w-4 h-4 rounded accent-pink-500">
+                        <span class="text-sm text-gray-400">Remember me</span>
+                    </label>
+                    <button class="text-sm text-pink-400 hover:text-pink-300">Forgot password?</button>
+                </div>
+
+                <button onclick="submitSignin()" 
+                    class="w-full px-6 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl text-lg font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
+                    Sign In
+                </button>
+
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-700"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-4 bg-transparent text-gray-500">or continue with</span>
+                    </div>
+                </div>
+
+                <button class="w-full px-6 py-3 bg-white/5 border border-gray-700 rounded-xl font-medium hover:bg-white/10 transition-colors flex items-center justify-center gap-3">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Continue with Google
+                </button>
+            </div>
+
+            <p class="text-center text-gray-500 mt-6">
+                Don't have an account? <button onclick="showPage('signup')" class="text-pink-400 hover:text-pink-300 font-semibold">Sign up</button>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Email Verification Page -->
+<div id="page-verify-email" class="page-content hidden pt-20">
+    <div class="min-h-screen flex items-center justify-center px-6 py-24 fade-in">
+        <div class="max-w-md w-full text-center">
+            <div class="w-20 h-20 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+            </div>
+            <h1 class="text-4xl font-bold mb-4">Check Your Email</h1>
+            <p class="text-gray-400 mb-8">
+                We've sent a verification link to<br>
+                <span id="verification-email" class="text-white font-semibold">your@email.com</span>
+            </p>
+
+            <div class="glass-effect p-6 rounded-2xl mb-6">
+                <p class="text-sm text-gray-400 mb-4">
+                    Click the link in the email to verify your account. If you don't see it, check your spam folder.
+                </p>
+                <button onclick="resendVerification()" class="text-pink-400 hover:text-pink-300 font-semibold">
+                    Resend verification email
+                </button>
+            </div>
+
+            <button onclick="showPage('signin')" class="text-gray-400 hover:text-white">
+                ← Back to Sign In
+            </button>
+        </div>
+    </div>
+</div>
+
 <!-- Footer -->
 <footer class="border-t border-gray-800 mt-32">
     <div class="max-w-7xl mx-auto px-6 py-16">
@@ -681,6 +1058,120 @@
         document.getElementById('consent-checkbox').checked = false;
         uploadedFile = null;
         document.getElementById('face-upload').value = '';
+    }
+
+    // Authentication Functions
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    function validatePassword(password) {
+        return password.length >= 8;
+    }
+
+    function submitContributorSignup() {
+        const name = document.getElementById('contributor-name').value.trim();
+        const email = document.getElementById('contributor-email').value.trim();
+        const password = document.getElementById('contributor-password').value;
+        const country = document.getElementById('contributor-country').value;
+        const terms = document.getElementById('contributor-terms').checked;
+
+        // Validation
+        if (!name) {
+            alert('Please enter your name');
+            return;
+        }
+        if (!validateEmail(email)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+        if (!validatePassword(password)) {
+            alert('Password must be at least 8 characters');
+            return;
+        }
+        if (!country) {
+            alert('Please select your country');
+            return;
+        }
+        if (!terms) {
+            alert('Please accept the terms and conditions');
+            return;
+        }
+
+        // Store email for verification page
+        document.getElementById('verification-email').textContent = email;
+
+        // In real implementation, this would call your backend API
+        console.log('Contributor signup:', { name, email, country, type: 'contributor' });
+
+        // Show verification page
+        showPage('verify-email');
+    }
+
+    function submitCollectorSignup() {
+        const name = document.getElementById('collector-name').value.trim();
+        const email = document.getElementById('collector-email').value.trim();
+        const password = document.getElementById('collector-password').value;
+        const country = document.getElementById('collector-country').value;
+        const terms = document.getElementById('collector-terms').checked;
+
+        // Validation
+        if (!name) {
+            alert('Please enter your name');
+            return;
+        }
+        if (!validateEmail(email)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+        if (!validatePassword(password)) {
+            alert('Password must be at least 8 characters');
+            return;
+        }
+        if (!country) {
+            alert('Please select your country');
+            return;
+        }
+        if (!terms) {
+            alert('Please accept the terms and conditions');
+            return;
+        }
+
+        // Store email for verification page
+        document.getElementById('verification-email').textContent = email;
+
+        // In real implementation, this would call your backend API
+        console.log('Collector signup:', { name, email, country, type: 'collector' });
+
+        // Show verification page
+        showPage('verify-email');
+    }
+
+    function submitSignin() {
+        const email = document.getElementById('signin-email').value.trim();
+        const password = document.getElementById('signin-password').value;
+
+        if (!validateEmail(email)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+        if (!password) {
+            alert('Please enter your password');
+            return;
+        }
+
+        // In real implementation, this would call your backend API
+        console.log('Sign in attempt:', { email });
+
+        // For demo purposes, show success
+        alert('Sign in successful! (Demo mode)');
+        showPage('home');
+    }
+
+    function resendVerification() {
+        const email = document.getElementById('verification-email').textContent;
+        alert('Verification email resent to ' + email + ' (Demo mode)');
     }
 </script>
 
