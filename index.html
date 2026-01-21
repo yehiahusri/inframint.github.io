@@ -1809,6 +1809,21 @@
                     </button>
                 </div>
                 
+                <!-- Approved Faces Directory -->
+                <div class="glass-effect p-6 rounded-2xl mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold">Approved Faces Directory</h3>
+                        <span id="approved-faces-count" class="text-sm text-gray-400">0 faces available</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">Select faces to include in your next artwork</p>
+                    <div id="approved-faces-grid" class="grid grid-cols-4 md:grid-cols-8 gap-2 max-h-64 overflow-y-auto">
+                        <div class="col-span-full text-center py-8 text-gray-500">
+                            Loading approved faces...
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Artworks Grid -->
                 <div id="admin-artworks-grid" class="grid md:grid-cols-3 gap-6">
                     <div class="col-span-full text-center py-12 text-gray-400">
                         <div class="text-4xl mb-3">🎨</div>
@@ -2962,20 +2977,63 @@
 
     async function loadContributorStats(userId) {
         try {
-            // Get contributions count
+            // Get all contributions with full data
             const { data: contributions, error } = await supabaseClient
                 .from('contributions')
-                .select('id', { count: 'exact' })
-                .eq('contributor_id', userId);
+                .select('*')
+                .eq('contributor_id', userId)
+                .order('created_at', { ascending: false });
 
             if (!error && contributions) {
                 document.getElementById('stat-contributions').textContent = contributions.length;
+                
+                // Display contributions in the dashboard
+                const contributionsList = document.getElementById('contributions-list');
+                const emptyState = document.getElementById('contributions-empty');
+                
+                if (contributions.length > 0) {
+                    emptyState.classList.add('hidden');
+                    
+                    // Create grid of contribution images
+                    const contributionsHTML = `
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            ${contributions.map(c => {
+                                const { data: urlData } = supabaseClient.storage
+                                    .from('contributions')
+                                    .getPublicUrl(c.image_url);
+                                const imageUrl = urlData?.publicUrl || '';
+                                
+                                return `
+                                    <div class="relative rounded-xl overflow-hidden bg-gray-800 aspect-square group">
+                                        <img src="${imageUrl}" 
+                                             alt="My contribution" 
+                                             class="w-full h-full object-cover">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                        <div class="absolute bottom-0 left-0 right-0 p-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-xs px-2 py-1 rounded-full ${
+                                                    c.status === 'approved' ? 'bg-green-500/20 text-green-400' : 
+                                                    c.status === 'pending' ? 'bg-yellow-500/20 text-yellow-400' : 
+                                                    'bg-red-500/20 text-red-400'
+                                                }">${c.status}</span>
+                                                <span class="text-xs text-gray-400">${new Date(c.created_at).toLocaleDateString()}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    `;
+                    
+                    // Insert after the empty state div
+                    emptyState.insertAdjacentHTML('afterend', contributionsHTML);
+                }
             }
 
             // Get artworks count (where this contributor's faces are used)
             const { data: artworkContribs } = await supabaseClient
                 .from('artwork_contributions')
-                .select('artwork_id', { count: 'exact' })
+                .select('artwork_id')
                 .eq('contributor_id', userId);
 
             if (artworkContribs) {
@@ -3443,6 +3501,9 @@
     }
 
     async function loadAdminArtworks() {
+        // First load approved faces directory
+        await loadApprovedFacesDirectory();
+        
         try {
             const { data: artworks } = await supabaseClient
                 .from('artworks')
@@ -3479,6 +3540,85 @@
         } catch (error) {
             console.error('Error loading artworks:', error);
         }
+    }
+
+    async function loadApprovedFacesDirectory() {
+        try {
+            const { data: approvedFaces, error } = await supabaseClient
+                .from('contributions')
+                .select('*, profiles(email, full_name)')
+                .eq('status', 'approved')
+                .order('created_at', { ascending: false });
+            
+            const grid = document.getElementById('approved-faces-grid');
+            const countEl = document.getElementById('approved-faces-count');
+            
+            if (error) {
+                console.error('Error loading approved faces:', error);
+                return;
+            }
+            
+            if (!approvedFaces || approvedFaces.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-8 text-gray-500">
+                        <p>No approved faces yet</p>
+                        <p class="text-xs mt-1">Approve contributions in Photo Moderation</p>
+                    </div>
+                `;
+                countEl.textContent = '0 faces available';
+                return;
+            }
+            
+            countEl.textContent = `${approvedFaces.length} faces available`;
+            
+            grid.innerHTML = approvedFaces.map(face => {
+                const { data: urlData } = supabaseClient.storage
+                    .from('contributions')
+                    .getPublicUrl(face.image_url);
+                const imageUrl = urlData?.publicUrl || '';
+                const contributorName = face.profiles?.full_name || face.profiles?.email || 'Unknown';
+                
+                return `
+                    <div class="relative aspect-square rounded-lg overflow-hidden cursor-pointer group" 
+                         onclick="toggleFaceSelection('${face.id}')" 
+                         id="face-${face.id}"
+                         title="${contributorName}">
+                        <img src="${imageUrl}" 
+                             alt="${contributorName}" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-pink-500/0 group-hover:bg-pink-500/30 transition-colors flex items-center justify-center">
+                            <div class="hidden group-hover:block text-white text-xs font-bold">Select</div>
+                        </div>
+                        <div class="face-check hidden absolute top-1 right-1 w-5 h-5 bg-pink-500 rounded-full flex items-center justify-center text-white text-xs">✓</div>
+                    </div>
+                `;
+            }).join('');
+            
+        } catch (error) {
+            console.error('Error loading approved faces:', error);
+        }
+    }
+
+    // Track selected faces for artwork creation
+    let selectedFaces = [];
+
+    function toggleFaceSelection(faceId) {
+        const faceEl = document.getElementById('face-' + faceId);
+        const checkEl = faceEl.querySelector('.face-check');
+        
+        if (selectedFaces.includes(faceId)) {
+            // Deselect
+            selectedFaces = selectedFaces.filter(id => id !== faceId);
+            faceEl.classList.remove('ring-2', 'ring-pink-500');
+            checkEl.classList.add('hidden');
+        } else {
+            // Select
+            selectedFaces.push(faceId);
+            faceEl.classList.add('ring-2', 'ring-pink-500');
+            checkEl.classList.remove('hidden');
+        }
+        
+        console.log('Selected faces:', selectedFaces.length);
     }
 
     async function loadAdminPayments() {
