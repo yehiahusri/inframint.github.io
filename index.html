@@ -2510,19 +2510,73 @@
         menu.classList.toggle('hidden');
     }
 
+    // Handle file upload via input
     function handleFileUpload(event) {
         const file = event.target.files[0];
+        processUploadedFile(file);
+    }
+
+    // Process the uploaded file
+    function processUploadedFile(file) {
         if (file) {
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                alert('Please upload an image file (JPG, PNG, etc.)');
+                return;
+            }
+
+            // Validate file size (max 10MB)
+            if (file.size > 10 * 1024 * 1024) {
+                alert('File is too large. Maximum size is 10MB.');
+                return;
+            }
+
             const reader = new FileReader();
             reader.onload = function(e) {
                 document.getElementById('upload-placeholder').classList.add('hidden');
                 document.getElementById('upload-preview').classList.remove('hidden');
                 document.getElementById('preview-image').src = e.target.result;
                 uploadedFile = file;
+                console.log('File ready for upload:', file.name, file.size);
             };
             reader.readAsDataURL(file);
         }
     }
+
+    // Setup drag and drop
+    function setupDragAndDrop() {
+        const uploadZone = document.getElementById('upload-zone');
+        if (!uploadZone) return;
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadZone.addEventListener(eventName, () => {
+                uploadZone.classList.add('bg-purple-500/20');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadZone.addEventListener(eventName, () => {
+                uploadZone.classList.remove('bg-purple-500/20');
+            }, false);
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            const file = e.dataTransfer.files[0];
+            processUploadedFile(file);
+        }, false);
+    }
+
+    // Initialize drag and drop when page loads
+    document.addEventListener('DOMContentLoaded', setupDragAndDrop);
 
     async function submitContribution() {
         if (!currentUser) {
@@ -2543,16 +2597,39 @@
             return;
         }
 
+        // Show loading state
+        const submitBtn = document.querySelector('#page-contribute button[onclick="submitContribution()"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = 'Uploading...';
+        submitBtn.disabled = true;
+
         try {
             // Upload file to Supabase Storage
-            const fileExt = uploadedFile.name.split('.').pop();
+            const fileExt = uploadedFile.name.split('.').pop().toLowerCase();
             const fileName = `${currentUser.id}/${Date.now()}.${fileExt}`;
             
+            console.log('Uploading to storage:', fileName);
+
             const { data: uploadData, error: uploadError } = await supabaseClient.storage
                 .from('contributions')
-                .upload(fileName, uploadedFile);
+                .upload(fileName, uploadedFile, {
+                    cacheControl: '3600',
+                    upsert: false
+                });
 
-            if (uploadError) throw uploadError;
+            if (uploadError) {
+                console.error('Storage upload error:', uploadError);
+                throw uploadError;
+            }
+
+            console.log('Upload successful:', uploadData);
+
+            // Get the public URL
+            const { data: urlData } = supabaseClient.storage
+                .from('contributions')
+                .getPublicUrl(fileName);
+
+            console.log('Public URL:', urlData?.publicUrl);
 
             // Create contribution record
             const { data: contribution, error: dbError } = await supabaseClient
@@ -2562,11 +2639,18 @@
                     image_url: fileName,
                     status: 'pending',
                     consent_given: true
-                });
+                })
+                .select()
+                .single();
 
-            if (dbError) throw dbError;
+            if (dbError) {
+                console.error('Database error:', dbError);
+                throw dbError;
+            }
 
-            alert('Thank you! Your contribution has been submitted successfully!');
+            console.log('Contribution created:', contribution);
+
+            alert('Thank you! Your contribution has been submitted and is pending review.');
             
             // Reset form
             document.getElementById('upload-placeholder').classList.remove('hidden');
@@ -2575,9 +2659,16 @@
             uploadedFile = null;
             document.getElementById('face-upload').value = '';
 
+            // Redirect to dashboard
+            showPage('dashboard-contributor');
+
         } catch (error) {
             console.error('Error:', error);
             alert('Error submitting contribution: ' + error.message);
+        } finally {
+            // Reset button
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
         }
     }
 
