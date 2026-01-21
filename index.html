@@ -2440,24 +2440,44 @@
     function updateNavForLoggedInUser() {
         const desktopNav = document.querySelector('.hidden.md\\:flex.items-center.gap-8');
         if (desktopNav && currentUser) {
-            // Get user profile to determine type
+            // Get user profile to determine type and admin status
             supabaseClient
                 .from('profiles')
-                .select('user_type, full_name')
+                .select('user_type, full_name, is_admin')
                 .eq('id', currentUser.id)
                 .single()
                 .then(({ data: profile }) => {
                     if (profile) {
                         const dashboardPage = profile.user_type === 'collector' ? 'dashboard-collector' : 'dashboard-contributor';
-                        desktopNav.innerHTML = `
+                        const isAdmin = profile.is_admin === true;
+                        
+                        let navHTML = `
                             <button onclick="showPage('home')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Home</button>
                             <button onclick="showPage('how')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">How It Works</button>
                             <button onclick="showPage('gallery')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Gallery</button>
                             <button onclick="showPage('${dashboardPage}')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Dashboard</button>
+                        `;
+                        
+                        // Add Admin link if user is admin
+                        if (isAdmin) {
+                            navHTML += `
+                                <button onclick="showPage('admin'); loadAdminData();" class="text-sm font-medium text-red-400 hover:text-red-300 transition-colors flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                    Admin
+                                </button>
+                            `;
+                        }
+                        
+                        navHTML += `
                             <button onclick="signOut()" class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-sm font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
                                 Sign Out
                             </button>
                         `;
+                        
+                        desktopNav.innerHTML = navHTML;
                     }
                 });
         }
@@ -3066,8 +3086,364 @@
         if (pageId === 'edit-profile') {
             loadEditProfile();
         }
+        if (pageId === 'admin') {
+            loadAdminData();
+        }
         originalShowPage(pageId);
     };
+
+    // ==================== ADMIN FUNCTIONS ====================
+
+    // Admin tab switching
+    function showAdminTab(tabName) {
+        // Hide all admin tab contents
+        document.querySelectorAll('.admin-content').forEach(content => {
+            content.classList.add('hidden');
+        });
+        
+        // Show selected tab content
+        const targetContent = document.getElementById('admin-content-' + tabName);
+        if (targetContent) {
+            targetContent.classList.remove('hidden');
+        }
+        
+        // Update tab button styles
+        document.querySelectorAll('.admin-tab').forEach(tab => {
+            tab.classList.remove('border-pink-500', 'text-white');
+            tab.classList.add('border-transparent', 'text-gray-400');
+        });
+        
+        // Activate selected tab button
+        const activeTab = document.getElementById('admin-tab-' + tabName);
+        if (activeTab) {
+            activeTab.classList.remove('border-transparent', 'text-gray-400');
+            activeTab.classList.add('border-pink-500', 'text-white');
+        }
+
+        // Load tab-specific data
+        if (tabName === 'users') loadAdminUsers();
+        if (tabName === 'moderation') loadModerationQueue();
+        if (tabName === 'artworks') loadAdminArtworks();
+        if (tabName === 'payments') loadAdminPayments();
+    }
+
+    async function loadAdminData() {
+        try {
+            // Get user count
+            const { data: users } = await supabaseClient
+                .from('profiles')
+                .select('*');
+            
+            if (users) {
+                document.getElementById('admin-stat-users').textContent = users.length;
+                document.getElementById('quick-users').textContent = users.length;
+            }
+
+            // Get contribution count
+            const { data: contributions } = await supabaseClient
+                .from('contributions')
+                .select('*');
+            
+            document.getElementById('admin-stat-contributions').textContent = contributions?.length || 0;
+
+            // Get pending contributions
+            const { data: pending } = await supabaseClient
+                .from('contributions')
+                .select('*')
+                .eq('status', 'pending');
+            
+            document.getElementById('admin-stat-pending').textContent = pending?.length || 0;
+            document.getElementById('quick-pending').textContent = pending?.length || 0;
+
+            // Get artwork count
+            const { data: artworks } = await supabaseClient
+                .from('artworks')
+                .select('*');
+            
+            document.getElementById('admin-stat-artworks').textContent = artworks?.length || 0;
+
+            // Get sold artworks
+            const { data: sold } = await supabaseClient
+                .from('artworks')
+                .select('*')
+                .eq('status', 'sold');
+            
+            document.getElementById('admin-stat-sold').textContent = sold?.length || 0;
+
+            // Calculate revenue
+            let totalRevenue = 0;
+            if (sold) {
+                totalRevenue = sold.reduce((sum, a) => sum + (parseFloat(a.price) || 0), 0);
+            }
+            document.getElementById('admin-stat-revenue').textContent = '$' + totalRevenue.toLocaleString();
+            document.getElementById('admin-stat-platform').textContent = (totalRevenue * 0.25).toLocaleString();
+
+        } catch (error) {
+            console.error('Error loading admin data:', error);
+        }
+    }
+
+    async function loadAdminUsers() {
+        try {
+            const { data: users } = await supabaseClient
+                .from('profiles')
+                .select('*')
+                .order('created_at', { ascending: false });
+            
+            const tbody = document.getElementById('admin-users-table');
+            
+            if (!users || users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="py-8 text-center text-gray-400">No users found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = users.map(user => `
+                <tr class="border-b border-gray-800 hover:bg-white/5">
+                    <td class="py-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-xs font-bold">
+                                ${(user.full_name || user.email || '?')[0].toUpperCase()}
+                            </div>
+                            <div>
+                                <div class="font-medium">${user.full_name || 'Not set'}</div>
+                                <div class="text-xs text-gray-400">${user.email}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-4">
+                        <span class="px-2 py-1 text-xs rounded-full ${user.user_type === 'contributor' ? 'bg-pink-500/20 text-pink-400' : 'bg-purple-500/20 text-purple-400'}">
+                            ${user.user_type || 'contributor'}
+                        </span>
+                        ${user.is_admin ? '<span class="ml-1 px-2 py-1 text-xs rounded-full bg-red-500/20 text-red-400">Admin</span>' : ''}
+                    </td>
+                    <td class="py-4 text-gray-400">${user.country || '-'}</td>
+                    <td class="py-4">0</td>
+                    <td class="py-4 text-green-400">$${(user.total_earnings || 0).toFixed(2)}</td>
+                    <td class="py-4 text-gray-400">${new Date(user.created_at).toLocaleDateString()}</td>
+                    <td class="py-4">
+                        <button class="text-gray-400 hover:text-white text-sm">View</button>
+                    </td>
+                </tr>
+            `).join('');
+
+        } catch (error) {
+            console.error('Error loading users:', error);
+        }
+    }
+
+    async function loadModerationQueue() {
+        try {
+            const filter = document.getElementById('admin-mod-filter')?.value || 'pending';
+            
+            let query = supabaseClient.from('contributions').select('*');
+            
+            if (filter !== 'all') {
+                query = query.eq('status', filter);
+            }
+            
+            const { data: contributions } = await query.order('created_at', { ascending: false });
+            
+            const grid = document.getElementById('admin-moderation-grid');
+            
+            if (!contributions || contributions.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-gray-400">
+                        <div class="text-4xl mb-3">📷</div>
+                        <p>No photos to moderate</p>
+                        <p class="text-sm">New submissions will appear here</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = contributions.map(c => `
+                <div class="aspect-square rounded-xl bg-gray-800 overflow-hidden relative group">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                        <button onclick="approveContribution('${c.id}')" class="p-2 bg-green-500 rounded-lg text-white text-xs">✓</button>
+                        <button onclick="rejectContribution('${c.id}')" class="p-2 bg-red-500 rounded-lg text-white text-xs">✗</button>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
+                        <div class="text-xs text-gray-400">${new Date(c.created_at).toLocaleDateString()}</div>
+                        <div class="text-xs capitalize ${c.status === 'approved' ? 'text-green-400' : c.status === 'pending' ? 'text-yellow-400' : 'text-red-400'}">${c.status}</div>
+                    </div>
+                </div>
+            `).join('');
+
+        } catch (error) {
+            console.error('Error loading moderation queue:', error);
+        }
+    }
+
+    async function approveContribution(id) {
+        try {
+            const { error } = await supabaseClient
+                .from('contributions')
+                .update({ status: 'approved' })
+                .eq('id', id);
+            
+            if (error) throw error;
+            loadModerationQueue();
+            loadAdminData();
+        } catch (error) {
+            alert('Error approving: ' + error.message);
+        }
+    }
+
+    async function rejectContribution(id) {
+        try {
+            const { error } = await supabaseClient
+                .from('contributions')
+                .update({ status: 'rejected' })
+                .eq('id', id);
+            
+            if (error) throw error;
+            loadModerationQueue();
+            loadAdminData();
+        } catch (error) {
+            alert('Error rejecting: ' + error.message);
+        }
+    }
+
+    async function loadAdminArtworks() {
+        try {
+            const { data: artworks } = await supabaseClient
+                .from('artworks')
+                .select('*')
+                .order('created_at', { ascending: false });
+            
+            const grid = document.getElementById('admin-artworks-grid');
+            
+            if (!artworks || artworks.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-gray-400">
+                        <div class="text-4xl mb-3">🎨</div>
+                        <p>No artworks yet</p>
+                        <p class="text-sm">Create your first AI artwork</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = artworks.map(a => `
+                <div class="glass-effect rounded-2xl overflow-hidden">
+                    <div class="aspect-square bg-gray-800 flex items-center justify-center">
+                        ${a.image_url ? `<img src="${a.image_url}" class="w-full h-full object-cover">` : '🎨'}
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold">${a.title}</h4>
+                        <div class="text-sm text-gray-400">${a.contributor_count || 0} contributors</div>
+                        <div class="text-lg font-bold gradient-text">$${parseFloat(a.price || 0).toLocaleString()}</div>
+                        <div class="text-xs mt-2 ${a.status === 'sold' ? 'text-green-400' : 'text-yellow-400'}">${a.status}</div>
+                    </div>
+                </div>
+            `).join('');
+
+        } catch (error) {
+            console.error('Error loading artworks:', error);
+        }
+    }
+
+    async function loadAdminPayments() {
+        try {
+            const { data: payments } = await supabaseClient
+                .from('payments')
+                .select('*')
+                .order('created_at', { ascending: false });
+            
+            const tbody = document.getElementById('admin-payments-table');
+            
+            if (!payments || payments.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="py-8 text-center text-gray-400">No transactions yet</td></tr>';
+                return;
+            }
+
+            // Calculate totals
+            let totalSales = 0;
+            let totalPaid = 0;
+            
+            payments.forEach(p => {
+                if (p.payment_type === 'purchase' && p.status === 'completed') {
+                    totalSales += parseFloat(p.amount) || 0;
+                }
+                if (p.payment_type === 'payout' && p.status === 'completed') {
+                    totalPaid += parseFloat(p.amount) || 0;
+                }
+            });
+            
+            document.getElementById('admin-total-sales').textContent = '$' + totalSales.toLocaleString();
+            document.getElementById('admin-paid-out').textContent = '$' + totalPaid.toLocaleString();
+            document.getElementById('admin-platform-revenue').textContent = '$' + (totalSales - totalPaid).toLocaleString();
+
+            tbody.innerHTML = payments.map(p => `
+                <tr class="border-b border-gray-800">
+                    <td class="py-4 text-gray-400">${new Date(p.created_at).toLocaleDateString()}</td>
+                    <td class="py-4">
+                        <span class="px-2 py-1 text-xs rounded-full ${p.payment_type === 'purchase' ? 'bg-green-500/20 text-green-400' : 'bg-purple-500/20 text-purple-400'}">
+                            ${p.payment_type}
+                        </span>
+                    </td>
+                    <td class="py-4">${p.artwork_id || '-'}</td>
+                    <td class="py-4">${p.payer_id || '-'}</td>
+                    <td class="py-4 font-semibold">$${parseFloat(p.amount || 0).toFixed(2)}</td>
+                    <td class="py-4">
+                        <span class="text-xs ${p.status === 'completed' ? 'text-green-400' : 'text-yellow-400'}">${p.status}</span>
+                    </td>
+                </tr>
+            `).join('');
+
+        } catch (error) {
+            console.error('Error loading payments:', error);
+        }
+    }
+
+    function showCreateArtworkModal() {
+        document.getElementById('create-artwork-modal').classList.remove('hidden');
+    }
+
+    function hideCreateArtworkModal() {
+        document.getElementById('create-artwork-modal').classList.add('hidden');
+    }
+
+    async function createArtwork() {
+        const title = document.getElementById('artwork-title').value.trim();
+        const description = document.getElementById('artwork-description').value.trim();
+        const price = document.getElementById('artwork-price').value;
+        const contributors = document.getElementById('artwork-contributors').value;
+
+        if (!title || !price) {
+            alert('Please fill in title and price');
+            return;
+        }
+
+        try {
+            const { data, error } = await supabaseClient
+                .from('artworks')
+                .insert({
+                    title: title,
+                    description: description,
+                    price: parseFloat(price),
+                    contributor_count: parseInt(contributors) || 0,
+                    status: 'available'
+                })
+                .select()
+                .single();
+
+            if (error) throw error;
+
+            alert('Artwork created successfully!');
+            hideCreateArtworkModal();
+            loadAdminArtworks();
+            loadAdminData();
+
+        } catch (error) {
+            alert('Error creating artwork: ' + error.message);
+        }
+    }
 
     // Check for existing session on page load and redirect to dashboard if logged in
     async function initializeApp() {
