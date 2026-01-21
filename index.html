@@ -3118,19 +3118,29 @@
                     document.getElementById('profile-contributions-empty').classList.add('hidden');
                     const grid = document.getElementById('profile-contributions-grid');
                     grid.classList.remove('hidden');
-                    grid.innerHTML = contributions.map(c => `
-                        <div class="aspect-square rounded-xl bg-gray-800 overflow-hidden relative group">
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
+                    
+                    // Build HTML with actual images
+                    const cards = contributions.map(c => {
+                        const { data: urlData } = supabaseClient.storage
+                            .from('contributions')
+                            .getPublicUrl(c.image_url);
+                        const imageUrl = urlData?.publicUrl || '';
+                        
+                        return `
+                            <div class="aspect-square rounded-xl bg-gray-800 overflow-hidden relative group">
+                                <img src="${imageUrl}" 
+                                     alt="My contribution" 
+                                     class="w-full h-full object-cover"
+                                     onerror="this.style.display='none';">
+                                <div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
+                                    <div class="text-xs text-gray-400">${new Date(c.created_at).toLocaleDateString()}</div>
+                                    <div class="text-xs capitalize ${c.status === 'approved' ? 'text-green-400' : c.status === 'pending' ? 'text-yellow-400' : 'text-red-400'}">${c.status}</div>
+                                </div>
                             </div>
-                            <div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
-                                <div class="text-xs text-gray-400">${new Date(c.created_at).toLocaleDateString()}</div>
-                                <div class="text-xs capitalize ${c.status === 'approved' ? 'text-green-400' : c.status === 'pending' ? 'text-yellow-400' : 'text-gray-400'}">${c.status}</div>
-                            </div>
-                        </div>
-                    `).join('');
+                        `;
+                    });
+                    
+                    grid.innerHTML = cards.join('');
                 }
             }
             
@@ -3328,13 +3338,19 @@
         try {
             const filter = document.getElementById('admin-mod-filter')?.value || 'pending';
             
-            let query = supabaseClient.from('contributions').select('*');
+            let query = supabaseClient.from('contributions').select('*, profiles(email, full_name)');
             
             if (filter !== 'all') {
                 query = query.eq('status', filter);
             }
             
-            const { data: contributions } = await query.order('created_at', { ascending: false });
+            const { data: contributions, error } = await query.order('created_at', { ascending: false });
+            
+            if (error) {
+                console.error('Error fetching contributions:', error);
+            }
+
+            console.log('Contributions:', contributions);
             
             const grid = document.getElementById('admin-moderation-grid');
             
@@ -3349,23 +3365,47 @@
                 return;
             }
 
-            grid.innerHTML = contributions.map(c => `
-                <div class="aspect-square rounded-xl bg-gray-800 overflow-hidden relative group">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
+            // Build HTML for each contribution with actual image
+            const contributionCards = await Promise.all(contributions.map(async (c) => {
+                // Get the public URL for the image
+                const { data: urlData } = supabaseClient.storage
+                    .from('contributions')
+                    .getPublicUrl(c.image_url);
+                
+                const imageUrl = urlData?.publicUrl || '';
+                const contributorName = c.profiles?.full_name || c.profiles?.email || 'Unknown';
+                
+                return `
+                    <div class="rounded-xl bg-gray-800 overflow-hidden relative group">
+                        <div class="aspect-square relative">
+                            <img src="${imageUrl}" 
+                                 alt="Contribution" 
+                                 class="w-full h-full object-cover"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="absolute inset-0 items-center justify-center bg-gray-800" style="display: none;">
+                                <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <div class="text-xs text-gray-400 mb-1">${contributorName}</div>
+                            <div class="text-xs text-gray-500 mb-2">${new Date(c.created_at).toLocaleDateString()}</div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs capitalize px-2 py-1 rounded-full ${c.status === 'approved' ? 'bg-green-500/20 text-green-400' : c.status === 'pending' ? 'bg-yellow-500/20 text-yellow-400' : 'bg-red-500/20 text-red-400'}">${c.status}</span>
+                                ${c.status === 'pending' ? `
+                                    <div class="flex gap-1">
+                                        <button onclick="approveContribution('${c.id}')" class="p-1.5 bg-green-500 hover:bg-green-600 rounded-lg text-white text-xs" title="Approve">✓</button>
+                                        <button onclick="rejectContribution('${c.id}')" class="p-1.5 bg-red-500 hover:bg-red-600 rounded-lg text-white text-xs" title="Reject">✗</button>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
                     </div>
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                        <button onclick="approveContribution('${c.id}')" class="p-2 bg-green-500 rounded-lg text-white text-xs">✓</button>
-                        <button onclick="rejectContribution('${c.id}')" class="p-2 bg-red-500 rounded-lg text-white text-xs">✗</button>
-                    </div>
-                    <div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
-                        <div class="text-xs text-gray-400">${new Date(c.created_at).toLocaleDateString()}</div>
-                        <div class="text-xs capitalize ${c.status === 'approved' ? 'text-green-400' : c.status === 'pending' ? 'text-yellow-400' : 'text-red-400'}">${c.status}</div>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }));
+
+            grid.innerHTML = contributionCards.join('');
 
         } catch (error) {
             console.error('Error loading moderation queue:', error);
