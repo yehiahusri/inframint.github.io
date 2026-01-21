@@ -169,7 +169,7 @@
             </h1>
             <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
                 Transform your face into museum-grade AI art. Each masterpiece uses hundreds of contributors, 
-                sells once, and distributes 75% of revenue automatically.
+                sells once, and revenue is shared with all contributors automatically.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center pt-8">
                 <button onclick="showPage('contribute')" class="px-10 py-4 bg-gradient-to-r from-purple-600 to-purple-800 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-purple-500/50 transition-all hover:scale-105">
@@ -251,7 +251,7 @@
                     </div>
                     <h3 class="text-2xl font-bold mb-3">Automatic Revenue</h3>
                     <p class="text-gray-400 leading-relaxed">
-                        75% distributed to all contributors instantly. Automated payouts via Stripe, no manual accounting.
+                        Revenue shared with all contributors instantly. Automated payouts via Stripe, no manual accounting.
                     </p>
                 </div>
             </div>
@@ -316,7 +316,7 @@
                 <div class="flex-1 glass-effect p-8 rounded-2xl">
                     <h3 class="text-3xl font-bold mb-4">Automatic Revenue Distribution</h3>
                     <p class="text-lg text-gray-400 leading-relaxed">
-                        75% of the sale price is instantly distributed among all contributors whose faces appear in the artwork. 
+                        A portion of the sale price is distributed among all contributors whose faces appear in the artwork. 
                         Payouts happen automatically via Stripe, PayPal, or bank transfer. No manual accounting, ever.
                     </p>
                 </div>
@@ -538,8 +538,8 @@
                     <div class="flex-1">
                         <h2 class="text-3xl font-bold mb-3">Fair Revenue Sharing</h2>
                         <p class="text-lg text-gray-400 leading-relaxed">
-                            75% of every sale goes directly to contributors. Distribution is automatic and proportional. If 1,000 faces 
-                            are in an artwork sold for $10,000, each contributor receives $7.50. The platform keeps 25% to maintain operations.
+                            A portion of every sale goes directly to contributors. Distribution is automatic and proportional based on contribution. 
+                            The exact share is determined per project and disclosed in the Contributor Agreement.
                         </p>
                     </div>
                 </div>
@@ -610,7 +610,7 @@
                             <svg class="w-5 h-5 text-pink-500" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                             </svg>
-                            <span>Earn 75% revenue share</span>
+                            <span>Earn revenue share from sales</span>
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-5 h-5 text-pink-500" fill="currentColor" viewBox="0 0 20 20">
@@ -734,8 +734,9 @@
                     <label class="flex items-start gap-3 cursor-pointer">
                         <input type="checkbox" id="contributor-terms" class="mt-1 w-5 h-5 rounded accent-pink-500">
                         <span class="text-sm text-gray-400">
-                            I agree to the <a href="#" class="text-pink-400 hover:underline">Terms of Service</a> and 
-                            <a href="#" class="text-pink-400 hover:underline">Privacy Policy</a>, and consent to my facial data being used as described.
+                            I agree to the <a onclick="showPage('terms')" class="text-pink-400 hover:underline cursor-pointer">Terms of Service</a>, 
+                            <a onclick="showPage('privacy')" class="text-pink-400 hover:underline cursor-pointer">Privacy Policy</a>, and 
+                            <a onclick="showPage('contributor-agreement')" class="text-pink-400 hover:underline cursor-pointer">Contributor Agreement</a>.
                         </span>
                     </label>
                 </div>
@@ -1625,6 +1626,744 @@
     </div>
 </div>
 
+<!-- ==================== ADMIN SECTION ==================== -->
+
+<!-- Admin Dashboard -->
+<div id="page-admin" class="page-content hidden pt-20">
+    <div class="max-w-7xl mx-auto px-6 py-12 fade-in">
+        <!-- Admin Header -->
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="px-3 py-1 bg-red-500/20 text-red-400 text-xs font-bold rounded-full">ADMIN</div>
+                    <h1 class="text-3xl font-bold">Dashboard</h1>
+                </div>
+                <p class="text-gray-400">Welcome back, admin. Here's what's happening.</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="loadAdminData()" class="px-4 py-2 bg-white/10 rounded-xl text-sm hover:bg-white/20 transition-colors">
+                    ↻ Refresh
+                </button>
+            </div>
+        </div>
+
+        <!-- Admin Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="glass-effect p-6 rounded-2xl">
+                <div class="text-sm text-gray-400 mb-1">Total Users</div>
+                <div class="text-3xl font-bold" id="admin-stat-users">0</div>
+                <div class="text-xs text-green-400 mt-1">↑ <span id="admin-stat-users-new">0</span> this week</div>
+            </div>
+            <div class="glass-effect p-6 rounded-2xl">
+                <div class="text-sm text-gray-400 mb-1">Contributions</div>
+                <div class="text-3xl font-bold" id="admin-stat-contributions">0</div>
+                <div class="text-xs text-yellow-400 mt-1"><span id="admin-stat-pending">0</span> pending review</div>
+            </div>
+            <div class="glass-effect p-6 rounded-2xl">
+                <div class="text-sm text-gray-400 mb-1">Artworks</div>
+                <div class="text-3xl font-bold" id="admin-stat-artworks">0</div>
+                <div class="text-xs text-purple-400 mt-1"><span id="admin-stat-sold">0</span> sold</div>
+            </div>
+            <div class="glass-effect p-6 rounded-2xl">
+                <div class="text-sm text-gray-400 mb-1">Total Revenue</div>
+                <div class="text-3xl font-bold text-green-400" id="admin-stat-revenue">$0</div>
+                <div class="text-xs text-gray-400 mt-1">Platform: $<span id="admin-stat-platform">0</span></div>
+            </div>
+        </div>
+
+        <!-- Admin Navigation Tabs -->
+        <div class="flex gap-2 mb-6 border-b border-gray-800 overflow-x-auto">
+            <button onclick="showAdminTab('overview')" id="admin-tab-overview" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-pink-500 text-white whitespace-nowrap">
+                Overview
+            </button>
+            <button onclick="showAdminTab('users')" id="admin-tab-users" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+                Users
+            </button>
+            <button onclick="showAdminTab('moderation')" id="admin-tab-moderation" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+                Photo Moderation
+            </button>
+            <button onclick="showAdminTab('artworks')" id="admin-tab-artworks" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+                Artworks
+            </button>
+            <button onclick="showAdminTab('payments')" id="admin-tab-payments" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+                Payments
+            </button>
+            <button onclick="showAdminTab('settings')" id="admin-tab-settings" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+                Settings
+            </button>
+        </div>
+
+        <!-- Admin Tab: Overview -->
+        <div id="admin-content-overview" class="admin-content">
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Recent Activity -->
+                <div class="glass-effect p-6 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-4">Recent Activity</h3>
+                    <div id="admin-activity-list" class="space-y-3">
+                        <div class="flex items-center gap-3 text-sm">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-gray-400">No recent activity</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="glass-effect p-6 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-4">Quick Actions</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="showAdminTab('moderation')" class="p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors text-left">
+                            <div class="text-2xl mb-2">📷</div>
+                            <div class="font-medium">Review Photos</div>
+                            <div class="text-xs text-gray-400"><span id="quick-pending">0</span> pending</div>
+                        </button>
+                        <button onclick="showAdminTab('artworks')" class="p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors text-left">
+                            <div class="text-2xl mb-2">🎨</div>
+                            <div class="font-medium">Create Artwork</div>
+                            <div class="text-xs text-gray-400">Generate new art</div>
+                        </button>
+                        <button onclick="showAdminTab('users')" class="p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors text-left">
+                            <div class="text-2xl mb-2">👥</div>
+                            <div class="font-medium">Manage Users</div>
+                            <div class="text-xs text-gray-400"><span id="quick-users">0</span> total</div>
+                        </button>
+                        <button onclick="showAdminTab('payments')" class="p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors text-left">
+                            <div class="text-2xl mb-2">💰</div>
+                            <div class="font-medium">View Payments</div>
+                            <div class="text-xs text-gray-400">Track revenue</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Tab: Users -->
+        <div id="admin-content-users" class="admin-content hidden">
+            <div class="glass-effect p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold">All Users</h3>
+                    <div class="flex gap-3">
+                        <input type="text" id="admin-user-search" placeholder="Search users..." 
+                            class="px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-sm focus:outline-none focus:border-pink-500"
+                            onkeyup="filterAdminUsers()">
+                        <select id="admin-user-filter" class="px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-sm" onchange="filterAdminUsers()">
+                            <option value="all">All Types</option>
+                            <option value="contributor">Contributors</option>
+                            <option value="collector">Collectors</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="text-left text-sm text-gray-400 border-b border-gray-800">
+                                <th class="pb-3 font-medium">User</th>
+                                <th class="pb-3 font-medium">Type</th>
+                                <th class="pb-3 font-medium">Country</th>
+                                <th class="pb-3 font-medium">Contributions</th>
+                                <th class="pb-3 font-medium">Earnings</th>
+                                <th class="pb-3 font-medium">Joined</th>
+                                <th class="pb-3 font-medium">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-users-table" class="text-sm">
+                            <tr><td colspan="7" class="py-8 text-center text-gray-400">Loading users...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Tab: Photo Moderation -->
+        <div id="admin-content-moderation" class="admin-content hidden">
+            <div class="glass-effect p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold">Photo Moderation Queue</h3>
+                    <div class="flex gap-3">
+                        <select id="admin-mod-filter" class="px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-sm" onchange="loadModerationQueue()">
+                            <option value="pending">Pending Review</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="all">All</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="admin-moderation-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <div class="col-span-full text-center py-12 text-gray-400">
+                        <div class="text-4xl mb-3">📷</div>
+                        <p>No photos to moderate</p>
+                        <p class="text-sm">New submissions will appear here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Tab: Artworks -->
+        <div id="admin-content-artworks" class="admin-content hidden">
+            <div class="glass-effect p-6 rounded-2xl mb-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold">Manage Artworks</h3>
+                    <button onclick="showCreateArtworkModal()" class="px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl text-sm font-semibold">
+                        + Create New Artwork
+                    </button>
+                </div>
+                
+                <div id="admin-artworks-grid" class="grid md:grid-cols-3 gap-6">
+                    <div class="col-span-full text-center py-12 text-gray-400">
+                        <div class="text-4xl mb-3">🎨</div>
+                        <p>No artworks yet</p>
+                        <p class="text-sm">Create your first AI artwork</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Tab: Payments -->
+        <div id="admin-content-payments" class="admin-content hidden">
+            <div class="grid md:grid-cols-3 gap-4 mb-6">
+                <div class="glass-effect p-6 rounded-2xl">
+                    <div class="text-sm text-gray-400 mb-1">Total Sales</div>
+                    <div class="text-3xl font-bold text-green-400" id="admin-total-sales">$0</div>
+                </div>
+                <div class="glass-effect p-6 rounded-2xl">
+                    <div class="text-sm text-gray-400 mb-1">Paid to Contributors</div>
+                    <div class="text-3xl font-bold text-purple-400" id="admin-paid-out">$0</div>
+                </div>
+                <div class="glass-effect p-6 rounded-2xl">
+                    <div class="text-sm text-gray-400 mb-1">Platform Revenue</div>
+                    <div class="text-3xl font-bold" id="admin-platform-revenue">$0</div>
+                </div>
+            </div>
+
+            <div class="glass-effect p-6 rounded-2xl">
+                <h3 class="text-xl font-bold mb-6">Transaction History</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="text-left text-sm text-gray-400 border-b border-gray-800">
+                                <th class="pb-3 font-medium">Date</th>
+                                <th class="pb-3 font-medium">Type</th>
+                                <th class="pb-3 font-medium">Artwork</th>
+                                <th class="pb-3 font-medium">User</th>
+                                <th class="pb-3 font-medium">Amount</th>
+                                <th class="pb-3 font-medium">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-payments-table" class="text-sm">
+                            <tr><td colspan="6" class="py-8 text-center text-gray-400">No transactions yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Tab: Settings -->
+        <div id="admin-content-settings" class="admin-content hidden">
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Platform Settings -->
+                <div class="glass-effect p-6 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-6">Platform Settings</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Revenue Split (Contributor %)</label>
+                            <input type="number" value="75" min="0" max="100"
+                                class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-pink-500">
+                            <p class="text-xs text-gray-500 mt-1">Platform keeps the remaining percentage</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Minimum Payout ($)</label>
+                            <input type="number" value="10" min="1"
+                                class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-pink-500">
+                        </div>
+                        <div>
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span>Auto-approve face uploads</span>
+                                <input type="checkbox" class="w-5 h-5 accent-pink-500">
+                            </label>
+                        </div>
+                        <div>
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span>Enable new signups</span>
+                                <input type="checkbox" checked class="w-5 h-5 accent-pink-500">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Users -->
+                <div class="glass-effect p-6 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-6">Admin Users</h3>
+                    <div id="admin-users-list" class="space-y-3 mb-6">
+                        <!-- Admin users will be listed here -->
+                    </div>
+                    <div class="pt-4 border-t border-gray-800">
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Add New Admin</label>
+                        <div class="flex gap-2">
+                            <input type="email" id="new-admin-email" placeholder="email@example.com"
+                                class="flex-1 px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:border-pink-500">
+                            <button onclick="addNewAdmin()" class="px-4 py-2 bg-pink-500 rounded-xl text-sm font-semibold">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Danger Zone -->
+                <div class="md:col-span-2 glass-effect p-6 rounded-2xl border border-red-500/20">
+                    <h3 class="text-xl font-bold text-red-400 mb-6">Danger Zone</h3>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="font-medium">Reset all data</div>
+                            <div class="text-sm text-gray-400">This will delete all users, contributions, and artworks</div>
+                        </div>
+                        <button class="px-4 py-2 bg-red-500/20 border border-red-500/50 rounded-xl text-red-400 text-sm hover:bg-red-500/30 transition-colors">
+                            Reset Everything
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Artwork Modal -->
+<div id="create-artwork-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-6">
+    <div class="glass-effect p-8 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold">Create New Artwork</h2>
+            <button onclick="hideCreateArtworkModal()" class="text-gray-400 hover:text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Artwork Title</label>
+                <input type="text" id="artwork-title" placeholder="e.g., Impressions at Dawn"
+                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Description</label>
+                <textarea id="artwork-description" rows="3" placeholder="Describe the artwork..."
+                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 resize-none"></textarea>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Price ($)</label>
+                    <input type="number" id="artwork-price" placeholder="10000" min="100"
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Contributors to Include</label>
+                    <input type="number" id="artwork-contributors" placeholder="500" min="10"
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Upload Artwork Image</label>
+                <div class="gradient-border rounded-xl p-8 text-center cursor-pointer hover:bg-white/5 transition-colors">
+                    <input type="file" accept="image/*" id="artwork-image" class="hidden">
+                    <label for="artwork-image" class="cursor-pointer block">
+                        <div class="text-4xl mb-2">🎨</div>
+                        <div class="text-gray-300">Click to upload artwork image</div>
+                        <div class="text-sm text-gray-500">PNG, JPG up to 50MB</div>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="flex gap-4 pt-4">
+                <button onclick="createArtwork()" class="flex-1 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-semibold">
+                    Create Artwork
+                </button>
+                <button onclick="hideCreateArtworkModal()" class="px-6 py-3 bg-white/10 rounded-xl font-semibold">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== LEGAL PAGES ==================== -->
+
+<!-- Terms of Service -->
+<div id="page-terms" class="page-content hidden pt-20">
+    <div class="max-w-4xl mx-auto px-6 py-12 fade-in">
+        <h1 class="text-4xl font-bold mb-8">Terms of Service</h1>
+        <p class="text-gray-400 mb-8">Last updated: January 2026</p>
+        
+        <div class="prose prose-invert max-w-none space-y-8 text-gray-300">
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">1. Acceptance of Terms</h2>
+                <p>By accessing or using InfraMint ("the Platform"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, you may not use the Platform. We reserve the right to modify these Terms at any time, and your continued use constitutes acceptance of any modifications.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">2. Description of Service</h2>
+                <p>InfraMint is a digital art platform that creates AI-generated artworks using abstracted facial imagery contributed by users ("Contributors"). The Platform facilitates the creation, display, and sale of unique digital artworks to collectors ("Collectors").</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">3. User Accounts</h2>
+                <p>3.1. You must be at least 18 years old to create an account.</p>
+                <p>3.2. You are responsible for maintaining the confidentiality of your account credentials.</p>
+                <p>3.3. You agree to provide accurate, current, and complete information during registration.</p>
+                <p>3.4. We reserve the right to suspend or terminate accounts that violate these Terms.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">4. Contributor Terms</h2>
+                <p>4.1. By uploading facial imagery, you grant InfraMint a worldwide, non-exclusive, royalty-bearing license to transform, abstract, and incorporate your imagery into AI-generated artworks.</p>
+                <p>4.2. You represent and warrant that you have the right to upload any imagery and that it does not infringe upon any third-party rights.</p>
+                <p>4.3. <strong>You understand that your facial imagery will be transformed into non-identifiable, abstract artistic elements.</strong> The original imagery will not be displayed publicly.</p>
+                <p>4.4. Revenue sharing percentages are determined on a per-project basis at InfraMint's sole discretion and will be disclosed in the applicable Contributor Agreement.</p>
+                <p>4.5. Payouts are subject to minimum thresholds and processing times as determined by the Platform.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">5. Collector Terms</h2>
+                <p>5.1. All artwork sales are final. No refunds will be provided except as required by applicable law.</p>
+                <p>5.2. Upon purchase, Collectors receive a license to display and own the digital artwork for personal use.</p>
+                <p>5.3. Collectors may not reproduce, distribute, or create derivative works without express written permission.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">6. Prohibited Content</h2>
+                <p>You may not upload or submit content that:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li>Contains nudity, sexually explicit material, or pornography</li>
+                    <li>Depicts violence, gore, or harmful activities</li>
+                    <li>Contains hate speech, discrimination, or harassment</li>
+                    <li>Infringes on intellectual property rights of others</li>
+                    <li>Depicts minors or individuals who have not consented</li>
+                    <li>Violates any applicable laws or regulations</li>
+                    <li>Contains malware, viruses, or harmful code</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">7. Content Moderation</h2>
+                <p>7.1. All uploaded content is subject to review and moderation at InfraMint's sole discretion.</p>
+                <p>7.2. We reserve the right to reject, remove, or refuse any content without explanation.</p>
+                <p>7.3. We may use automated systems and/or human review for content moderation.</p>
+                <p>7.4. <strong>InfraMint is not liable for any content uploaded by users.</strong></p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">8. Intellectual Property</h2>
+                <p>8.1. The Platform, including its design, features, and content (excluding user-generated content), is owned by InfraMint.</p>
+                <p>8.2. AI-generated artworks created using the Platform are owned by InfraMint until sold to a Collector.</p>
+                <p>8.3. Contributors retain rights to their original imagery but grant InfraMint the licenses described herein.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">9. Disclaimer of Warranties</h2>
+                <p class="uppercase font-bold">THE PLATFORM IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. INFRAMINT DISCLAIMS ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
+                <p>We do not warrant that:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li>The Platform will be uninterrupted or error-free</li>
+                    <li>Any specific revenue or earnings will be generated</li>
+                    <li>User-uploaded content is accurate, legal, or appropriate</li>
+                    <li>The AI-generated artworks will meet any specific quality standards</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">10. Limitation of Liability</h2>
+                <p class="uppercase font-bold">TO THE MAXIMUM EXTENT PERMITTED BY LAW, INFRAMINT AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, DATA, OR GOODWILL, ARISING FROM YOUR USE OF THE PLATFORM.</p>
+                <p>Our total liability shall not exceed the amount you paid to InfraMint in the twelve (12) months preceding the claim.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">11. Indemnification</h2>
+                <p>You agree to indemnify, defend, and hold harmless InfraMint and its affiliates from any claims, damages, losses, or expenses (including legal fees) arising from:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li>Your use of the Platform</li>
+                    <li>Your violation of these Terms</li>
+                    <li>Your violation of any third-party rights</li>
+                    <li>Content you upload or submit</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">12. Dispute Resolution</h2>
+                <p>12.1. Any disputes shall be resolved through binding arbitration in accordance with the rules of the jurisdiction where InfraMint is registered.</p>
+                <p>12.2. You waive any right to participate in class action lawsuits against InfraMint.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">13. Termination</h2>
+                <p>13.1. You may terminate your account at any time by contacting us.</p>
+                <p>13.2. We may terminate or suspend your account at our sole discretion without prior notice.</p>
+                <p>13.3. Upon termination, your right to use the Platform ceases immediately.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">14. Governing Law</h2>
+                <p>These Terms shall be governed by and construed in accordance with applicable laws, without regard to conflict of law principles.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">15. Contact</h2>
+                <p>For questions about these Terms, contact us at: <a href="mailto:hello@inframint.io" class="text-pink-400 hover:text-pink-300">hello@inframint.io</a></p>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- Privacy Policy -->
+<div id="page-privacy" class="page-content hidden pt-20">
+    <div class="max-w-4xl mx-auto px-6 py-12 fade-in">
+        <h1 class="text-4xl font-bold mb-8">Privacy Policy</h1>
+        <p class="text-gray-400 mb-8">Last updated: January 2026</p>
+        
+        <div class="prose prose-invert max-w-none space-y-8 text-gray-300">
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">1. Introduction</h2>
+                <p>InfraMint ("we," "us," or "our") respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">2. Information We Collect</h2>
+                <h3 class="text-xl font-semibold text-white mb-2">2.1. Information You Provide</h3>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li><strong>Account Information:</strong> Name, email address, password, country</li>
+                    <li><strong>Profile Information:</strong> Display name, bio, profile picture</li>
+                    <li><strong>Facial Imagery:</strong> Photos you upload as a Contributor</li>
+                    <li><strong>Payment Information:</strong> Billing details, payout information (processed by third-party providers)</li>
+                    <li><strong>Communications:</strong> Messages you send to us</li>
+                </ul>
+                
+                <h3 class="text-xl font-semibold text-white mb-2 mt-4">2.2. Information Collected Automatically</h3>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li><strong>Usage Data:</strong> Pages visited, features used, timestamps</li>
+                    <li><strong>Device Information:</strong> IP address, browser type, operating system</li>
+                    <li><strong>Cookies:</strong> Session and preference cookies</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">3. How We Use Your Information</h2>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li>To provide and maintain the Platform</li>
+                    <li>To process transactions and send related information</li>
+                    <li>To create AI-generated artworks using abstracted facial imagery</li>
+                    <li>To communicate with you about your account and the Platform</li>
+                    <li>To detect, prevent, and address fraud and security issues</li>
+                    <li>To comply with legal obligations</li>
+                    <li>To improve and personalize your experience</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">4. Facial Imagery Processing</h2>
+                <div class="p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl mb-4">
+                    <p class="font-semibold text-blue-400 mb-2">Important Notice About Your Facial Data</p>
+                    <p>Your uploaded facial imagery is processed as follows:</p>
+                </div>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li>Facial features are extracted and transformed into <strong>abstract, non-identifiable artistic elements</strong></li>
+                    <li>Original photos are stored securely and are <strong>never displayed publicly</strong></li>
+                    <li>We do <strong>NOT</strong> use facial recognition technology for identification purposes</li>
+                    <li>We do <strong>NOT</strong> create biometric templates or facial fingerprints</li>
+                    <li>We do <strong>NOT</strong> sell or share your facial imagery with third parties for identification</li>
+                    <li>You may request deletion of your facial imagery at any time</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">5. Data Sharing and Disclosure</h2>
+                <p>We may share your information with:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li><strong>Service Providers:</strong> Payment processors, hosting providers, analytics services</li>
+                    <li><strong>Legal Requirements:</strong> When required by law or to protect our rights</li>
+                    <li><strong>Business Transfers:</strong> In connection with mergers, acquisitions, or asset sales</li>
+                </ul>
+                <p class="mt-4">We do <strong>NOT</strong> sell your personal information to third parties.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">6. Data Security</h2>
+                <p>We implement appropriate technical and organizational measures to protect your data, including:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li>Encryption of data in transit and at rest</li>
+                    <li>Secure storage with access controls</li>
+                    <li>Regular security assessments</li>
+                </ul>
+                <p class="mt-4">However, no method of transmission over the Internet is 100% secure, and we cannot guarantee absolute security.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">7. Data Retention</h2>
+                <p>We retain your information for as long as your account is active or as needed to provide services. We may retain certain information as required by law or for legitimate business purposes.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">8. Your Rights (GDPR & CCPA)</h2>
+                <p>Depending on your location, you may have the following rights:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li><strong>Access:</strong> Request a copy of your personal data</li>
+                    <li><strong>Rectification:</strong> Request correction of inaccurate data</li>
+                    <li><strong>Erasure:</strong> Request deletion of your data ("Right to be Forgotten")</li>
+                    <li><strong>Portability:</strong> Request transfer of your data</li>
+                    <li><strong>Objection:</strong> Object to certain processing activities</li>
+                    <li><strong>Restriction:</strong> Request limited processing of your data</li>
+                    <li><strong>Withdraw Consent:</strong> Withdraw previously given consent</li>
+                </ul>
+                <p class="mt-4">To exercise these rights, contact us at <a href="mailto:hello@inframint.io" class="text-pink-400 hover:text-pink-300">hello@inframint.io</a></p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">9. International Data Transfers</h2>
+                <p>Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place for such transfers.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">10. Children's Privacy</h2>
+                <p>The Platform is not intended for individuals under 18. We do not knowingly collect data from children. If we become aware that we have collected data from a child, we will delete it promptly.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">11. Changes to This Policy</h2>
+                <p>We may update this Privacy Policy from time to time. We will notify you of material changes by posting the new policy on this page and updating the "Last updated" date.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">12. Contact Us</h2>
+                <p>For questions about this Privacy Policy or to exercise your rights, contact us at:</p>
+                <p class="mt-2"><a href="mailto:hello@inframint.io" class="text-pink-400 hover:text-pink-300">hello@inframint.io</a></p>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- Contributor Agreement -->
+<div id="page-contributor-agreement" class="page-content hidden pt-20">
+    <div class="max-w-4xl mx-auto px-6 py-12 fade-in">
+        <h1 class="text-4xl font-bold mb-8">Contributor Agreement</h1>
+        <p class="text-gray-400 mb-8">Last updated: January 2026</p>
+        
+        <div class="prose prose-invert max-w-none space-y-8 text-gray-300">
+            <div class="p-4 bg-pink-500/10 border border-pink-500/30 rounded-xl mb-8">
+                <p class="font-semibold text-pink-400 mb-2">Please Read Carefully</p>
+                <p>By uploading facial imagery to InfraMint, you are entering into a binding agreement. Make sure you understand and agree to all terms below.</p>
+            </div>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">1. Grant of License</h2>
+                <p>By uploading your facial imagery ("Content") to InfraMint, you grant InfraMint and its affiliates a:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li><strong>Worldwide</strong> license to use your Content</li>
+                    <li><strong>Non-exclusive</strong> license (you retain rights to your imagery)</li>
+                    <li><strong>Sublicensable</strong> license (we may use service providers)</li>
+                    <li><strong>Royalty-bearing</strong> license (you receive revenue share as determined per project)</li>
+                </ul>
+                <p class="mt-4">This license allows us to transform, abstract, modify, and incorporate your Content into AI-generated artworks.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">2. Your Representations and Warranties</h2>
+                <p>By uploading Content, you represent and warrant that:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li>You are at least 18 years old</li>
+                    <li>The imagery is of yourself OR you have explicit written consent from the depicted individual</li>
+                    <li>The imagery does not infringe any third-party intellectual property rights</li>
+                    <li>The imagery does not violate any laws or regulations</li>
+                    <li>The imagery does not contain prohibited content as defined in our Terms of Service</li>
+                    <li>You have the full right and authority to grant this license</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">3. Revenue Sharing</h2>
+                <p>3.1. Contributors are entitled to receive a share of revenue from the sale of artworks that incorporate their abstracted facial imagery.</p>
+                <p>3.2. <strong>The revenue share percentage is determined by InfraMint on a per-project basis</strong> and may vary depending on factors including but not limited to:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li>The number of contributors in an artwork</li>
+                    <li>The sale price of the artwork</li>
+                    <li>Platform operational costs</li>
+                    <li>Project-specific arrangements</li>
+                </ul>
+                <p class="mt-4">3.3. The applicable revenue share will be disclosed before your imagery is used in a specific artwork project.</p>
+                <p>3.4. Revenue distribution is calculated and processed automatically through our platform.</p>
+                <p>3.5. Payouts are subject to minimum thresholds and may be processed via third-party payment providers.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">4. How Your Imagery is Used</h2>
+                <p>4.1. Your facial imagery will be processed by AI systems to extract abstract features.</p>
+                <p>4.2. These features are transformed into <strong>non-identifiable artistic elements</strong>.</p>
+                <p>4.3. The abstracted elements may be combined with elements from other contributors to create unique artworks.</p>
+                <p>4.4. <strong>Your original facial imagery will NOT be displayed publicly</strong> in its original form.</p>
+                <p>4.5. You will NOT be personally identifiable in the final artwork.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">5. Moderation and Rejection</h2>
+                <p>5.1. All uploaded Content is subject to review and approval at InfraMint's sole discretion.</p>
+                <p>5.2. We reserve the right to reject or remove any Content without explanation.</p>
+                <p>5.3. Rejection of Content does not entitle you to any compensation.</p>
+                <p>5.4. Repeated violations may result in account suspension or termination.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">6. No Guaranteed Earnings</h2>
+                <div class="p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-xl">
+                    <p class="font-semibold text-yellow-400 mb-2">Important Disclaimer</p>
+                    <p>InfraMint makes NO guarantees regarding:</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 mt-2">
+                        <li>Whether your imagery will be selected for any artwork</li>
+                        <li>Whether any artwork featuring your imagery will sell</li>
+                        <li>The amount of any potential earnings</li>
+                        <li>The timing of any potential payments</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">7. Liability Limitation</h2>
+                <p>7.1. <strong>INFRAMINT IS NOT LIABLE</strong> for any claims arising from:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li>Your decision to upload facial imagery</li>
+                    <li>The transformation or use of your imagery in artworks</li>
+                    <li>Any third-party claims related to your uploaded Content</li>
+                    <li>Loss of potential earnings or opportunities</li>
+                    <li>Technical issues affecting uploads or payouts</li>
+                </ul>
+                <p class="mt-4">7.2. You agree to indemnify InfraMint against any claims arising from Content you upload.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">8. Opt-Out and Removal</h2>
+                <p>8.1. You may opt out of future artwork projects at any time through your account settings.</p>
+                <p>8.2. You may request deletion of your uploaded imagery.</p>
+                <p>8.3. <strong>Note:</strong> Artworks that have already been created and/or sold containing your abstracted imagery will remain unchanged, as they constitute completed works.</p>
+                <p>8.4. Opting out does not affect your right to receive revenue from previously sold artworks.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">9. Term and Termination</h2>
+                <p>9.1. This Agreement remains in effect as long as you have an active account or until terminated.</p>
+                <p>9.2. Either party may terminate this Agreement at any time.</p>
+                <p>9.3. Sections relating to liability, indemnification, and completed artworks survive termination.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">10. Amendments</h2>
+                <p>InfraMint may modify this Agreement at any time. Material changes will be communicated via email or platform notification. Continued use after such notification constitutes acceptance.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-4">11. Contact</h2>
+                <p>For questions about this Agreement, contact: <a href="mailto:hello@inframint.io" class="text-pink-400 hover:text-pink-300">hello@inframint.io</a></p>
+            </section>
+        </div>
+    </div>
+</div>
+
 <!-- Footer -->
 <footer class="border-t border-gray-800 mt-32">
     <div class="max-w-7xl mx-auto px-6 py-16">
@@ -1659,9 +2398,9 @@
             <div class="space-y-4">
                 <div class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Legal</div>
                 <div class="space-y-2">
-                    <div class="text-gray-400 hover:text-white cursor-pointer transition-colors">Terms of Service</div>
-                    <div class="text-gray-400 hover:text-white cursor-pointer transition-colors">Privacy Policy</div>
-                    <div class="text-gray-400 hover:text-white cursor-pointer transition-colors">GDPR Compliance</div>
+                    <div onclick="showPage('terms')" class="text-gray-400 hover:text-white cursor-pointer transition-colors">Terms of Service</div>
+                    <div onclick="showPage('privacy')" class="text-gray-400 hover:text-white cursor-pointer transition-colors">Privacy Policy</div>
+                    <div onclick="showPage('contributor-agreement')" class="text-gray-400 hover:text-white cursor-pointer transition-colors">Contributor Agreement</div>
                 </div>
             </div>
             <div class="space-y-4">
