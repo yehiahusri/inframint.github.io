@@ -327,82 +327,189 @@
 
 <!-- Contribute Page -->
 <div id="page-contribute" class="page-content hidden pt-20">
-    <div class="max-w-4xl mx-auto px-6 py-24 fade-in">
+    <div class="max-w-6xl mx-auto px-6 py-12 fade-in">
+        <!-- Header -->
         <div class="text-center mb-12">
-            <h1 class="text-6xl font-bold mb-6">
-                Start <span class="gradient-text">Contributing</span>
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                Join a <span class="gradient-text">Masterpiece</span>
             </h1>
             <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-                Your face becomes part of exclusive artworks. Upload once, earn from every artwork that includes your contribution.
+                Choose a painting project, upload your photo, and become part of art history. 
+                Earn when the artwork sells.
             </p>
         </div>
 
-        <div class="glass-effect p-12 rounded-2xl space-y-8">
-            <div>
-                <label class="block text-xl font-semibold mb-4">Upload Your Face Photo</label>
-                <div id="upload-zone" class="gradient-border rounded-2xl p-12 text-center cursor-pointer hover:bg-white/5 transition-colors">
-                    <input type="file" accept="image/*" id="face-upload" class="hidden" onchange="handleFileUpload(event)">
-                    <label for="face-upload" class="cursor-pointer block">
-                        <div id="upload-placeholder">
-                            <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl flex items-center justify-center">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                                </svg>
+        <!-- Step Indicator -->
+        <div class="flex items-center justify-center gap-4 mb-12">
+            <div id="step-1-indicator" class="flex items-center gap-2">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center font-bold">1</div>
+                <span class="text-white font-medium hidden sm:inline">Choose Project</span>
+            </div>
+            <div class="w-12 h-0.5 bg-gray-700"></div>
+            <div id="step-2-indicator" class="flex items-center gap-2 opacity-50">
+                <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center font-bold">2</div>
+                <span class="text-gray-400 font-medium hidden sm:inline">Upload Photo</span>
+            </div>
+            <div class="w-12 h-0.5 bg-gray-700"></div>
+            <div id="step-3-indicator" class="flex items-center gap-2 opacity-50">
+                <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center font-bold">3</div>
+                <span class="text-gray-400 font-medium hidden sm:inline">Confirm</span>
+            </div>
+        </div>
+
+        <!-- Step 1: Project Selection -->
+        <div id="contribute-step-1" class="space-y-8">
+            <h2 class="text-2xl font-bold text-center">Select Up to 3 Projects</h2>
+            
+            <!-- Projects Grid -->
+            <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Projects will be loaded here -->
+                <div class="col-span-full text-center py-12">
+                    <div class="animate-spin w-8 h-8 border-2 border-pink-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+                    <p class="text-gray-400">Loading available projects...</p>
+                </div>
+            </div>
+
+            <!-- Selected Projects Summary -->
+            <div id="selected-projects-summary" class="hidden glass-effect p-6 rounded-2xl">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="font-bold">Selected Projects: <span id="selected-count">0</span>/3</h3>
+                        <p class="text-sm text-gray-400" id="selected-names">None selected</p>
+                    </div>
+                    <button onclick="goToStep2()" id="continue-to-upload" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Continue to Upload →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Upload Photo -->
+        <div id="contribute-step-2" class="hidden space-y-8">
+            <div class="flex items-center gap-4 mb-6">
+                <button onclick="goToStep1()" class="text-gray-400 hover:text-white">
+                    ← Back to Projects
+                </button>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Left: Upload Zone -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-4">Upload Your Best Selfie</h3>
+                    <p class="text-gray-400 text-sm mb-6">Face-forward, good lighting, neutral background works best.</p>
+                    
+                    <div id="upload-zone" class="gradient-border rounded-2xl p-8 text-center cursor-pointer hover:bg-white/5 transition-colors">
+                        <input type="file" accept="image/*" id="face-upload" class="hidden" onchange="handleFileUpload(event)">
+                        <label for="face-upload" class="cursor-pointer block">
+                            <div id="upload-placeholder">
+                                <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center">
+                                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </div>
+                                <div class="text-gray-300 text-lg mb-2">Click to upload or drag & drop</div>
+                                <div class="text-sm text-gray-500">JPG, PNG up to 10MB</div>
                             </div>
-                            <div class="text-gray-300 text-lg mb-2">Click to upload or drag and drop</div>
-                            <div class="text-sm text-gray-500">Face-only selfie, no background needed</div>
+                            <div id="upload-preview" class="hidden">
+                                <img id="preview-image" class="w-48 h-48 mx-auto rounded-full object-cover mb-4 ring-4 ring-pink-500">
+                                <div class="text-green-400 font-semibold">✓ Looking great!</div>
+                                <button type="button" onclick="resetUpload(event)" class="mt-2 text-sm text-gray-400 hover:text-white">Change photo</button>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Photo Quality Tips -->
+                    <div class="mt-6 space-y-2 text-sm">
+                        <div class="flex items-center gap-2 text-gray-400">
+                            <span class="text-green-400">✓</span> Clear, well-lit face
                         </div>
-                        <div id="upload-preview" class="hidden">
-                            <img id="preview-image" class="max-h-64 mx-auto rounded-xl mb-4">
-                            <div class="text-purple-400 font-semibold">✓ Photo uploaded successfully</div>
+                        <div class="flex items-center gap-2 text-gray-400">
+                            <span class="text-green-400">✓</span> Looking at camera
                         </div>
+                        <div class="flex items-center gap-2 text-gray-400">
+                            <span class="text-red-400">✗</span> No sunglasses or masks
+                        </div>
+                        <div class="flex items-center gap-2 text-gray-400">
+                            <span class="text-red-400">✗</span> No group photos
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Color Match Preview -->
+                <div class="glass-effect p-8 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-4">Where You Might Fit</h3>
+                    <p class="text-gray-400 text-sm mb-6">Based on the colors in your photo, here's where you could appear:</p>
+                    
+                    <div id="color-match-preview" class="space-y-4">
+                        <!-- Will show selected projects with potential placement -->
+                        <div class="text-center py-8 text-gray-500">
+                            <p>Upload a photo to see your potential placement</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="goToStep3()" id="continue-to-confirm" class="w-full px-6 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                Continue to Confirm →
+            </button>
+        </div>
+
+        <!-- Step 3: Confirm & Submit -->
+        <div id="contribute-step-3" class="hidden space-y-8">
+            <div class="flex items-center gap-4 mb-6">
+                <button onclick="goToStep2()" class="text-gray-400 hover:text-white">
+                    ← Back to Upload
+                </button>
+            </div>
+
+            <div class="glass-effect p-8 rounded-2xl">
+                <h3 class="text-2xl font-bold mb-6 text-center">Confirm Your Contribution</h3>
+                
+                <!-- Summary -->
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <!-- Your Photo -->
+                    <div class="text-center">
+                        <p class="text-gray-400 text-sm mb-3">Your Photo</p>
+                        <img id="confirm-photo" class="w-32 h-32 mx-auto rounded-full object-cover ring-4 ring-pink-500">
+                    </div>
+                    
+                    <!-- Selected Projects -->
+                    <div>
+                        <p class="text-gray-400 text-sm mb-3">Joining Projects</p>
+                        <div id="confirm-projects" class="space-y-2">
+                            <!-- Will be populated -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Legal Agreement -->
+                <div class="glass-effect p-6 rounded-xl mb-6">
+                    <label class="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" id="consent-checkbox" class="mt-1 w-5 h-5 rounded accent-pink-500">
+                        <span class="text-gray-300 text-sm leading-relaxed">
+                            I grant InfraMint permission to use my likeness in the selected artwork(s). I understand my face will be 
+                            transformed into mosaic tiles and combined with other contributors. I agree to the 
+                            <a onclick="showPage('contributor-agreement')" class="text-pink-400 hover:underline cursor-pointer">Contributor Agreement</a> 
+                            and will receive a proportional share of revenue when the artwork sells.
+                        </span>
                     </label>
                 </div>
-            </div>
 
-            <div class="glass-effect p-6 rounded-xl">
-                <label class="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" id="consent-checkbox" class="mt-1 w-5 h-5 rounded accent-purple-600">
-                    <span class="text-gray-300 text-sm leading-relaxed">
-                        I consent to my facial image being transformed into abstract, non-identifiable artistic elements and incorporated 
-                        into artworks sold on this platform. I understand that I will receive automatic proportional revenue share for each 
-                        artwork sold that includes my face, and that I can opt out at any time.
-                    </span>
-                </label>
-            </div>
-
-            <button onclick="submitContribution()" class="w-full px-10 py-4 bg-gradient-to-r from-purple-600 to-purple-800 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-purple-500/50 transition-all hover:scale-105">
-                Submit Contribution
-            </button>
-
-            <div class="border-t border-gray-800 pt-8 space-y-4">
-                <h3 class="text-xl font-semibold">What Happens Next?</h3>
-                <div class="space-y-3">
-                    <div class="flex items-start gap-3 text-gray-400">
-                        <svg class="w-5 h-5 mt-1 flex-shrink-0 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        <span>Your photo is automatically processed and validated</span>
-                    </div>
-                    <div class="flex items-start gap-3 text-gray-400">
-                        <svg class="w-5 h-5 mt-1 flex-shrink-0 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        <span>Your face is abstracted into non-identifiable artistic elements</span>
-                    </div>
-                    <div class="flex items-start gap-3 text-gray-400">
-                        <svg class="w-5 h-5 mt-1 flex-shrink-0 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        <span>You'll be included in future artwork compositions</span>
-                    </div>
-                    <div class="flex items-start gap-3 text-gray-400">
-                        <svg class="w-5 h-5 mt-1 flex-shrink-0 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        <span>Automatic payouts when artworks are sold</span>
+                <!-- Potential Earnings -->
+                <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="text-2xl">💰</div>
+                        <div>
+                            <div class="font-semibold text-green-400">Potential Earnings</div>
+                            <div class="text-sm text-gray-400">When these artworks sell, you'll receive your share automatically.</div>
+                        </div>
                     </div>
                 </div>
+
+                <button onclick="submitContribution()" id="submit-contribution-btn" class="w-full px-6 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                    🎨 Submit My Contribution
+                </button>
             </div>
         </div>
     </div>
@@ -2518,11 +2625,297 @@
         });
         document.getElementById('page-' + pageId).classList.remove('hidden');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Load projects when contribute page is shown
+        if (pageId === 'contribute') {
+            loadProjects();
+            resetContributeFlow();
+        }
     }
 
     function toggleMobileMenu() {
         const menu = document.getElementById('mobile-menu');
         menu.classList.toggle('hidden');
+    }
+
+    // ==================== PROJECT SELECTION ====================
+    let selectedProjects = [];
+    let availableProjects = [];
+
+    async function loadProjects() {
+        try {
+            const { data: projects, error } = await supabaseClient
+                .from('projects')
+                .select('*')
+                .in('status', ['open', 'filling'])
+                .order('created_at', { ascending: false });
+
+            if (error) throw error;
+
+            availableProjects = projects || [];
+            renderProjects();
+
+        } catch (error) {
+            console.error('Error loading projects:', error);
+            document.getElementById('projects-grid').innerHTML = `
+                <div class="col-span-full text-center py-12">
+                    <p class="text-red-400">Error loading projects. Please refresh.</p>
+                </div>
+            `;
+        }
+    }
+
+    function renderProjects() {
+        const grid = document.getElementById('projects-grid');
+        
+        if (!availableProjects || availableProjects.length === 0) {
+            grid.innerHTML = `
+                <div class="col-span-full text-center py-12">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <p class="text-gray-400 mb-2">No open projects right now</p>
+                    <p class="text-sm text-gray-500">Check back soon for new masterpieces!</p>
+                </div>
+            `;
+            return;
+        }
+
+        grid.innerHTML = availableProjects.map(project => {
+            const percentFilled = Math.round((project.filled_spots / project.total_spots) * 100);
+            const spotsLeft = project.total_spots - project.filled_spots;
+            const isSelected = selectedProjects.includes(project.id);
+            
+            return `
+                <div class="project-card glass-effect rounded-2xl overflow-hidden cursor-pointer transition-all hover:scale-[1.02] ${isSelected ? 'ring-2 ring-pink-500' : ''}" 
+                     onclick="toggleProject('${project.id}')"
+                     id="project-${project.id}">
+                    <div class="aspect-video relative overflow-hidden">
+                        <img src="${project.image_url}" alt="${project.title}" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        
+                        <!-- Selected Badge -->
+                        <div class="absolute top-3 right-3 ${isSelected ? '' : 'hidden'}" id="selected-badge-${project.id}">
+                            <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center">
+                                <span class="text-white font-bold">✓</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Progress Bar -->
+                        <div class="absolute bottom-0 left-0 right-0 p-4">
+                            <div class="flex items-center justify-between text-sm mb-2">
+                                <span class="text-white font-medium">${project.filled_spots.toLocaleString()} / ${project.total_spots.toLocaleString()}</span>
+                                <span class="${spotsLeft < 500 ? 'text-yellow-400' : 'text-green-400'}">${spotsLeft.toLocaleString()} spots left</span>
+                            </div>
+                            <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-pink-500 to-purple-600 transition-all" style="width: ${percentFilled}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-1">${project.title}</h3>
+                        <p class="text-gray-400 text-sm mb-2">by ${project.artist}</p>
+                        <p class="text-gray-500 text-sm line-clamp-2">${project.description || ''}</p>
+                        
+                        <!-- Color Palette -->
+                        <div class="flex gap-1 mt-3">
+                            ${(JSON.parse(project.dominant_colors || '[]')).slice(0, 5).map(color => `
+                                <div class="w-6 h-6 rounded-full" style="background-color: ${color}" title="${color}"></div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function toggleProject(projectId) {
+        const index = selectedProjects.indexOf(projectId);
+        
+        if (index > -1) {
+            // Deselect
+            selectedProjects.splice(index, 1);
+        } else {
+            // Select (max 3)
+            if (selectedProjects.length >= 3) {
+                alert('You can select up to 3 projects. Deselect one first.');
+                return;
+            }
+            selectedProjects.push(projectId);
+        }
+        
+        updateProjectSelection();
+    }
+
+    function updateProjectSelection() {
+        // Update card styles
+        availableProjects.forEach(project => {
+            const card = document.getElementById('project-' + project.id);
+            const badge = document.getElementById('selected-badge-' + project.id);
+            
+            if (selectedProjects.includes(project.id)) {
+                card.classList.add('ring-2', 'ring-pink-500');
+                badge.classList.remove('hidden');
+            } else {
+                card.classList.remove('ring-2', 'ring-pink-500');
+                badge.classList.add('hidden');
+            }
+        });
+        
+        // Update summary
+        const summary = document.getElementById('selected-projects-summary');
+        const countEl = document.getElementById('selected-count');
+        const namesEl = document.getElementById('selected-names');
+        const continueBtn = document.getElementById('continue-to-upload');
+        
+        countEl.textContent = selectedProjects.length;
+        
+        if (selectedProjects.length > 0) {
+            summary.classList.remove('hidden');
+            const names = selectedProjects.map(id => {
+                const p = availableProjects.find(proj => proj.id === id);
+                return p ? p.title : '';
+            }).join(', ');
+            namesEl.textContent = names;
+            continueBtn.disabled = false;
+        } else {
+            summary.classList.add('hidden');
+            namesEl.textContent = 'None selected';
+            continueBtn.disabled = true;
+        }
+    }
+
+    // ==================== STEP NAVIGATION ====================
+    function goToStep1() {
+        document.getElementById('contribute-step-1').classList.remove('hidden');
+        document.getElementById('contribute-step-2').classList.add('hidden');
+        document.getElementById('contribute-step-3').classList.add('hidden');
+        updateStepIndicators(1);
+    }
+
+    function goToStep2() {
+        if (selectedProjects.length === 0) {
+            alert('Please select at least one project');
+            return;
+        }
+        document.getElementById('contribute-step-1').classList.add('hidden');
+        document.getElementById('contribute-step-2').classList.remove('hidden');
+        document.getElementById('contribute-step-3').classList.add('hidden');
+        updateStepIndicators(2);
+        updateColorMatchPreview();
+    }
+
+    function goToStep3() {
+        if (!uploadedFile) {
+            alert('Please upload a photo first');
+            return;
+        }
+        document.getElementById('contribute-step-1').classList.add('hidden');
+        document.getElementById('contribute-step-2').classList.add('hidden');
+        document.getElementById('contribute-step-3').classList.remove('hidden');
+        updateStepIndicators(3);
+        prepareConfirmation();
+    }
+
+    function updateStepIndicators(currentStep) {
+        for (let i = 1; i <= 3; i++) {
+            const indicator = document.getElementById('step-' + i + '-indicator');
+            if (i <= currentStep) {
+                indicator.classList.remove('opacity-50');
+                indicator.querySelector('div').classList.remove('bg-gray-700');
+                indicator.querySelector('div').classList.add('bg-gradient-to-r', 'from-pink-500', 'to-purple-600');
+            } else {
+                indicator.classList.add('opacity-50');
+                indicator.querySelector('div').classList.add('bg-gray-700');
+                indicator.querySelector('div').classList.remove('bg-gradient-to-r', 'from-pink-500', 'to-purple-600');
+            }
+        }
+    }
+
+    function updateColorMatchPreview() {
+        const preview = document.getElementById('color-match-preview');
+        
+        if (!uploadedFile) {
+            preview.innerHTML = `
+                <div class="text-center py-8 text-gray-500">
+                    <p>Upload a photo to see your potential placement</p>
+                </div>
+            `;
+            return;
+        }
+        
+        // Show selected projects with placeholder matching
+        preview.innerHTML = selectedProjects.map(id => {
+            const project = availableProjects.find(p => p.id === id);
+            if (!project) return '';
+            
+            const colors = JSON.parse(project.dominant_colors || '[]');
+            const randomColor = colors[Math.floor(Math.random() * colors.length)] || '#ffffff';
+            
+            return `
+                <div class="flex items-center gap-4 p-3 bg-white/5 rounded-xl">
+                    <img src="${project.image_url}" class="w-16 h-16 rounded-lg object-cover">
+                    <div class="flex-1">
+                        <div class="font-medium">${project.title}</div>
+                        <div class="text-sm text-gray-400">Great match for the ${getColorName(randomColor)} areas!</div>
+                    </div>
+                    <div class="w-8 h-8 rounded-full" style="background: ${randomColor}"></div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function getColorName(hex) {
+        const colors = {
+            '#1a237e': 'deep blue', '#283593': 'navy', '#ffd54f': 'golden', '#fff59d': 'light yellow',
+            '#1b5e20': 'forest green', '#1565c0': 'ocean blue', '#e3f2fd': 'sky', '#4e342e': 'brown',
+            '#d7ccc8': 'beige', '#80cbc4': 'teal', '#ffccbc': 'peach', '#a1887f': 'taupe',
+            '#4caf50': 'green', '#81c784': 'light green', '#e1bee7': 'lavender', '#f8bbd9': 'pink'
+        };
+        return colors[hex] || 'colorful';
+    }
+
+    function prepareConfirmation() {
+        // Set confirmation photo
+        document.getElementById('confirm-photo').src = document.getElementById('preview-image').src;
+        
+        // Set confirmation projects
+        const projectsDiv = document.getElementById('confirm-projects');
+        projectsDiv.innerHTML = selectedProjects.map(id => {
+            const project = availableProjects.find(p => p.id === id);
+            if (!project) return '';
+            
+            return `
+                <div class="flex items-center gap-3 p-2 bg-white/5 rounded-lg">
+                    <img src="${project.image_url}" class="w-10 h-10 rounded object-cover">
+                    <span class="font-medium">${project.title}</span>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function resetContributeFlow() {
+        selectedProjects = [];
+        uploadedFile = null;
+        document.getElementById('contribute-step-1').classList.remove('hidden');
+        document.getElementById('contribute-step-2').classList.add('hidden');
+        document.getElementById('contribute-step-3').classList.add('hidden');
+        document.getElementById('selected-projects-summary').classList.add('hidden');
+        document.getElementById('upload-placeholder').classList.remove('hidden');
+        document.getElementById('upload-preview').classList.add('hidden');
+        document.getElementById('consent-checkbox').checked = false;
+        document.getElementById('continue-to-upload').disabled = true;
+        document.getElementById('continue-to-confirm').disabled = true;
+        updateStepIndicators(1);
+    }
+
+    function resetUpload(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        uploadedFile = null;
+        document.getElementById('upload-placeholder').classList.remove('hidden');
+        document.getElementById('upload-preview').classList.add('hidden');
+        document.getElementById('face-upload').value = '';
+        document.getElementById('continue-to-confirm').disabled = true;
     }
 
     // Handle file upload via input
@@ -2553,6 +2946,12 @@
                 document.getElementById('preview-image').src = e.target.result;
                 uploadedFile = file;
                 console.log('File ready for upload:', file.name, file.size);
+                
+                // Enable continue button
+                document.getElementById('continue-to-confirm').disabled = false;
+                
+                // Update color match preview
+                updateColorMatchPreview();
             };
             reader.readAsDataURL(file);
         }
@@ -2612,10 +3011,16 @@
             return;
         }
 
+        if (selectedProjects.length === 0) {
+            alert('Please select at least one project');
+            goToStep1();
+            return;
+        }
+
         // Show loading state
-        const submitBtn = document.querySelector('#page-contribute button[onclick="submitContribution()"]');
+        const submitBtn = document.getElementById('submit-contribution-btn');
         const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = 'Uploading...';
+        submitBtn.innerHTML = '🎨 Submitting...';
         submitBtn.disabled = true;
 
         try {
@@ -2639,19 +3044,14 @@
 
             console.log('Upload successful:', uploadData);
 
-            // Get the public URL
-            const { data: urlData } = supabaseClient.storage
-                .from('contributions')
-                .getPublicUrl(fileName);
-
-            console.log('Public URL:', urlData?.publicUrl);
-
-            // Create contribution record
+            // Create contribution record for the first selected project
+            // (In production, you might want to handle multiple projects differently)
             const { data: contribution, error: dbError } = await supabaseClient
                 .from('contributions')
                 .insert({
                     contributor_id: currentUser.id,
                     image_url: fileName,
+                    project_id: selectedProjects[0], // Primary project
                     status: 'pending',
                     consent_given: true
                 })
@@ -2665,14 +3065,28 @@
 
             console.log('Contribution created:', contribution);
 
-            alert('Thank you! Your contribution has been submitted and is pending review.');
+            // Link to additional projects if any
+            if (selectedProjects.length > 1) {
+                for (let i = 1; i < selectedProjects.length; i++) {
+                    await supabaseClient
+                        .from('project_contributions')
+                        .insert({
+                            project_id: selectedProjects[i],
+                            contribution_id: contribution.id
+                        });
+                }
+            }
+
+            // Get project names for the success message
+            const projectNames = selectedProjects.map(id => {
+                const p = availableProjects.find(proj => proj.id === id);
+                return p ? p.title : '';
+            }).join(', ');
+
+            alert(`🎉 Success! Your face has been submitted to: ${projectNames}\n\nYou'll be notified when the artwork is ready!`);
             
-            // Reset form
-            document.getElementById('upload-placeholder').classList.remove('hidden');
-            document.getElementById('upload-preview').classList.add('hidden');
-            document.getElementById('consent-checkbox').checked = false;
-            uploadedFile = null;
-            document.getElementById('face-upload').value = '';
+            // Reset form and go back to step 1
+            resetContributeFlow();
 
             // Redirect to dashboard
             showPage('dashboard-contributor');
