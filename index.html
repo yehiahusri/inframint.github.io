@@ -2774,6 +2774,7 @@
 
     // Google Sign In
     async function signInWithGoogle(userType) {
+        console.log('signInWithGoogle called with:', userType);
         try {
             const { data, error } = await supabaseClient.auth.signInWithOAuth({
                 provider: 'google',
@@ -2786,6 +2787,7 @@
                 }
             });
 
+            console.log('OAuth response:', data, error);
             if (error) throw error;
 
         } catch (error) {
