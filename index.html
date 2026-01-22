@@ -257,6 +257,34 @@
             </div>
         </div>
     </section>
+
+    <!-- Open Projects Section -->
+    <section class="py-24 px-6 bg-gradient-to-b from-transparent to-purple-900/10">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl font-bold mb-4">
+                    Open <span class="gradient-text">Projects</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    Join these masterpieces. Each spot you fill brings you closer to earning when the artwork sells.
+                </p>
+            </div>
+            
+            <div id="home-projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Projects loaded via JS -->
+                <div class="col-span-full text-center py-12">
+                    <div class="animate-spin w-8 h-8 border-2 border-pink-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+                    <p class="text-gray-400">Loading projects...</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <button onclick="showPage('contribute')" class="px-10 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-pink-500/50 transition-all hover:scale-105">
+                    Join a Project →
+                </button>
+            </div>
+        </div>
+    </section>
 </div>
 
 <!-- How It Works Page -->
@@ -398,25 +426,23 @@
                     <h3 class="text-xl font-bold mb-4">Upload Your Best Selfie</h3>
                     <p class="text-gray-400 text-sm mb-6">Face-forward, good lighting, neutral background works best.</p>
                     
-                    <div id="upload-zone" class="gradient-border rounded-2xl p-8 text-center cursor-pointer hover:bg-white/5 transition-colors">
+                    <div id="upload-zone" class="gradient-border rounded-2xl p-8 text-center cursor-pointer hover:bg-white/5 transition-colors" onclick="document.getElementById('face-upload').click()">
                         <input type="file" accept="image/*" id="face-upload" class="hidden" onchange="handleFileUpload(event)">
-                        <label for="face-upload" class="cursor-pointer block">
-                            <div id="upload-placeholder">
-                                <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center">
-                                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    </svg>
-                                </div>
-                                <div class="text-gray-300 text-lg mb-2">Click to upload or drag & drop</div>
-                                <div class="text-sm text-gray-500">JPG, PNG up to 10MB</div>
+                        <div id="upload-placeholder">
+                            <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
                             </div>
-                            <div id="upload-preview" class="hidden">
-                                <img id="preview-image" class="w-48 h-48 mx-auto rounded-full object-cover mb-4 ring-4 ring-pink-500">
-                                <div class="text-green-400 font-semibold">✓ Looking great!</div>
-                                <button type="button" onclick="resetUpload(event)" class="mt-2 text-sm text-gray-400 hover:text-white">Change photo</button>
-                            </div>
-                        </label>
+                            <div class="text-gray-300 text-lg mb-2">Click to upload or drag & drop</div>
+                            <div class="text-sm text-gray-500">JPG, PNG up to 10MB</div>
+                        </div>
+                        <div id="upload-preview" class="hidden">
+                            <img id="preview-image" class="w-48 h-48 mx-auto rounded-full object-cover mb-4 ring-4 ring-pink-500">
+                            <div class="text-green-400 font-semibold">✓ Looking great!</div>
+                            <button type="button" onclick="event.stopPropagation(); resetUpload(event)" class="mt-2 text-sm text-gray-400 hover:text-white">Change photo</button>
+                        </div>
                     </div>
 
                     <!-- Photo Quality Tips -->
@@ -2631,6 +2657,11 @@
             loadProjects();
             resetContributeFlow();
         }
+        
+        // Load projects on homepage
+        if (pageId === 'home') {
+            loadHomeProjects();
+        }
     }
 
     function toggleMobileMenu() {
@@ -2727,6 +2758,69 @@
             `;
         }).join('');
     }
+
+    // Load projects for homepage (public view)
+    async function loadHomeProjects() {
+        try {
+            const { data: projects, error } = await supabaseClient
+                .from('projects')
+                .select('*')
+                .in('status', ['open', 'filling'])
+                .order('created_at', { ascending: false })
+                .limit(6);
+
+            if (error) throw error;
+
+            const grid = document.getElementById('home-projects-grid');
+            if (!grid) return;
+
+            if (!projects || projects.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <div class="text-4xl mb-4">🎨</div>
+                        <p class="text-gray-400">No open projects right now</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = projects.map(project => {
+                const percentFilled = Math.round((project.filled_spots / project.total_spots) * 100);
+                const spotsLeft = project.total_spots - project.filled_spots;
+                
+                return `
+                    <div class="glass-effect rounded-2xl overflow-hidden hover-lift cursor-pointer" onclick="showPage('contribute')">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img src="${project.image_url}" alt="${project.title}" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                            
+                            <!-- Progress Bar -->
+                            <div class="absolute bottom-0 left-0 right-0 p-4">
+                                <div class="flex items-center justify-between text-sm mb-2">
+                                    <span class="text-white font-medium">${project.filled_spots.toLocaleString()} / ${project.total_spots.toLocaleString()}</span>
+                                    <span class="${spotsLeft < 500 ? 'text-yellow-400' : 'text-green-400'}">${spotsLeft.toLocaleString()} spots left</span>
+                                </div>
+                                <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-pink-500 to-purple-600" style="width: ${percentFilled}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4">
+                            <h3 class="text-xl font-bold mb-1">${project.title}</h3>
+                            <p class="text-gray-400 text-sm">by ${project.artist}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+        } catch (error) {
+            console.error('Error loading home projects:', error);
+        }
+    }
+
+    // Load homepage projects on initial page load
+    document.addEventListener('DOMContentLoaded', loadHomeProjects);
 
     function toggleProject(projectId) {
         const index = selectedProjects.indexOf(projectId);
@@ -3391,10 +3485,10 @@
 
     async function loadContributorStats(userId) {
         try {
-            // Get all contributions with full data
+            // Get all contributions with project data
             const { data: contributions, error } = await supabaseClient
                 .from('contributions')
-                .select('*')
+                .select('*, projects(id, title, image_url, filled_spots, total_spots)')
                 .eq('contributor_id', userId)
                 .order('created_at', { ascending: false });
 
@@ -3408,29 +3502,40 @@
                 if (contributions.length > 0) {
                     emptyState.classList.add('hidden');
                     
-                    // Create grid of contribution images
+                    // Create grid of contribution images with project info
                     const contributionsHTML = `
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             ${contributions.map(c => {
                                 const { data: urlData } = supabaseClient.storage
                                     .from('contributions')
                                     .getPublicUrl(c.image_url);
                                 const imageUrl = urlData?.publicUrl || '';
+                                const project = c.projects;
                                 
                                 return `
-                                    <div class="relative rounded-xl overflow-hidden bg-gray-800 aspect-square group">
-                                        <img src="${imageUrl}" 
-                                             alt="My contribution" 
-                                             class="w-full h-full object-cover">
-                                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                                        <div class="absolute bottom-0 left-0 right-0 p-3">
-                                            <div class="flex items-center justify-between">
-                                                <span class="text-xs px-2 py-1 rounded-full ${
-                                                    c.status === 'approved' ? 'bg-green-500/20 text-green-400' : 
-                                                    c.status === 'pending' ? 'bg-yellow-500/20 text-yellow-400' : 
-                                                    'bg-red-500/20 text-red-400'
-                                                }">${c.status}</span>
-                                                <span class="text-xs text-gray-400">${new Date(c.created_at).toLocaleDateString()}</span>
+                                    <div class="glass-effect rounded-xl overflow-hidden">
+                                        <div class="flex gap-4 p-4">
+                                            <img src="${imageUrl}" 
+                                                 alt="My contribution" 
+                                                 class="w-20 h-20 rounded-lg object-cover">
+                                            <div class="flex-1">
+                                                <div class="flex items-center gap-2 mb-1">
+                                                    <span class="text-xs px-2 py-1 rounded-full ${
+                                                        c.status === 'approved' ? 'bg-green-500/20 text-green-400' : 
+                                                        c.status === 'pending' ? 'bg-yellow-500/20 text-yellow-400' : 
+                                                        'bg-red-500/20 text-red-400'
+                                                    }">${c.status}</span>
+                                                    <span class="text-xs text-gray-500">${new Date(c.created_at).toLocaleDateString()}</span>
+                                                </div>
+                                                ${project ? `
+                                                    <div class="flex items-center gap-2 mt-2">
+                                                        <img src="${project.image_url}" class="w-8 h-8 rounded object-cover">
+                                                        <div>
+                                                            <div class="text-sm font-medium">${project.title}</div>
+                                                            <div class="text-xs text-gray-400">${project.filled_spots}/${project.total_spots} spots</div>
+                                                        </div>
+                                                    </div>
+                                                ` : '<div class="text-xs text-gray-500 mt-2">No project assigned</div>'}
                                             </div>
                                         </div>
                                     </div>
