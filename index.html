@@ -2718,7 +2718,7 @@
                         
                         <!-- Color Palette -->
                         <div class="flex gap-1 mt-3">
-                            ${(JSON.parse(project.dominant_colors || '[]')).slice(0, 5).map(color => `
+                            ${(Array.isArray(project.dominant_colors) ? project.dominant_colors : []).slice(0, 5).map(color => `
                                 <div class="w-6 h-6 rounded-full" style="background-color: ${color}" title="${color}"></div>
                             `).join('')}
                         </div>
@@ -2848,7 +2848,7 @@
             const project = availableProjects.find(p => p.id === id);
             if (!project) return '';
             
-            const colors = JSON.parse(project.dominant_colors || '[]');
+            const colors = Array.isArray(project.dominant_colors) ? project.dominant_colors : [];
             const randomColor = colors[Math.floor(Math.random() * colors.length)] || '#ffffff';
             
             return `
