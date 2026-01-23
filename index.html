@@ -3086,6 +3086,36 @@
     // Initialize drag and drop when page loads
     document.addEventListener('DOMContentLoaded', setupDragAndDrop);
 
+    // Convert file to base64
+    function fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                // Remove the data:image/xxx;base64, prefix
+                const base64 = reader.result.split(',')[1];
+                resolve(base64);
+            };
+            reader.onerror = error => reject(error);
+        });
+    }
+
+    // Call the moderation Edge Function
+    async function moderateImage(imageBase64) {
+        const response = await fetch(
+            'https://vyibnkztkacifahhlxof.supabase.co/functions/v1/moderate-image',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${(await supabaseClient.auth.getSession()).data.session?.access_token}`
+                },
+                body: JSON.stringify({ imageBase64 })
+            }
+        );
+        return response.json();
+    }
+
     async function submitContribution() {
         if (!currentUser) {
             alert('Please sign in to contribute');
@@ -3114,11 +3144,27 @@
         // Show loading state
         const submitBtn = document.getElementById('submit-contribution-btn');
         const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '🎨 Submitting...';
+        submitBtn.innerHTML = '🔍 Checking image...';
         submitBtn.disabled = true;
 
         try {
-            // Upload file to Supabase Storage
+            // Step 1: AI Moderation Check
+            console.log('Starting AI moderation...');
+            const imageBase64 = await fileToBase64(uploadedFile);
+            const moderationResult = await moderateImage(imageBase64);
+            
+            console.log('Moderation result:', moderationResult);
+
+            if (!moderationResult.approved) {
+                alert('❌ ' + moderationResult.reason);
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                return;
+            }
+
+            // Step 2: Upload file to Supabase Storage (only if moderation passed)
+            submitBtn.innerHTML = '🎨 Uploading...';
+            
             const fileExt = uploadedFile.name.split('.').pop().toLowerCase();
             const fileName = `${currentUser.id}/${Date.now()}.${fileExt}`;
             
@@ -3139,7 +3185,6 @@
             console.log('Upload successful:', uploadData);
 
             // Create contribution record for the first selected project
-            // (In production, you might want to handle multiple projects differently)
             const { data: contribution, error: dbError } = await supabaseClient
                 .from('contributions')
                 .insert({
@@ -3159,7 +3204,16 @@
 
             console.log('Contribution created:', contribution);
 
-            // Link to additional projects if any
+            // Increment filled_spots for the primary project
+            const primaryProject = availableProjects.find(p => p.id === selectedProjects[0]);
+            if (primaryProject) {
+                await supabaseClient
+                    .from('projects')
+                    .update({ filled_spots: primaryProject.filled_spots + 1 })
+                    .eq('id', selectedProjects[0]);
+            }
+
+            // Link to additional projects if any and increment their spots too
             if (selectedProjects.length > 1) {
                 for (let i = 1; i < selectedProjects.length; i++) {
                     await supabaseClient
@@ -3168,6 +3222,15 @@
                             project_id: selectedProjects[i],
                             contribution_id: contribution.id
                         });
+                    
+                    // Increment filled_spots for additional projects
+                    const additionalProject = availableProjects.find(p => p.id === selectedProjects[i]);
+                    if (additionalProject) {
+                        await supabaseClient
+                            .from('projects')
+                            .update({ filled_spots: additionalProject.filled_spots + 1 })
+                            .eq('id', selectedProjects[i]);
+                    }
                 }
             }
 
