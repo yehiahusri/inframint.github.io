@@ -4771,34 +4771,68 @@
             const aspectRatio = document.getElementById('ai-aspect-ratio').value;
             const quality = document.getElementById('ai-quality').value;
             
-            // Use Supabase Edge Function as proxy to avoid CORS issues
-            const edgeFunctionUrl = SUPABASE_URL + '/functions/v1/replicate-proxy';
+            // Use CORS proxy to bypass browser restrictions
+            const replicateUrl = 'https://api.replicate.com/v1/models/black-forest-labs/flux-schnell/predictions';
+            const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(replicateUrl);
             
-            const response = await fetch(edgeFunctionUrl, {
+            const response = await fetch(proxyUrl, {
                 method: 'POST',
                 headers: {
+                    'Authorization': 'Bearer ' + apiKey,
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+                    'Prefer': 'wait'
                 },
                 body: JSON.stringify({
-                    prompt: fullPrompt,
-                    aspect_ratio: aspectRatio,
-                    api_key: apiKey
+                    input: {
+                        prompt: fullPrompt,
+                        num_outputs: 1,
+                        aspect_ratio: aspectRatio,
+                        output_format: 'png',
+                        output_quality: 100
+                    }
                 })
             });
             
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'API request failed');
+                const errorText = await response.text();
+                let errorMsg = 'API request failed';
+                try {
+                    const errorData = JSON.parse(errorText);
+                    errorMsg = errorData.detail || errorData.error || errorMsg;
+                } catch(e) {
+                    errorMsg = errorText || errorMsg;
+                }
+                throw new Error(errorMsg);
             }
             
             const result = await response.json();
             
             let imageUrl = null;
-            if (result.success && result.output) {
-                imageUrl = result.output;
+            if (result.output) {
+                imageUrl = Array.isArray(result.output) ? result.output[0] : result.output;
+            } else if (result.urls && result.urls.get) {
+                // Need to poll for result
+                let pollResult = result;
+                let attempts = 0;
+                const pollProxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(result.urls.get);
+                while (pollResult.status !== 'succeeded' && pollResult.status !== 'failed' && attempts < 60) {
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    const pollResponse = await fetch(pollProxyUrl, {
+                        headers: { 'Authorization': 'Bearer ' + apiKey }
+                    });
+                    pollResult = await pollResponse.json();
+                    attempts++;
+                    if (pollResult.status === 'processing') {
+                        document.getElementById('generation-status-text').textContent = 'Processing... (' + attempts + ')';
+                    }
+                }
+                if (pollResult.status === 'succeeded' && pollResult.output) {
+                    imageUrl = Array.isArray(pollResult.output) ? pollResult.output[0] : pollResult.output;
+                } else {
+                    throw new Error('Generation failed or timed out');
+                }
             } else {
-                throw new Error(result.error || 'Generation failed');
+                throw new Error(result.detail || 'No output in response');
             }
             
             if (!imageUrl) {
