@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0072)file:///Users/samiryehiahusri/Downloads/InfraMint_with_AI_Generator.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InfraMint - Collective AI Art Platform</title>
-    <script src="./InfraMint - Collective AI Art Platform_files/saved_resource"></script>
-    <script src="./InfraMint - Collective AI Art Platform_files/supabase-js@2"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=Syne:wght@700;800&display=swap');
         
@@ -96,7 +96,7 @@
             opacity: 1;
         }
     </style>
-<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.left-0{left:0px}.right-0{right:0px}.top-0{top:0px}.bottom-0{bottom:0px}.z-10{z-index:10}.z-50{z-index:50}.col-span-full{grid-column:1 / -1}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:0.25rem}.mb-12{margin-bottom:3rem}.mb-16{margin-bottom:4rem}.mb-2{margin-bottom:0.5rem}.mb-20{margin-bottom:5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.ml-2{margin-left:0.5rem}.ml-4{margin-left:1rem}.mt-0\.5{margin-top:0.125rem}.mt-1{margin-top:0.25rem}.mt-12{margin-top:3rem}.mt-2{margin-top:0.5rem}.mt-3{margin-top:0.75rem}.mt-32{margin-top:8rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.aspect-square{aspect-ratio:1 / 1}.aspect-video{aspect-ratio:16 / 9}.h-0\.5{height:0.125rem}.h-10{height:2.5rem}.h-12{height:3rem}.h-16{height:4rem}.h-2{height:0.5rem}.h-20{height:5rem}.h-32{height:8rem}.h-4{height:1rem}.h-48{height:12rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-8{height:2rem}.h-\[700px\]{height:700px}.h-full{height:100%}.max-h-64{max-height:16rem}.max-h-\[90vh\]{max-height:90vh}.min-h-screen{min-height:100vh}.w-10{width:2.5rem}.w-12{width:3rem}.w-16{width:4rem}.w-2{width:0.5rem}.w-20{width:5rem}.w-32{width:8rem}.w-4{width:1rem}.w-48{width:12rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-8{width:2rem}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.max-w-5xl{max-width:64rem}.max-w-6xl{max-width:72rem}.max-w-7xl{max-width:80rem}.max-w-\[85\%\]{max-width:85%}.max-w-md{max-width:28rem}.max-w-none{max-width:none}.flex-1{flex:1 1 0%}.flex-shrink-0{flex-shrink:0}@keyframes spin{to{transform:rotate(360deg)}}.animate-spin{animation:spin 1s linear infinite}.cursor-not-allowed{cursor:not-allowed}.cursor-pointer{cursor:pointer}.resize-none{resize:none}.list-inside{list-style-position:inside}.list-disc{list-style-type:disc}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-end{align-items:flex-end}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-12{gap:3rem}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.gap-1{gap:0.25rem}.space-y-1 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.25rem * var(--tw-space-y-reverse))}.space-y-16 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(4rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(4rem * var(--tw-space-y-reverse))}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.space-y-8 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(2rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(2rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.whitespace-nowrap{white-space:nowrap}.rounded{border-radius:0.25rem}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.rounded-tl-none{border-top-left-radius:0px}.border{border-width:1px}.border-2{border-width:2px}.border-b{border-bottom-width:1px}.border-b-2{border-bottom-width:2px}.border-t{border-top-width:1px}.border-blue-500\/30{border-color:rgb(59 130 246 / 0.3)}.border-gray-700{--tw-border-opacity:1;border-color:rgb(55 65 81 / var(--tw-border-opacity, 1))}.border-gray-800{--tw-border-opacity:1;border-color:rgb(31 41 55 / var(--tw-border-opacity, 1))}.border-green-500\/30{border-color:rgb(34 197 94 / 0.3)}.border-pink-500{--tw-border-opacity:1;border-color:rgb(236 72 153 / var(--tw-border-opacity, 1))}.border-pink-500\/30{border-color:rgb(236 72 153 / 0.3)}.border-red-500\/20{border-color:rgb(239 68 68 / 0.2)}.border-red-500\/50{border-color:rgb(239 68 68 / 0.5)}.border-transparent{border-color:transparent}.border-yellow-500\/30{border-color:rgb(234 179 8 / 0.3)}.border-yellow-500\/50{border-color:rgb(234 179 8 / 0.5)}.border-t-transparent{border-top-color:transparent}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-black\/80{background-color:rgb(0 0 0 / 0.8)}.bg-blue-500\/10{background-color:rgb(59 130 246 / 0.1)}.bg-gray-700{--tw-bg-opacity:1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.bg-gray-800{--tw-bg-opacity:1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.bg-gray-800\/50{background-color:rgb(31 41 55 / 0.5)}.bg-gray-900{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1))}.bg-gray-900\/50{background-color:rgb(17 24 39 / 0.5)}.bg-green-500{--tw-bg-opacity:1;background-color:rgb(34 197 94 / var(--tw-bg-opacity, 1))}.bg-green-500\/10{background-color:rgb(34 197 94 / 0.1)}.bg-pink-500{--tw-bg-opacity:1;background-color:rgb(236 72 153 / var(--tw-bg-opacity, 1))}.bg-pink-500\/10{background-color:rgb(236 72 153 / 0.1)}.bg-pink-500\/20{background-color:rgb(236 72 153 / 0.2)}.bg-purple-500\/20{background-color:rgb(168 85 247 / 0.2)}.bg-red-500\/20{background-color:rgb(239 68 68 / 0.2)}.bg-transparent{background-color:transparent}.bg-white\/10{background-color:rgb(255 255 255 / 0.1)}.bg-white\/5{background-color:rgb(255 255 255 / 0.05)}.bg-yellow-500\/10{background-color:rgb(234 179 8 / 0.1)}.bg-yellow-500\/20{background-color:rgb(234 179 8 / 0.2)}.bg-gradient-to-b{background-image:linear-gradient(to bottom, var(--tw-gradient-stops))}.bg-gradient-to-br{background-image:linear-gradient(to bottom right, var(--tw-gradient-stops))}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.bg-gradient-to-t{background-image:linear-gradient(to top, var(--tw-gradient-stops))}.from-black\/80{--tw-gradient-from:rgb(0 0 0 / 0.8) var(--tw-gradient-from-position);--tw-gradient-to:rgb(0 0 0 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-pink-500{--tw-gradient-from:#ec4899 var(--tw-gradient-from-position);--tw-gradient-to:rgb(236 72 153 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-purple-500{--tw-gradient-from:#a855f7 var(--tw-gradient-from-position);--tw-gradient-to:rgb(168 85 247 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-purple-600{--tw-gradient-from:#9333ea var(--tw-gradient-from-position);--tw-gradient-to:rgb(147 51 234 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-purple-900\/20{--tw-gradient-from:rgb(88 28 135 / 0.2) var(--tw-gradient-from-position);--tw-gradient-to:rgb(88 28 135 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-transparent{--tw-gradient-from:transparent var(--tw-gradient-from-position);--tw-gradient-to:rgb(0 0 0 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-transparent{--tw-gradient-to:rgb(0 0 0 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), transparent var(--tw-gradient-via-position), var(--tw-gradient-to)}.via-black\/20{--tw-gradient-to:rgb(0 0 0 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), rgb(0 0 0 / 0.2) var(--tw-gradient-via-position), var(--tw-gradient-to)}.to-indigo-600{--tw-gradient-to:#4f46e5 var(--tw-gradient-to-position)}.to-purple-600{--tw-gradient-to:#9333ea var(--tw-gradient-to-position)}.to-purple-800{--tw-gradient-to:#6b21a8 var(--tw-gradient-to-position)}.to-purple-900\/10{--tw-gradient-to:rgb(88 28 135 / 0.1) var(--tw-gradient-to-position)}.to-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position)}.object-cover{object-fit:cover}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-10{padding-left:2.5rem;padding-right:2.5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-16{padding-top:4rem;padding-bottom:4rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-24{padding-top:6rem;padding-bottom:6rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-2{padding-bottom:0.5rem}.pb-3{padding-bottom:0.75rem}.pt-20{padding-top:5rem}.pt-4{padding-top:1rem}.pt-6{padding-top:1.5rem}.pt-8{padding-top:2rem}.text-left{text-align:left}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-5xl{font-size:3rem;line-height:1}.text-6xl{font-size:3.75rem;line-height:1}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-tight{letter-spacing:-0.025em}.tracking-wider{letter-spacing:0.05em}.text-blue-400{--tw-text-opacity:1;color:rgb(96 165 250 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-green-400{--tw-text-opacity:1;color:rgb(74 222 128 / var(--tw-text-opacity, 1))}.text-pink-400{--tw-text-opacity:1;color:rgb(244 114 182 / var(--tw-text-opacity, 1))}.text-pink-500{--tw-text-opacity:1;color:rgb(236 72 153 / var(--tw-text-opacity, 1))}.text-purple-300{--tw-text-opacity:1;color:rgb(216 180 254 / var(--tw-text-opacity, 1))}.text-purple-400{--tw-text-opacity:1;color:rgb(192 132 252 / var(--tw-text-opacity, 1))}.text-purple-500{--tw-text-opacity:1;color:rgb(168 85 247 / var(--tw-text-opacity, 1))}.text-red-400{--tw-text-opacity:1;color:rgb(248 113 113 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-yellow-400{--tw-text-opacity:1;color:rgb(250 204 21 / var(--tw-text-opacity, 1))}.text-yellow-500{--tw-text-opacity:1;color:rgb(234 179 8 / var(--tw-text-opacity, 1))}.placeholder-gray-500::placeholder{--tw-placeholder-opacity:1;color:rgb(107 114 128 / var(--tw-placeholder-opacity, 1))}.accent-pink-500{accent-color:#ec4899}.accent-purple-500{accent-color:#a855f7}.opacity-50{opacity:0.5}.ring-4{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(4px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.ring-pink-500{--tw-ring-opacity:1;--tw-ring-color:rgb(236 72 153 / var(--tw-ring-opacity, 1))}.backdrop-blur-sm{--tw-backdrop-blur:blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:scale-105:hover{--tw-scale-x:1.05;--tw-scale-y:1.05;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:bg-pink-500\/30:hover{background-color:rgb(236 72 153 / 0.3)}.hover\:bg-red-500\/30:hover{background-color:rgb(239 68 68 / 0.3)}.hover\:bg-white\/10:hover{background-color:rgb(255 255 255 / 0.1)}.hover\:bg-white\/20:hover{background-color:rgb(255 255 255 / 0.2)}.hover\:bg-white\/5:hover{background-color:rgb(255 255 255 / 0.05)}.hover\:bg-yellow-500\/30:hover{background-color:rgb(234 179 8 / 0.3)}.hover\:text-pink-300:hover{--tw-text-opacity:1;color:rgb(249 168 212 / var(--tw-text-opacity, 1))}.hover\:text-purple-300:hover{--tw-text-opacity:1;color:rgb(216 180 254 / var(--tw-text-opacity, 1))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:text-red-300:hover{--tw-text-opacity:1;color:rgb(252 165 165 / var(--tw-text-opacity, 1))}.hover\:underline:hover{-webkit-text-decoration-line:underline;text-decoration-line:underline}.hover\:shadow-lg:hover{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.hover\:shadow-xl:hover{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.hover\:shadow-pink-500\/50:hover{--tw-shadow-color:rgb(236 72 153 / 0.5);--tw-shadow:var(--tw-shadow-colored)}.hover\:shadow-purple-500\/50:hover{--tw-shadow-color:rgb(168 85 247 / 0.5);--tw-shadow:var(--tw-shadow-colored)}.focus\:border-pink-500:focus{--tw-border-opacity:1;border-color:rgb(236 72 153 / var(--tw-border-opacity, 1))}.focus\:border-purple-500:focus{--tw-border-opacity:1;border-color:rgb(168 85 247 / var(--tw-border-opacity, 1))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.disabled\:cursor-not-allowed:disabled{cursor:not-allowed}.disabled\:opacity-50:disabled{opacity:0.5}.group:hover .group-hover\:scale-110{--tw-scale-x:1.1;--tw-scale-y:1.1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@media (min-width: 640px){.sm\:inline{display:inline}.sm\:flex-row{flex-direction:row}}@media (min-width: 768px){.md\:col-span-1{grid-column:span 1 / span 1}.md\:col-span-2{grid-column:span 2 / span 2}.md\:mt-0{margin-top:0px}.md\:flex{display:flex}.md\:hidden{display:none}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.md\:grid-cols-8{grid-template-columns:repeat(8, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:items-center{align-items:center}.md\:justify-between{justify-content:space-between}.md\:text-2xl{font-size:1.5rem;line-height:2rem}.md\:text-6xl{font-size:3.75rem;line-height:1}.md\:text-8xl{font-size:6rem;line-height:1}}@media (min-width: 1024px){.lg\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.lg\:grid-cols-6{grid-template-columns:repeat(6, minmax(0, 1fr))}}</style></head>
+</head>
 <body class="bg-black text-white">
 
 <!-- Navigation -->
@@ -104,43 +104,35 @@
     <div class="max-w-7xl mx-auto px-6 py-4">
         <div class="flex items-center justify-between">
             <!-- Logo -->
-            <div class="flex items-center gap-3 cursor-pointer" onclick="showPage(&#39;home&#39;)">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="showPage('home')">
                 <svg width="44" height="40" viewBox="0 0 50 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
-                        <lineargradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#EC4899"></stop>
-                            <stop offset="100%" stop-color="#8B5CF6"></stop>
-                        </lineargradient>
+                        <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#EC4899"/>
+                            <stop offset="100%" stop-color="#8B5CF6"/>
+                        </linearGradient>
                     </defs>
                     <!-- Layered face silhouettes representing collective creation -->
-                    <ellipse cx="18" cy="22" rx="12" ry="16" fill="#EC4899" opacity="0.5"></ellipse>
-                    <ellipse cx="25" cy="22" rx="12" ry="16" fill="#A855F7" opacity="0.6"></ellipse>
-                    <ellipse cx="32" cy="22" rx="12" ry="16" fill="#8B5CF6" opacity="0.7"></ellipse>
+                    <ellipse cx="18" cy="22" rx="12" ry="16" fill="#EC4899" opacity="0.5"/>
+                    <ellipse cx="25" cy="22" rx="12" ry="16" fill="#A855F7" opacity="0.6"/>
+                    <ellipse cx="32" cy="22" rx="12" ry="16" fill="#8B5CF6" opacity="0.7"/>
                 </svg>
-                <span class="text-2xl font-bold tracking-tight" style="font-family: &#39;Syne&#39;, sans-serif; font-weight: 800;">
+                <span class="text-2xl font-bold tracking-tight" style="font-family: 'Syne', sans-serif; font-weight: 800;">
                     <span style="background: linear-gradient(135deg, #EC4899, #8B5CF6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Infra</span><span class="text-white">Mint</span>
                 </span>
             </div>
             
             <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center gap-8">
-                            <button onclick="showPage(&#39;home&#39;)" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Home</button>
-                            <button onclick="showPage(&#39;how&#39;)" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">How It Works</button>
-                            <button onclick="showPage(&#39;gallery&#39;)" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Gallery</button>
-                            <button onclick="showPage(&#39;dashboard-contributor&#39;)" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Dashboard</button>
-                        
-                                <button onclick="showPage(&#39;admin&#39;); loadAdminData();" class="text-sm font-medium text-red-400 hover:text-red-300 transition-colors flex items-center gap-1">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    </svg>
-                                    Admin
-                                </button>
-                            
-                            <button onclick="signOut()" class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-sm font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
-                                Sign Out
-                            </button>
-                        </div>
+                <button onclick="showPage('home')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Home</button>
+                <button onclick="showPage('how')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">How It Works</button>
+                <button onclick="showPage('gallery')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Gallery</button>
+                <button onclick="showPage('ethics')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Ethics</button>
+                <button onclick="showPage('signin')" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Sign In</button>
+                <button onclick="showPage('signup')" class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-sm font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
+                    Get Started
+                </button>
+            </div>
 
             <!-- Mobile Menu Button -->
             <button onclick="toggleMobileMenu()" class="md:hidden text-white">
@@ -152,12 +144,12 @@
 
         <!-- Mobile Navigation -->
         <div id="mobile-menu" class="hidden md:hidden pt-4 pb-2 space-y-3 border-t border-gray-800 mt-4">
-            <button onclick="showPage(&#39;home&#39;); toggleMobileMenu()" class="block w-full text-left text-gray-400 hover:text-white">Home</button>
-            <button onclick="showPage(&#39;how&#39;); toggleMobileMenu()" class="block w-full text-left text-gray-400 hover:text-white">How It Works</button>
-            <button onclick="showPage(&#39;gallery&#39;); toggleMobileMenu()" class="block w-full text-left text-gray-400 hover:text-white">Gallery</button>
-            <button onclick="showPage(&#39;ethics&#39;); toggleMobileMenu()" class="block w-full text-left text-gray-400 hover:text-white">Ethics</button>
-            <button onclick="showPage(&#39;signin&#39;); toggleMobileMenu()" class="block w-full text-left text-gray-400 hover:text-white">Sign In</button>
-            <button onclick="showPage(&#39;signup&#39;); toggleMobileMenu()" class="block w-full text-left text-pink-400 hover:text-pink-300 font-semibold">Get Started</button>
+            <button onclick="showPage('home'); toggleMobileMenu()" class="block w-full text-left text-gray-400 hover:text-white">Home</button>
+            <button onclick="showPage('how'); toggleMobileMenu()" class="block w-full text-left text-gray-400 hover:text-white">How It Works</button>
+            <button onclick="showPage('gallery'); toggleMobileMenu()" class="block w-full text-left text-gray-400 hover:text-white">Gallery</button>
+            <button onclick="showPage('ethics'); toggleMobileMenu()" class="block w-full text-left text-gray-400 hover:text-white">Ethics</button>
+            <button onclick="showPage('signin'); toggleMobileMenu()" class="block w-full text-left text-gray-400 hover:text-white">Sign In</button>
+            <button onclick="showPage('signup'); toggleMobileMenu()" class="block w-full text-left text-pink-400 hover:text-pink-300 font-semibold">Get Started</button>
         </div>
     </div>
 </nav>
@@ -172,7 +164,7 @@
                 ✨ AI-Powered Collective Art Platform
             </div>
             <h1 class="text-6xl md:text-8xl font-bold tracking-tight leading-tight">
-                Where Thousands<br>
+                Where Thousands<br/>
                 <span class="gradient-text">Create Together</span>
             </h1>
             <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
@@ -180,10 +172,10 @@
                 sells once, and revenue is shared with all contributors automatically.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-                <button onclick="showPage(&#39;contribute&#39;)" class="px-10 py-4 bg-gradient-to-r from-purple-600 to-purple-800 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-purple-500/50 transition-all hover:scale-105">
+                <button onclick="showPage('contribute')" class="px-10 py-4 bg-gradient-to-r from-purple-600 to-purple-800 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-purple-500/50 transition-all hover:scale-105">
                     Start Contributing
                 </button>
-                <button onclick="showPage(&#39;gallery&#39;)" class="px-10 py-4 glass-effect rounded-full text-lg font-semibold hover:bg-white/10 transition-all">
+                <button onclick="showPage('gallery')" class="px-10 py-4 glass-effect rounded-full text-lg font-semibold hover:bg-white/10 transition-all">
                     View Gallery
                 </button>
             </div>
@@ -218,7 +210,7 @@
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-5xl font-bold mb-4">
-                    Art Made by <span class="gradient-text">Thousands</span>,<br>
+                    Art Made by <span class="gradient-text">Thousands</span>,<br/>
                     Owned by One
                 </h2>
                 <p class="text-xl text-gray-400 max-w-2xl mx-auto">
@@ -279,124 +271,15 @@
             </div>
             
             <div id="home-projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="glass-effect rounded-2xl overflow-hidden hover-lift cursor-pointer" onclick="showPage(&#39;contribute&#39;)">
-                        <div class="aspect-video relative overflow-hidden">
-                            <img src="./InfraMint - Collective AI Art Platform_files/Tsunami_by_hokusai_19th_century.jpg" alt="The Great Wave off Kanagawa" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                            
-                            <!-- Progress Bar -->
-                            <div class="absolute bottom-0 left-0 right-0 p-4">
-                                <div class="flex items-center justify-between text-sm mb-2">
-                                    <span class="text-white font-medium">0 / 5,000</span>
-                                    <span class="text-green-400">5,000 spots left</span>
-                                </div>
-                                <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                                    <div class="h-full bg-gradient-to-r from-pink-500 to-purple-600" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="p-4">
-                            <h3 class="text-xl font-bold mb-1">The Great Wave off Kanagawa</h3>
-                            <p class="text-gray-400 text-sm">by Katsushika Hokusai</p>
-                        </div>
-                    </div>
-                
-                    <div class="glass-effect rounded-2xl overflow-hidden hover-lift cursor-pointer" onclick="showPage(&#39;contribute&#39;)">
-                        <div class="aspect-video relative overflow-hidden">
-                            <img src="./InfraMint - Collective AI Art Platform_files/1665_Girl_with_a_Pearl_Earring.jpg" alt="Girl with a Pearl Earring" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                            
-                            <!-- Progress Bar -->
-                            <div class="absolute bottom-0 left-0 right-0 p-4">
-                                <div class="flex items-center justify-between text-sm mb-2">
-                                    <span class="text-white font-medium">0 / 3,000</span>
-                                    <span class="text-green-400">3,000 spots left</span>
-                                </div>
-                                <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                                    <div class="h-full bg-gradient-to-r from-pink-500 to-purple-600" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="p-4">
-                            <h3 class="text-xl font-bold mb-1">Girl with a Pearl Earring</h3>
-                            <p class="text-gray-400 text-sm">by Johannes Vermeer</p>
-                        </div>
-                    </div>
-                
-                    <div class="glass-effect rounded-2xl overflow-hidden hover-lift cursor-pointer" onclick="showPage(&#39;contribute&#39;)">
-                        <div class="aspect-video relative overflow-hidden">
-                            <img src="./InfraMint - Collective AI Art Platform_files/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg" alt="The Birth of Venus" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                            
-                            <!-- Progress Bar -->
-                            <div class="absolute bottom-0 left-0 right-0 p-4">
-                                <div class="flex items-center justify-between text-sm mb-2">
-                                    <span class="text-white font-medium">0 / 5,000</span>
-                                    <span class="text-green-400">5,000 spots left</span>
-                                </div>
-                                <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                                    <div class="h-full bg-gradient-to-r from-pink-500 to-purple-600" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="p-4">
-                            <h3 class="text-xl font-bold mb-1">The Birth of Venus</h3>
-                            <p class="text-gray-400 text-sm">by Sandro Botticelli</p>
-                        </div>
-                    </div>
-                
-                    <div class="glass-effect rounded-2xl overflow-hidden hover-lift cursor-pointer" onclick="showPage(&#39;contribute&#39;)">
-                        <div class="aspect-video relative overflow-hidden">
-                            <img src="./InfraMint - Collective AI Art Platform_files/Claude_Monet_-_Water_Lilies_-_1906,_Ryerson.jpg" alt="Water Lilies" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                            
-                            <!-- Progress Bar -->
-                            <div class="absolute bottom-0 left-0 right-0 p-4">
-                                <div class="flex items-center justify-between text-sm mb-2">
-                                    <span class="text-white font-medium">0 / 4,000</span>
-                                    <span class="text-green-400">4,000 spots left</span>
-                                </div>
-                                <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                                    <div class="h-full bg-gradient-to-r from-pink-500 to-purple-600" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="p-4">
-                            <h3 class="text-xl font-bold mb-1">Water Lilies</h3>
-                            <p class="text-gray-400 text-sm">by Claude Monet</p>
-                        </div>
-                    </div>
-                
-                    <div class="glass-effect rounded-2xl overflow-hidden hover-lift cursor-pointer" onclick="showPage(&#39;contribute&#39;)">
-                        <div class="aspect-video relative overflow-hidden">
-                            <img src="./InfraMint - Collective AI Art Platform_files/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" alt="The Starry Night" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                            
-                            <!-- Progress Bar -->
-                            <div class="absolute bottom-0 left-0 right-0 p-4">
-                                <div class="flex items-center justify-between text-sm mb-2">
-                                    <span class="text-white font-medium">1 / 5,000</span>
-                                    <span class="text-green-400">4,999 spots left</span>
-                                </div>
-                                <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                                    <div class="h-full bg-gradient-to-r from-pink-500 to-purple-600" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="p-4">
-                            <h3 class="text-xl font-bold mb-1">The Starry Night</h3>
-                            <p class="text-gray-400 text-sm">by Vincent van Gogh</p>
-                        </div>
-                    </div>
+                <!-- Projects loaded via JS -->
+                <div class="col-span-full text-center py-12">
+                    <div class="animate-spin w-8 h-8 border-2 border-pink-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+                    <p class="text-gray-400">Loading projects...</p>
                 </div>
+            </div>
 
             <div class="text-center mt-12">
-                <button onclick="showPage(&#39;contribute&#39;)" class="px-10 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-pink-500/50 transition-all hover:scale-105">
+                <button onclick="showPage('contribute')" class="px-10 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-pink-500/50 transition-all hover:scale-105">
                     Join a Project →
                 </button>
             </div>
@@ -522,7 +405,7 @@
                         <h3 class="font-bold">Selected Projects: <span id="selected-count">0</span>/3</h3>
                         <p class="text-sm text-gray-400" id="selected-names">None selected</p>
                     </div>
-                    <button onclick="goToStep2()" id="continue-to-upload" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed" disabled="">
+                    <button onclick="goToStep2()" id="continue-to-upload" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                         Continue to Upload →
                     </button>
                 </div>
@@ -543,7 +426,7 @@
                     <h3 class="text-xl font-bold mb-4">Upload Your Best Selfie</h3>
                     <p class="text-gray-400 text-sm mb-6">Face-forward, good lighting, neutral background works best.</p>
                     
-                    <div id="upload-zone" class="gradient-border rounded-2xl p-8 text-center cursor-pointer hover:bg-white/5 transition-colors" onclick="document.getElementById(&#39;face-upload&#39;).click()">
+                    <div id="upload-zone" class="gradient-border rounded-2xl p-8 text-center cursor-pointer hover:bg-white/5 transition-colors" onclick="document.getElementById('face-upload').click()">
                         <input type="file" accept="image/*" id="face-upload" class="hidden" onchange="handleFileUpload(event)">
                         <div id="upload-placeholder">
                             <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center">
@@ -552,7 +435,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 </svg>
                             </div>
-                            <div class="text-gray-300 text-lg mb-2">Click to upload or drag &amp; drop</div>
+                            <div class="text-gray-300 text-lg mb-2">Click to upload or drag & drop</div>
                             <div class="text-sm text-gray-500">JPG, PNG up to 10MB</div>
                         </div>
                         <div id="upload-preview" class="hidden">
@@ -593,7 +476,7 @@
                 </div>
             </div>
 
-            <button onclick="goToStep3()" id="continue-to-confirm" class="w-full px-6 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled="">
+            <button onclick="goToStep3()" id="continue-to-confirm" class="w-full px-6 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                 Continue to Confirm →
             </button>
         </div>
@@ -633,7 +516,7 @@
                         <span class="text-gray-300 text-sm leading-relaxed">
                             I grant InfraMint permission to use my likeness in the selected artwork(s). I understand my face will be 
                             transformed into mosaic tiles and combined with other contributors. I agree to the 
-                            <a onclick="showPage(&#39;contributor-agreement&#39;)" class="text-pink-400 hover:underline cursor-pointer">Contributor Agreement</a> 
+                            <a onclick="showPage('contributor-agreement')" class="text-pink-400 hover:underline cursor-pointer">Contributor Agreement</a> 
                             and will receive a proportional share of revenue when the artwork sells.
                         </span>
                     </label>
@@ -674,7 +557,9 @@
             <!-- Artwork 1 -->
             <div class="artwork-card glass-effect rounded-2xl overflow-hidden hover-lift">
                 <div class="aspect-square relative overflow-hidden">
-                    <img src="./InfraMint - Collective AI Art Platform_files/photo-1579783902614-a3fb3927b6a5" alt="Impressions at Dawn" class="w-full h-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&q=80" 
+                         alt="Impressions at Dawn" 
+                         class="w-full h-full object-cover">
                 </div>
                 <div class="p-6 space-y-3">
                     <h3 class="text-2xl font-bold">Impressions at Dawn</h3>
@@ -694,7 +579,9 @@
             <!-- Artwork 2 (Sold) -->
             <div class="artwork-card glass-effect rounded-2xl overflow-hidden hover-lift">
                 <div class="aspect-square relative overflow-hidden">
-                    <img src="./InfraMint - Collective AI Art Platform_files/photo-1547891654-e66ed7ebb968" alt="Collective Reverie" class="w-full h-full object-cover opacity-50">
+                    <img src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=800&q=80" 
+                         alt="Collective Reverie" 
+                         class="w-full h-full object-cover opacity-50">
                     <div class="absolute inset-0 flex items-center justify-center backdrop-blur-sm">
                         <div class="text-center">
                             <svg class="w-16 h-16 mx-auto mb-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -713,7 +600,7 @@
                         <span>2,134 contributors</span>
                     </div>
                     <div class="text-3xl font-bold text-gray-500">$18,900</div>
-                    <button disabled="" class="w-full px-6 py-3 bg-gray-800 rounded-full font-semibold text-gray-500 cursor-not-allowed">
+                    <button disabled class="w-full px-6 py-3 bg-gray-800 rounded-full font-semibold text-gray-500 cursor-not-allowed">
                         Sold Out
                     </button>
                 </div>
@@ -722,7 +609,9 @@
             <!-- Artwork 3 -->
             <div class="artwork-card glass-effect rounded-2xl overflow-hidden hover-lift">
                 <div class="aspect-square relative overflow-hidden">
-                    <img src="./InfraMint - Collective AI Art Platform_files/photo-1541961017774-22349e4a1262" alt="Garden of Faces" class="w-full h-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&q=80" 
+                         alt="Garden of Faces" 
+                         class="w-full h-full object-cover">
                 </div>
                 <div class="p-6 space-y-3">
                     <h3 class="text-2xl font-bold">Garden of Faces</h3>
@@ -742,7 +631,9 @@
             <!-- Artwork 4 (Sold) -->
             <div class="artwork-card glass-effect rounded-2xl overflow-hidden hover-lift">
                 <div class="aspect-square relative overflow-hidden">
-                    <img src="./InfraMint - Collective AI Art Platform_files/photo-1549490349-8643362247b5" alt="Ethereal Connections" class="w-full h-full object-cover opacity-50">
+                    <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=800&q=80" 
+                         alt="Ethereal Connections" 
+                         class="w-full h-full object-cover opacity-50">
                     <div class="absolute inset-0 flex items-center justify-center backdrop-blur-sm">
                         <div class="text-center">
                             <svg class="w-16 h-16 mx-auto mb-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -761,7 +652,7 @@
                         <span>3,456 contributors</span>
                     </div>
                     <div class="text-3xl font-bold text-gray-500">$24,500</div>
-                    <button disabled="" class="w-full px-6 py-3 bg-gray-800 rounded-full font-semibold text-gray-500 cursor-not-allowed">
+                    <button disabled class="w-full px-6 py-3 bg-gray-800 rounded-full font-semibold text-gray-500 cursor-not-allowed">
                         Sold Out
                     </button>
                 </div>
@@ -770,7 +661,9 @@
             <!-- Artwork 5 -->
             <div class="artwork-card glass-effect rounded-2xl overflow-hidden hover-lift">
                 <div class="aspect-square relative overflow-hidden">
-                    <img src="./InfraMint - Collective AI Art Platform_files/photo-1482160549825-59d1b23cb208" alt="Urban Symphony" class="w-full h-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1482160549825-59d1b23cb208?w=800&q=80" 
+                         alt="Urban Symphony" 
+                         class="w-full h-full object-cover">
                 </div>
                 <div class="p-6 space-y-3">
                     <h3 class="text-2xl font-bold">Urban Symphony</h3>
@@ -790,7 +683,9 @@
             <!-- Artwork 6 -->
             <div class="artwork-card glass-effect rounded-2xl overflow-hidden hover-lift">
                 <div class="aspect-square relative overflow-hidden">
-                    <img src="./InfraMint - Collective AI Art Platform_files/photo-1518998053901-5348d3961a04" alt="Cosmic Dreamers" class="w-full h-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=800&q=80" 
+                         alt="Cosmic Dreamers" 
+                         class="w-full h-full object-cover">
                 </div>
                 <div class="p-6 space-y-3">
                     <h3 class="text-2xl font-bold">Cosmic Dreamers</h3>
@@ -810,7 +705,9 @@
             <!-- Artwork 7 (Sold) -->
             <div class="artwork-card glass-effect rounded-2xl overflow-hidden hover-lift">
                 <div class="aspect-square relative overflow-hidden">
-                    <img src="./InfraMint - Collective AI Art Platform_files/photo-1500462918059-b1a0cb512f1d" alt="Neon Whispers" class="w-full h-full object-cover opacity-50">
+                    <img src="https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?w=800&q=80" 
+                         alt="Neon Whispers" 
+                         class="w-full h-full object-cover opacity-50">
                     <div class="absolute inset-0 flex items-center justify-center backdrop-blur-sm">
                         <div class="text-center">
                             <svg class="w-16 h-16 mx-auto mb-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -829,7 +726,7 @@
                         <span>4,102 contributors</span>
                     </div>
                     <div class="text-3xl font-bold text-gray-500">$32,000</div>
-                    <button disabled="" class="w-full px-6 py-3 bg-gray-800 rounded-full font-semibold text-gray-500 cursor-not-allowed">
+                    <button disabled class="w-full px-6 py-3 bg-gray-800 rounded-full font-semibold text-gray-500 cursor-not-allowed">
                         Sold Out
                     </button>
                 </div>
@@ -838,7 +735,9 @@
             <!-- Artwork 8 -->
             <div class="artwork-card glass-effect rounded-2xl overflow-hidden hover-lift">
                 <div class="aspect-square relative overflow-hidden">
-                    <img src="./InfraMint - Collective AI Art Platform_files/photo-1507003211169-0a1dd7228f2d" alt="Silent Echoes" class="w-full h-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80" 
+                         alt="Silent Echoes" 
+                         class="w-full h-full object-cover">
                 </div>
                 <div class="p-6 space-y-3">
                     <h3 class="text-2xl font-bold">Silent Echoes</h3>
@@ -858,7 +757,9 @@
             <!-- Artwork 9 -->
             <div class="artwork-card glass-effect rounded-2xl overflow-hidden hover-lift">
                 <div class="aspect-square relative overflow-hidden">
-                    <img src="./InfraMint - Collective AI Art Platform_files/photo-1544967082-d9d25d867d66" alt="Abstract Humanity" class="w-full h-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=800&q=80" 
+                         alt="Abstract Humanity" 
+                         class="w-full h-full object-cover">
                 </div>
                 <div class="p-6 space-y-3">
                     <h3 class="text-2xl font-bold">Abstract Humanity</h3>
@@ -883,7 +784,7 @@
     <div class="max-w-5xl mx-auto px-6 py-24 fade-in">
         <div class="text-center mb-16">
             <h1 class="text-6xl font-bold mb-6">
-                Ethics &amp; <span class="gradient-text">Transparency</span>
+                Ethics & <span class="gradient-text">Transparency</span>
             </h1>
             <p class="text-xl text-gray-400 max-w-2xl mx-auto">
                 Privacy, fairness, and artistic integrity built into every line of code
@@ -975,7 +876,7 @@
 
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Contributor Card -->
-                <div class="glass-effect p-8 rounded-2xl hover-lift cursor-pointer" onclick="showPage(&#39;signup-contributor&#39;)">
+                <div class="glass-effect p-8 rounded-2xl hover-lift cursor-pointer" onclick="showPage('signup-contributor')">
                     <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -1014,7 +915,7 @@
                 </div>
 
                 <!-- Collector Card -->
-                <div class="glass-effect p-8 rounded-2xl hover-lift cursor-pointer" onclick="showPage(&#39;signup-collector&#39;)">
+                <div class="glass-effect p-8 rounded-2xl hover-lift cursor-pointer" onclick="showPage('signup-collector')">
                     <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -1054,7 +955,7 @@
             </div>
 
             <p class="text-center text-gray-500 mt-8">
-                Already have an account? <button onclick="showPage(&#39;signin&#39;)" class="text-pink-400 hover:text-pink-300 font-semibold">Sign in</button>
+                Already have an account? <button onclick="showPage('signin')" class="text-pink-400 hover:text-pink-300 font-semibold">Sign in</button>
             </p>
         </div>
     </div>
@@ -1077,23 +978,27 @@
             <div class="glass-effect p-8 rounded-2xl space-y-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
-                    <input type="text" id="contributor-name" placeholder="John Doe" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                    <input type="text" id="contributor-name" placeholder="John Doe" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
-                    <input type="email" id="contributor-email" placeholder="john@example.com" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                    <input type="email" id="contributor-email" placeholder="john@example.com" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Password</label>
-                    <input type="password" id="contributor-password" placeholder="••••••••" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                    <input type="password" id="contributor-password" placeholder="••••••••" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
                     <p class="text-xs text-gray-500 mt-1">Minimum 8 characters</p>
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Country</label>
-                    <select id="contributor-country" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-pink-500 transition-colors">
+                    <select id="contributor-country" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-pink-500 transition-colors">
                         <option value="" class="bg-gray-900">Select your country</option>
                         <option value="US" class="bg-gray-900">United States</option>
                         <option value="UK" class="bg-gray-900">United Kingdom</option>
@@ -1110,14 +1015,15 @@
                     <label class="flex items-start gap-3 cursor-pointer">
                         <input type="checkbox" id="contributor-terms" class="mt-1 w-5 h-5 rounded accent-pink-500">
                         <span class="text-sm text-gray-400">
-                            I agree to the <a onclick="showPage(&#39;terms&#39;)" class="text-pink-400 hover:underline cursor-pointer">Terms of Service</a>, 
-                            <a onclick="showPage(&#39;privacy&#39;)" class="text-pink-400 hover:underline cursor-pointer">Privacy Policy</a>, and 
-                            <a onclick="showPage(&#39;contributor-agreement&#39;)" class="text-pink-400 hover:underline cursor-pointer">Contributor Agreement</a>.
+                            I agree to the <a onclick="showPage('terms')" class="text-pink-400 hover:underline cursor-pointer">Terms of Service</a>, 
+                            <a onclick="showPage('privacy')" class="text-pink-400 hover:underline cursor-pointer">Privacy Policy</a>, and 
+                            <a onclick="showPage('contributor-agreement')" class="text-pink-400 hover:underline cursor-pointer">Contributor Agreement</a>.
                         </span>
                     </label>
                 </div>
 
-                <button onclick="submitContributorSignup()" class="w-full px-6 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl text-lg font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
+                <button onclick="submitContributorSignup()" 
+                    class="w-full px-6 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl text-lg font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
                     Create Account
                 </button>
 
@@ -1130,19 +1036,19 @@
                     </div>
                 </div>
 
-                <button onclick="signInWithGoogle(&#39;contributor&#39;)" class="w-full px-6 py-3 bg-white/5 border border-gray-700 rounded-xl font-medium hover:bg-white/10 transition-colors flex items-center justify-center gap-3">
+                <button onclick="signInWithGoogle('contributor')" class="w-full px-6 py-3 bg-white/5 border border-gray-700 rounded-xl font-medium hover:bg-white/10 transition-colors flex items-center justify-center gap-3">
                     <svg class="w-5 h-5" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"></path>
-                        <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"></path>
-                        <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"></path>
-                        <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"></path>
+                        <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                     </svg>
                     Continue with Google
                 </button>
             </div>
 
             <p class="text-center text-gray-500 mt-6">
-                <button onclick="showPage(&#39;signup&#39;)" class="text-gray-400 hover:text-white">← Back to options</button>
+                <button onclick="showPage('signup')" class="text-gray-400 hover:text-white">← Back to options</button>
             </p>
         </div>
     </div>
@@ -1165,23 +1071,27 @@
             <div class="glass-effect p-8 rounded-2xl space-y-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
-                    <input type="text" id="collector-name" placeholder="John Doe" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors">
+                    <input type="text" id="collector-name" placeholder="John Doe" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
-                    <input type="email" id="collector-email" placeholder="john@example.com" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors">
+                    <input type="email" id="collector-email" placeholder="john@example.com" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Password</label>
-                    <input type="password" id="collector-password" placeholder="••••••••" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors">
+                    <input type="password" id="collector-password" placeholder="••••••••" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors">
                     <p class="text-xs text-gray-500 mt-1">Minimum 8 characters</p>
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Country</label>
-                    <select id="collector-country" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-purple-500 transition-colors">
+                    <select id="collector-country" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-purple-500 transition-colors">
                         <option value="" class="bg-gray-900">Select your country</option>
                         <option value="US" class="bg-gray-900">United States</option>
                         <option value="UK" class="bg-gray-900">United Kingdom</option>
@@ -1198,13 +1108,14 @@
                     <label class="flex items-start gap-3 cursor-pointer">
                         <input type="checkbox" id="collector-terms" class="mt-1 w-5 h-5 rounded accent-purple-500">
                         <span class="text-sm text-gray-400">
-                            I agree to the <a href="file:///Users/samiryehiahusri/Downloads/InfraMint_with_AI_Generator.html#" class="text-purple-400 hover:underline">Terms of Service</a> and 
-                            <a href="file:///Users/samiryehiahusri/Downloads/InfraMint_with_AI_Generator.html#" class="text-purple-400 hover:underline">Privacy Policy</a>.
+                            I agree to the <a href="#" class="text-purple-400 hover:underline">Terms of Service</a> and 
+                            <a href="#" class="text-purple-400 hover:underline">Privacy Policy</a>.
                         </span>
                     </label>
                 </div>
 
-                <button onclick="submitCollectorSignup()" class="w-full px-6 py-4 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all">
+                <button onclick="submitCollectorSignup()" 
+                    class="w-full px-6 py-4 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all">
                     Create Account
                 </button>
 
@@ -1217,19 +1128,19 @@
                     </div>
                 </div>
 
-                <button onclick="signInWithGoogle(&#39;collector&#39;)" class="w-full px-6 py-3 bg-white/5 border border-gray-700 rounded-xl font-medium hover:bg-white/10 transition-colors flex items-center justify-center gap-3">
+                <button onclick="signInWithGoogle('collector')" class="w-full px-6 py-3 bg-white/5 border border-gray-700 rounded-xl font-medium hover:bg-white/10 transition-colors flex items-center justify-center gap-3">
                     <svg class="w-5 h-5" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"></path>
-                        <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"></path>
-                        <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"></path>
-                        <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"></path>
+                        <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                     </svg>
                     Continue with Google
                 </button>
             </div>
 
             <p class="text-center text-gray-500 mt-6">
-                <button onclick="showPage(&#39;signup&#39;)" class="text-gray-400 hover:text-white">← Back to options</button>
+                <button onclick="showPage('signup')" class="text-gray-400 hover:text-white">← Back to options</button>
             </p>
         </div>
     </div>
@@ -1247,12 +1158,14 @@
             <div class="glass-effect p-8 rounded-2xl space-y-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
-                    <input type="email" id="signin-email" placeholder="john@example.com" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                    <input type="email" id="signin-email" placeholder="john@example.com" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Password</label>
-                    <input type="password" id="signin-password" placeholder="••••••••" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                    <input type="password" id="signin-password" placeholder="••••••••" 
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
                 </div>
 
                 <div class="flex items-center justify-between">
@@ -1263,7 +1176,8 @@
                     <button class="text-sm text-pink-400 hover:text-pink-300">Forgot password?</button>
                 </div>
 
-                <button onclick="submitSignin()" class="w-full px-6 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl text-lg font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
+                <button onclick="submitSignin()" 
+                    class="w-full px-6 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl text-lg font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
                     Sign In
                 </button>
 
@@ -1278,17 +1192,17 @@
 
                 <button onclick="signInWithGoogle()" class="w-full px-6 py-3 bg-white/5 border border-gray-700 rounded-xl font-medium hover:bg-white/10 transition-colors flex items-center justify-center gap-3">
                     <svg class="w-5 h-5" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"></path>
-                        <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"></path>
-                        <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"></path>
-                        <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"></path>
+                        <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                     </svg>
                     Continue with Google
                 </button>
             </div>
 
             <p class="text-center text-gray-500 mt-6">
-                Don't have an account? <button onclick="showPage(&#39;signup&#39;)" class="text-pink-400 hover:text-pink-300 font-semibold">Sign up</button>
+                Don't have an account? <button onclick="showPage('signup')" class="text-pink-400 hover:text-pink-300 font-semibold">Sign up</button>
             </p>
         </div>
     </div>
@@ -1306,7 +1220,7 @@
             <h1 class="text-4xl font-bold mb-4">Check Your Email</h1>
             <p class="text-gray-400 mb-8">
                 We've sent a verification link to<br>
-                <span id="verification-email" class="text-white font-semibold"><a href="file:///cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ef96809a9daf8a828e8683c18c8082">[email&nbsp;protected]</a></span>
+                <span id="verification-email" class="text-white font-semibold"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0d9cfd5d2e0c5cdc1c9cc8ec3cfcd">[email&#160;protected]</a></span>
             </p>
 
             <div class="glass-effect p-6 rounded-2xl mb-6">
@@ -1318,7 +1232,7 @@
                 </button>
             </div>
 
-            <button onclick="showPage(&#39;signin&#39;)" class="text-gray-400 hover:text-white">
+            <button onclick="showPage('signin')" class="text-gray-400 hover:text-white">
                 ← Back to Sign In
             </button>
         </div>
@@ -1335,7 +1249,7 @@
                 <p class="text-gray-400">Manage your contributions and track your earnings</p>
             </div>
             <div class="mt-4 md:mt-0">
-                <button onclick="showPage(&#39;contribute&#39;)" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
+                <button onclick="showPage('contribute')" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
                     + New Contribution
                 </button>
             </div>
@@ -1391,7 +1305,7 @@
                             <span id="profile-joined">-</span>
                         </div>
                     </div>
-                    <button onclick="showPage(&#39;edit-profile&#39;)" class="w-full mt-6 px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-sm hover:bg-white/10 transition-colors">
+                    <button onclick="showPage('edit-profile')" class="w-full mt-6 px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-sm hover:bg-white/10 transition-colors">
                         Edit Profile
                     </button>
                 </div>
@@ -1431,7 +1345,7 @@
                                 </svg>
                             </div>
                             <p class="text-gray-400 mb-4">You haven't made any contributions yet</p>
-                            <button onclick="showPage(&#39;contribute&#39;)" class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-sm font-semibold">
+                            <button onclick="showPage('contribute')" class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-sm font-semibold">
                                 Make Your First Contribution
                             </button>
                         </div>
@@ -1469,7 +1383,7 @@
                 <p class="text-gray-400">Browse exclusive artworks and manage your collection</p>
             </div>
             <div class="mt-4 md:mt-0">
-                <button onclick="showPage(&#39;gallery&#39;)" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all">
+                <button onclick="showPage('gallery')" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all">
                     Browse Gallery
                 </button>
             </div>
@@ -1521,7 +1435,7 @@
                             <span id="collector-profile-joined">-</span>
                         </div>
                     </div>
-                    <button onclick="showPage(&#39;edit-profile&#39;)" class="w-full mt-6 px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-sm hover:bg-white/10 transition-colors">
+                    <button onclick="showPage('edit-profile')" class="w-full mt-6 px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-sm hover:bg-white/10 transition-colors">
                         Edit Profile
                     </button>
                 </div>
@@ -1560,7 +1474,7 @@
                                 </svg>
                             </div>
                             <p class="text-gray-400 mb-4">You don't own any artworks yet</p>
-                            <button onclick="showPage(&#39;gallery&#39;)" class="px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full text-sm font-semibold">
+                            <button onclick="showPage('gallery')" class="px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full text-sm font-semibold">
                                 Browse Gallery
                             </button>
                         </div>
@@ -1571,12 +1485,12 @@
                 <div class="glass-effect p-6 rounded-2xl">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-bold">Available Artworks</h3>
-                        <button onclick="showPage(&#39;gallery&#39;)" class="text-purple-400 text-sm hover:text-purple-300">View All</button>
+                        <button onclick="showPage('gallery')" class="text-purple-400 text-sm hover:text-purple-300">View All</button>
                     </div>
                     
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="aspect-square rounded-xl overflow-hidden relative group cursor-pointer" onclick="showPage(&#39;gallery&#39;)">
-                            <img src="./InfraMint - Collective AI Art Platform_files/photo-1579783902614-a3fb3927b6a5(1)" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                        <div class="aspect-square rounded-xl overflow-hidden relative group cursor-pointer" onclick="showPage('gallery')">
+                            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
                                 <div>
                                     <div class="font-semibold">Impressions at Dawn</div>
@@ -1584,8 +1498,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="aspect-square rounded-xl overflow-hidden relative group cursor-pointer" onclick="showPage(&#39;gallery&#39;)">
-                            <img src="./InfraMint - Collective AI Art Platform_files/photo-1541961017774-22349e4a1262(1)" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                        <div class="aspect-square rounded-xl overflow-hidden relative group cursor-pointer" onclick="showPage('gallery')">
+                            <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
                                 <div>
                                     <div class="font-semibold">Garden of Faces</div>
@@ -1614,17 +1528,17 @@
 
         <!-- Profile Tabs -->
         <div class="flex gap-2 mb-8 border-b border-gray-800 overflow-x-auto">
-            <button onclick="showProfileTab(&#39;personal&#39;)" id="tab-personal" class="profile-tab px-6 py-3 text-sm font-medium border-b-2 border-pink-500 text-white whitespace-nowrap">
+            <button onclick="showProfileTab('personal')" id="tab-personal" class="profile-tab px-6 py-3 text-sm font-medium border-b-2 border-pink-500 text-white whitespace-nowrap">
                 Personal Info
             </button>
-            <button onclick="showProfileTab(&#39;contributions&#39;)" id="tab-contributions" class="profile-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+            <button onclick="showProfileTab('contributions')" id="tab-contributions" class="profile-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
                 My Contributions
             </button>
-            <button onclick="showProfileTab(&#39;earnings&#39;)" id="tab-earnings" class="profile-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
-                Earnings &amp; Payouts
+            <button onclick="showProfileTab('earnings')" id="tab-earnings" class="profile-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+                Earnings & Payouts
             </button>
-            <button onclick="showProfileTab(&#39;privacy&#39;)" id="tab-privacy" class="profile-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
-                Privacy &amp; Settings
+            <button onclick="showProfileTab('privacy')" id="tab-privacy" class="profile-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+                Privacy & Settings
             </button>
         </div>
 
@@ -1681,24 +1595,28 @@
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
-                                <input type="text" id="edit-name" placeholder="Your name" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                                <input type="text" id="edit-name" placeholder="Your name" 
+                                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-300 mb-2">Display Name</label>
-                                <input type="text" id="edit-display-name" placeholder="How others see you" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                                <input type="text" id="edit-display-name" placeholder="How others see you" 
+                                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
                             </div>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
-                            <input type="email" id="edit-email" disabled="" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-gray-500 cursor-not-allowed">
+                            <input type="email" id="edit-email" disabled
+                                class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-gray-500 cursor-not-allowed">
                             <p class="text-gray-500 text-xs mt-1">Email cannot be changed. Contact support if needed.</p>
                         </div>
 
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-300 mb-2">Country</label>
-                                <select id="edit-country" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-pink-500 transition-colors">
+                                <select id="edit-country" 
+                                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-pink-500 transition-colors">
                                     <option value="" class="bg-gray-900">Select your country</option>
                                     <option value="US" class="bg-gray-900">United States</option>
                                     <option value="UK" class="bg-gray-900">United Kingdom</option>
@@ -1712,13 +1630,15 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-300 mb-2">Phone (Optional)</label>
-                                <input type="tel" id="edit-phone" placeholder="+1 234 567 8900" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
+                                <input type="tel" id="edit-phone" placeholder="+1 234 567 8900" 
+                                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors">
                             </div>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Bio (Optional)</label>
-                            <textarea id="edit-bio" rows="3" placeholder="Tell us a bit about yourself..." class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors resize-none"></textarea>
+                            <textarea id="edit-bio" rows="3" placeholder="Tell us a bit about yourself..." 
+                                class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors resize-none"></textarea>
                         </div>
 
                         <div class="pt-4">
@@ -1736,7 +1656,7 @@
             <div class="glass-effect p-8 rounded-2xl">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="text-2xl font-bold">My Contributions</h2>
-                    <button onclick="showPage(&#39;contribute&#39;)" class="px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl text-sm font-semibold">
+                    <button onclick="showPage('contribute')" class="px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl text-sm font-semibold">
                         + Add New
                     </button>
                 </div>
@@ -1751,7 +1671,7 @@
                         </div>
                         <h3 class="text-xl font-semibold mb-2">No contributions yet</h3>
                         <p class="text-gray-400 mb-6">Upload your first face photo to start earning from AI artworks</p>
-                        <button onclick="showPage(&#39;contribute&#39;)" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-semibold">
+                        <button onclick="showPage('contribute')" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-semibold">
                             Make Your First Contribution
                         </button>
                     </div>
@@ -1843,7 +1763,7 @@
                                 <div class="font-medium">Email notifications</div>
                                 <div class="text-sm text-gray-400">Receive updates about your contributions and earnings</div>
                             </div>
-                            <input type="checkbox" id="notify-email" checked="" class="w-5 h-5 accent-pink-500">
+                            <input type="checkbox" id="notify-email" checked class="w-5 h-5 accent-pink-500">
                         </label>
                         
                         <label class="flex items-center justify-between cursor-pointer">
@@ -1851,7 +1771,7 @@
                                 <div class="font-medium">Artwork sold notifications</div>
                                 <div class="text-sm text-gray-400">Get notified when an artwork featuring you is sold</div>
                             </div>
-                            <input type="checkbox" id="notify-sold" checked="" class="w-5 h-5 accent-pink-500">
+                            <input type="checkbox" id="notify-sold" checked class="w-5 h-5 accent-pink-500">
                         </label>
                         
                         <label class="flex items-center justify-between cursor-pointer">
@@ -1859,7 +1779,7 @@
                                 <div class="font-medium">Payout notifications</div>
                                 <div class="text-sm text-gray-400">Get notified when you receive a payout</div>
                             </div>
-                            <input type="checkbox" id="notify-payout" checked="" class="w-5 h-5 accent-pink-500">
+                            <input type="checkbox" id="notify-payout" checked class="w-5 h-5 accent-pink-500">
                         </label>
                         
                         <label class="flex items-center justify-between cursor-pointer">
@@ -1890,14 +1810,14 @@
                                 <div class="font-medium">Show in contributor count</div>
                                 <div class="text-sm text-gray-400">Your contribution will be counted in artwork stats</div>
                             </div>
-                            <input type="checkbox" id="privacy-count" checked="" class="w-5 h-5 accent-pink-500">
+                            <input type="checkbox" id="privacy-count" checked class="w-5 h-5 accent-pink-500">
                         </label>
                     </div>
                 </div>
 
                 <!-- Data & Face Usage -->
                 <div class="glass-effect p-8 rounded-2xl">
-                    <h2 class="text-2xl font-bold mb-6">Data &amp; Face Usage</h2>
+                    <h2 class="text-2xl font-bold mb-6">Data & Face Usage</h2>
                     
                     <div class="space-y-6">
                         <div class="p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl">
@@ -2034,25 +1954,25 @@
 
         <!-- Admin Navigation Tabs -->
         <div class="flex gap-2 mb-6 border-b border-gray-800 overflow-x-auto">
-            <button onclick="showAdminTab(&#39;overview&#39;)" id="admin-tab-overview" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-pink-500 text-white whitespace-nowrap">
+            <button onclick="showAdminTab('overview')" id="admin-tab-overview" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-pink-500 text-white whitespace-nowrap">
                 Overview
             </button>
-            <button onclick="showAdminTab(&#39;users&#39;)" id="admin-tab-users" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+            <button onclick="showAdminTab('users')" id="admin-tab-users" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
                 Users
             </button>
-            <button onclick="showAdminTab(&#39;moderation&#39;)" id="admin-tab-moderation" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+            <button onclick="showAdminTab('moderation')" id="admin-tab-moderation" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
                 Photo Moderation
             </button>
-            <button onclick="showAdminTab(&#39;artworks&#39;)" id="admin-tab-artworks" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+            <button onclick="showAdminTab('artworks')" id="admin-tab-artworks" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
                 Artworks
             </button>
-            <button onclick="showAdminTab(&#39;payments&#39;)" id="admin-tab-payments" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+            <button onclick="showAdminTab('payments')" id="admin-tab-payments" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
                 Payments
             </button>
-            <button onclick="showAdminTab(&#39;settings&#39;)" id="admin-tab-settings" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
+            <button onclick="showAdminTab('settings')" id="admin-tab-settings" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">
                 Settings
             </button>
-            <button onclick="showAdminTab(&#39;ai-generator&#39;)" id="admin-tab-ai-generator" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap flex items-center gap-2">
+            <button onclick="showAdminTab('ai-generator')" id="admin-tab-ai-generator" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                 </svg>
@@ -2078,22 +1998,22 @@
                 <div class="glass-effect p-6 rounded-2xl">
                     <h3 class="text-xl font-bold mb-4">Quick Actions</h3>
                     <div class="grid grid-cols-2 gap-3">
-                        <button onclick="showAdminTab(&#39;moderation&#39;)" class="p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors text-left">
+                        <button onclick="showAdminTab('moderation')" class="p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors text-left">
                             <div class="text-2xl mb-2">📷</div>
                             <div class="font-medium">Review Photos</div>
                             <div class="text-xs text-gray-400"><span id="quick-pending">0</span> pending</div>
                         </button>
-                        <button onclick="showAdminTab(&#39;artworks&#39;)" class="p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors text-left">
+                        <button onclick="showAdminTab('artworks')" class="p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors text-left">
                             <div class="text-2xl mb-2">🎨</div>
                             <div class="font-medium">Create Artwork</div>
                             <div class="text-xs text-gray-400">Generate new art</div>
                         </button>
-                        <button onclick="showAdminTab(&#39;users&#39;)" class="p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors text-left">
+                        <button onclick="showAdminTab('users')" class="p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors text-left">
                             <div class="text-2xl mb-2">👥</div>
                             <div class="font-medium">Manage Users</div>
                             <div class="text-xs text-gray-400"><span id="quick-users">0</span> total</div>
                         </button>
-                        <button onclick="showAdminTab(&#39;payments&#39;)" class="p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors text-left">
+                        <button onclick="showAdminTab('payments')" class="p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors text-left">
                             <div class="text-2xl mb-2">💰</div>
                             <div class="font-medium">View Payments</div>
                             <div class="text-xs text-gray-400">Track revenue</div>
@@ -2109,7 +2029,9 @@
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-xl font-bold">All Users</h3>
                     <div class="flex gap-3">
-                        <input type="text" id="admin-user-search" placeholder="Search users..." class="px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-sm focus:outline-none focus:border-pink-500" onkeyup="filterAdminUsers()">
+                        <input type="text" id="admin-user-search" placeholder="Search users..." 
+                            class="px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-sm focus:outline-none focus:border-pink-500"
+                            onkeyup="filterAdminUsers()">
                         <select id="admin-user-filter" class="px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-sm" onchange="filterAdminUsers()">
                             <option value="all">All Types</option>
                             <option value="contributor">Contributors</option>
@@ -2247,12 +2169,14 @@
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Revenue Split (Contributor %)</label>
-                            <input type="number" value="75" min="0" max="100" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-pink-500">
+                            <input type="number" value="75" min="0" max="100"
+                                class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-pink-500">
                             <p class="text-xs text-gray-500 mt-1">Platform keeps the remaining percentage</p>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Minimum Payout ($)</label>
-                            <input type="number" value="10" min="1" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-pink-500">
+                            <input type="number" value="10" min="1"
+                                class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-pink-500">
                         </div>
                         <div>
                             <label class="flex items-center justify-between cursor-pointer">
@@ -2263,7 +2187,7 @@
                         <div>
                             <label class="flex items-center justify-between cursor-pointer">
                                 <span>Enable new signups</span>
-                                <input type="checkbox" checked="" class="w-5 h-5 accent-pink-500">
+                                <input type="checkbox" checked class="w-5 h-5 accent-pink-500">
                             </label>
                         </div>
                     </div>
@@ -2278,7 +2202,8 @@
                     <div class="pt-4 border-t border-gray-800">
                         <label class="block text-sm font-medium text-gray-300 mb-2">Add New Admin</label>
                         <div class="flex gap-2">
-                            <input type="email" id="new-admin-email" placeholder="email@example.com" class="flex-1 px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:border-pink-500">
+                            <input type="email" id="new-admin-email" placeholder="email@example.com"
+                                class="flex-1 px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:border-pink-500">
                             <button onclick="addNewAdmin()" class="px-4 py-2 bg-pink-500 rounded-xl text-sm font-semibold">Add</button>
                         </div>
                     </div>
@@ -2299,6 +2224,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Admin Tab: AI Generator -->
         <div id="admin-content-ai-generator" class="admin-content hidden">
             <div class="grid lg:grid-cols-2 gap-6">
@@ -2321,7 +2247,6 @@
                     
                     <!-- Chat Messages -->
                     <div id="ai-chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4">
-                        <!-- Welcome Message -->
                         <div class="flex gap-3">
                             <div class="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex-shrink-0 flex items-center justify-center">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2330,13 +2255,13 @@
                             </div>
                             <div class="glass-effect p-4 rounded-2xl rounded-tl-none max-w-[85%]">
                                 <p class="text-sm">Hello! I'm your AI Art Assistant. 🎨</p>
-                                <p class="text-sm mt-2">Tell me what you'd like to create. Describe the scene, mood, colors, or style you envision. For example:</p>
+                                <p class="text-sm mt-2">Tell me what you'd like to create. For example:</p>
                                 <ul class="text-sm text-gray-400 mt-2 space-y-1">
                                     <li>• "A serene Japanese garden at sunset with cherry blossoms"</li>
                                     <li>• "Abstract composition with warm colors and flowing shapes"</li>
-                                    <li>• "A misty mountain landscape in impressionist style"</li>
+                                    <li>• "A misty mountain landscape"</li>
                                 </ul>
-                                <p class="text-sm mt-2">You can also select a style preset below to guide the aesthetic!</p>
+                                <p class="text-sm mt-2">Select a style preset below to guide the aesthetic!</p>
                             </div>
                         </div>
                     </div>
@@ -2345,30 +2270,14 @@
                     <div class="px-4 py-3 border-t border-gray-800">
                         <div class="text-xs text-gray-400 mb-2">Style Presets:</div>
                         <div class="flex flex-wrap gap-2">
-                            <button onclick="selectAIStyle(&#39;impressionist&#39;)" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="impressionist">
-                                🖼️ Impressionist
-                            </button>
-                            <button onclick="selectAIStyle(&#39;abstract&#39;)" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="abstract">
-                                🎭 Abstract
-                            </button>
-                            <button onclick="selectAIStyle(&#39;surrealist&#39;)" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="surrealist">
-                                🌙 Surrealist
-                            </button>
-                            <button onclick="selectAIStyle(&#39;japanese&#39;)" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="japanese">
-                                🏯 Japanese Ukiyo-e
-                            </button>
-                            <button onclick="selectAIStyle(&#39;renaissance&#39;)" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="renaissance">
-                                🏛️ Renaissance
-                            </button>
-                            <button onclick="selectAIStyle(&#39;modern&#39;)" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="modern">
-                                ✨ Modern Art
-                            </button>
-                            <button onclick="selectAIStyle(&#39;watercolor&#39;)" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="watercolor">
-                                💧 Watercolor
-                            </button>
-                            <button onclick="selectAIStyle(&#39;oil&#39;)" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="oil">
-                                🎨 Oil Painting
-                            </button>
+                            <button onclick="selectAIStyle('impressionist')" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="impressionist">🖼️ Impressionist</button>
+                            <button onclick="selectAIStyle('abstract')" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="abstract">🎭 Abstract</button>
+                            <button onclick="selectAIStyle('surrealist')" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="surrealist">🌙 Surrealist</button>
+                            <button onclick="selectAIStyle('japanese')" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="japanese">🏯 Japanese Ukiyo-e</button>
+                            <button onclick="selectAIStyle('renaissance')" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="renaissance">🏛️ Renaissance</button>
+                            <button onclick="selectAIStyle('modern')" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="modern">✨ Modern Art</button>
+                            <button onclick="selectAIStyle('watercolor')" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="watercolor">💧 Watercolor</button>
+                            <button onclick="selectAIStyle('oil')" class="ai-style-btn px-3 py-1 text-xs rounded-full bg-white/10 hover:bg-pink-500/30 transition-colors" data-style="oil">🎨 Oil Painting</button>
                         </div>
                         <div id="selected-style-badge" class="hidden mt-2">
                             <span class="text-xs text-pink-400">Selected: <span id="selected-style-name"></span></span>
@@ -2379,7 +2288,7 @@
                     <!-- Chat Input -->
                     <div class="p-4 border-t border-gray-800">
                         <div class="flex gap-2">
-                            <input type="text" id="ai-chat-input" placeholder="Describe what you want to create..." class="flex-1 px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500" onkeypress="if(event.key===&#39;Enter&#39;) sendAIMessage()">
+                            <input type="text" id="ai-chat-input" placeholder="Describe what you want to create..." class="flex-1 px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500" onkeypress="if(event.key==='Enter') sendAIMessage()">
                             <button onclick="sendAIMessage()" id="ai-send-btn" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
@@ -2411,33 +2320,24 @@
                             </div>
                         </div>
                         
-                        <!-- Image Actions (shown after generation) -->
                         <div id="ai-image-actions" class="hidden mt-4 space-y-3">
                             <div class="flex gap-2">
-                                <button onclick="regenerateAIImage()" class="flex-1 px-4 py-2 bg-white/10 rounded-xl text-sm font-medium hover:bg-white/20 transition-colors">
-                                    🔄 Regenerate
-                                </button>
-                                <button onclick="downloadAIImage()" class="flex-1 px-4 py-2 bg-white/10 rounded-xl text-sm font-medium hover:bg-white/20 transition-colors">
-                                    ⬇️ Download
-                                </button>
+                                <button onclick="regenerateAIImage()" class="flex-1 px-4 py-2 bg-white/10 rounded-xl text-sm font-medium hover:bg-white/20 transition-colors">🔄 Regenerate</button>
+                                <button onclick="downloadAIImage()" class="flex-1 px-4 py-2 bg-white/10 rounded-xl text-sm font-medium hover:bg-white/20 transition-colors">⬇️ Download</button>
                             </div>
-                            <button onclick="useAsProject()" class="w-full px-4 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">
-                                ✨ Use as New Project
-                            </button>
+                            <button onclick="useAsProject()" class="w-full px-4 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">✨ Use as New Project</button>
                         </div>
                     </div>
                     
                     <!-- Generation Settings -->
                     <div class="glass-effect p-6 rounded-2xl">
                         <h3 class="text-lg font-bold mb-4">Generation Settings</h3>
-                        
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-300 mb-2">Artist Signature</label>
                                 <input type="text" id="ai-signature" value="Y. Husri" class="w-full px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:border-pink-500">
                                 <p class="text-xs text-gray-500 mt-1">This will appear in small text at the bottom right</p>
                             </div>
-                            
                             <div>
                                 <label class="block text-sm font-medium text-gray-300 mb-2">Aspect Ratio</label>
                                 <select id="ai-aspect-ratio" class="w-full px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:border-pink-500">
@@ -2448,13 +2348,11 @@
                                     <option value="3:4" class="bg-gray-900">3:4 Portrait Standard</option>
                                 </select>
                             </div>
-                            
                             <div>
                                 <label class="block text-sm font-medium text-gray-300 mb-2">Quality</label>
                                 <select id="ai-quality" class="w-full px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:border-pink-500">
                                     <option value="standard" class="bg-gray-900">Standard (Fast)</option>
-                                    <option value="hd" selected="" class="bg-gray-900">HD (Recommended)</option>
-                                    <option value="ultra" class="bg-gray-900">Ultra HD (Slower)</option>
+                                    <option value="hd" selected class="bg-gray-900">HD (Recommended)</option>
                                 </select>
                             </div>
                         </div>
@@ -2468,24 +2366,16 @@
                             <input type="password" id="replicate-api-key" placeholder="r8_xxxxxxxxxxxxxxxxxxxxxxxx" class="w-full px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:border-pink-500">
                             <p class="text-xs text-gray-500 mt-1">Get your API key from <a href="https://replicate.com/account/api-tokens" target="_blank" class="text-pink-400 hover:underline">replicate.com</a></p>
                         </div>
-                        <button onclick="saveReplicateKey()" class="mt-3 px-4 py-2 bg-white/10 rounded-xl text-sm hover:bg-white/20 transition-colors">
-                            Save API Key
-                        </button>
+                        <button onclick="saveReplicateKey()" class="mt-3 px-4 py-2 bg-white/10 rounded-xl text-sm hover:bg-white/20 transition-colors">Save API Key</button>
                     </div>
                     
                     <!-- Recent Generations -->
                     <div class="glass-effect p-6 rounded-2xl">
                         <h3 class="text-lg font-bold mb-4">Recent Generations</h3>
                         <div id="recent-generations" class="grid grid-cols-3 gap-2">
-                            <div class="aspect-square rounded-lg bg-gray-800/50 flex items-center justify-center text-gray-600 text-xs">
-                                Empty
-                            </div>
-                            <div class="aspect-square rounded-lg bg-gray-800/50 flex items-center justify-center text-gray-600 text-xs">
-                                Empty
-                            </div>
-                            <div class="aspect-square rounded-lg bg-gray-800/50 flex items-center justify-center text-gray-600 text-xs">
-                                Empty
-                            </div>
+                            <div class="aspect-square rounded-lg bg-gray-800/50 flex items-center justify-center text-gray-600 text-xs">Empty</div>
+                            <div class="aspect-square rounded-lg bg-gray-800/50 flex items-center justify-center text-gray-600 text-xs">Empty</div>
+                            <div class="aspect-square rounded-lg bg-gray-800/50 flex items-center justify-center text-gray-600 text-xs">Empty</div>
                         </div>
                     </div>
                 </div>
@@ -2493,8 +2383,6 @@
         </div>
     </div>
 </div>
-
-<!-- Create Artwork Modal -->
 <div id="create-artwork-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-6">
     <div class="glass-effect p-8 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div class="flex items-center justify-between mb-6">
@@ -2509,22 +2397,26 @@
         <div class="space-y-6">
             <div>
                 <label class="block text-sm font-medium text-gray-300 mb-2">Artwork Title</label>
-                <input type="text" id="artwork-title" placeholder="e.g., Impressions at Dawn" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500">
+                <input type="text" id="artwork-title" placeholder="e.g., Impressions at Dawn"
+                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500">
             </div>
             
             <div>
                 <label class="block text-sm font-medium text-gray-300 mb-2">Description</label>
-                <textarea id="artwork-description" rows="3" placeholder="Describe the artwork..." class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 resize-none"></textarea>
+                <textarea id="artwork-description" rows="3" placeholder="Describe the artwork..."
+                    class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 resize-none"></textarea>
             </div>
             
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Price ($)</label>
-                    <input type="number" id="artwork-price" placeholder="10000" min="100" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500">
+                    <input type="number" id="artwork-price" placeholder="10000" min="100"
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Contributors to Include</label>
-                    <input type="number" id="artwork-contributors" placeholder="500" min="10" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500">
+                    <input type="number" id="artwork-contributors" placeholder="500" min="10"
+                        class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-pink-500">
                 </div>
             </div>
 
@@ -2673,7 +2565,7 @@
 
             <section>
                 <h2 class="text-2xl font-bold text-white mb-4">15. Contact</h2>
-                <p>For questions about these Terms, contact us at: <a href="file:///cdn-cgi/l/email-protection#bcd4d9d0d0d3fcd5d2daceddd1d5d2c892d5d3" class="text-pink-400 hover:text-pink-300"><span class="__cf_email__" data-cfemail="e58d8089898aa58c8b839784888c8b91cb8c8a">[email&nbsp;protected]</span></a></p>
+                <p>For questions about these Terms, contact us at: <a href="/cdn-cgi/l/email-protection#38505d5454577851565e4a595551564c165157" class="text-pink-400 hover:text-pink-300"><span class="__cf_email__" data-cfemail="d2bab7bebebd92bbbcb4a0b3bfbbbca6fcbbbd">[email&#160;protected]</span></a></p>
             </section>
         </div>
     </div>
@@ -2767,7 +2659,7 @@
             </section>
 
             <section>
-                <h2 class="text-2xl font-bold text-white mb-4">8. Your Rights (GDPR &amp; CCPA)</h2>
+                <h2 class="text-2xl font-bold text-white mb-4">8. Your Rights (GDPR & CCPA)</h2>
                 <p>Depending on your location, you may have the following rights:</p>
                 <ul class="list-disc list-inside space-y-2 ml-4">
                     <li><strong>Access:</strong> Request a copy of your personal data</li>
@@ -2778,7 +2670,7 @@
                     <li><strong>Restriction:</strong> Request limited processing of your data</li>
                     <li><strong>Withdraw Consent:</strong> Withdraw previously given consent</li>
                 </ul>
-                <p class="mt-4">To exercise these rights, contact us at <a href="file:///cdn-cgi/l/email-protection#afc7cac3c3c0efc6c1c9ddcec2c6c1db81c6c0" class="text-pink-400 hover:text-pink-300"><span class="__cf_email__" data-cfemail="f79f929b9b98b79e999185969a9e9983d99e98">[email&nbsp;protected]</span></a></p>
+                <p class="mt-4">To exercise these rights, contact us at <a href="/cdn-cgi/l/email-protection#85ede0e9e9eac5ecebe3f7e4e8ecebf1abecea" class="text-pink-400 hover:text-pink-300"><span class="__cf_email__" data-cfemail="29414c4545466940474f5b484440475d074046">[email&#160;protected]</span></a></p>
             </section>
 
             <section>
@@ -2799,7 +2691,7 @@
             <section>
                 <h2 class="text-2xl font-bold text-white mb-4">12. Contact Us</h2>
                 <p>For questions about this Privacy Policy or to exercise your rights, contact us at:</p>
-                <p class="mt-2"><a href="file:///cdn-cgi/l/email-protection#1f777a7373705f7671796d7e7276716b317670" class="text-pink-400 hover:text-pink-300"><span class="__cf_email__" data-cfemail="d7bfb2bbbbb897beb9b1a5b6babeb9a3f9beb8">[email&nbsp;protected]</span></a></p>
+                <p class="mt-2"><a href="/cdn-cgi/l/email-protection#b2dad7dededdf2dbdcd4c0d3dfdbdcc69cdbdd" class="text-pink-400 hover:text-pink-300"><span class="__cf_email__" data-cfemail="caa2afa6a6a58aa3a4acb8aba7a3a4bee4a3a5">[email&#160;protected]</span></a></p>
             </section>
         </div>
     </div>
@@ -2923,7 +2815,7 @@
 
             <section>
                 <h2 class="text-2xl font-bold text-white mb-4">11. Contact</h2>
-                <p>For questions about this Agreement, contact: <a href="file:///cdn-cgi/l/email-protection#e088858c8c8fa0898e8692818d898e94ce898f" class="text-pink-400 hover:text-pink-300"><span class="__cf_email__" data-cfemail="7e161b1212113e1710180c1f1317100a501711">[email&nbsp;protected]</span></a></p>
+                <p>For questions about this Agreement, contact: <a href="/cdn-cgi/l/email-protection#e8808d848487a881868e9a898581869cc68187" class="text-pink-400 hover:text-pink-300"><span class="__cf_email__" data-cfemail="0d65686161624d64636b7f6c60646379236462">[email&#160;protected]</span></a></p>
             </section>
         </div>
     </div>
@@ -2937,16 +2829,16 @@
                 <div class="flex items-center gap-2">
                     <svg width="36" height="32" viewBox="0 0 50 44" fill="none">
                         <defs>
-                            <lineargradient id="footer-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#EC4899"></stop>
-                                <stop offset="100%" stop-color="#8B5CF6"></stop>
-                            </lineargradient>
+                            <linearGradient id="footer-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#EC4899"/>
+                                <stop offset="100%" stop-color="#8B5CF6"/>
+                            </linearGradient>
                         </defs>
-                        <ellipse cx="18" cy="22" rx="12" ry="16" fill="#EC4899" opacity="0.5"></ellipse>
-                        <ellipse cx="25" cy="22" rx="12" ry="16" fill="#A855F7" opacity="0.6"></ellipse>
-                        <ellipse cx="32" cy="22" rx="12" ry="16" fill="#8B5CF6" opacity="0.7"></ellipse>
+                        <ellipse cx="18" cy="22" rx="12" ry="16" fill="#EC4899" opacity="0.5"/>
+                        <ellipse cx="25" cy="22" rx="12" ry="16" fill="#A855F7" opacity="0.6"/>
+                        <ellipse cx="32" cy="22" rx="12" ry="16" fill="#8B5CF6" opacity="0.7"/>
                     </svg>
-                    <span class="text-xl" style="font-family: &#39;Syne&#39;, sans-serif; font-weight: 800; background: linear-gradient(135deg, #EC4899, #8B5CF6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Infra<span style="background: none; -webkit-text-fill-color: #fff;">Mint</span></span>
+                    <span class="text-xl" style="font-family: 'Syne', sans-serif; font-weight: 800; background: linear-gradient(135deg, #EC4899, #8B5CF6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Infra<span style="background: none; -webkit-text-fill-color: #fff;">Mint</span></span>
                 </div>
                 <p class="text-gray-400">
                     Collective AI art platform. Where thousands create together.
@@ -2963,15 +2855,15 @@
             <div class="space-y-4">
                 <div class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Legal</div>
                 <div class="space-y-2">
-                    <div onclick="showPage(&#39;terms&#39;)" class="text-gray-400 hover:text-white cursor-pointer transition-colors">Terms of Service</div>
-                    <div onclick="showPage(&#39;privacy&#39;)" class="text-gray-400 hover:text-white cursor-pointer transition-colors">Privacy Policy</div>
-                    <div onclick="showPage(&#39;contributor-agreement&#39;)" class="text-gray-400 hover:text-white cursor-pointer transition-colors">Contributor Agreement</div>
+                    <div onclick="showPage('terms')" class="text-gray-400 hover:text-white cursor-pointer transition-colors">Terms of Service</div>
+                    <div onclick="showPage('privacy')" class="text-gray-400 hover:text-white cursor-pointer transition-colors">Privacy Policy</div>
+                    <div onclick="showPage('contributor-agreement')" class="text-gray-400 hover:text-white cursor-pointer transition-colors">Contributor Agreement</div>
                 </div>
             </div>
             <div class="space-y-4">
                 <div class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Contact</div>
                 <div class="text-gray-400">
-                    <a href="file:///cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b0d8d5dcdcdff0d9ded6c2d1ddd9dec49ed9df">[email&nbsp;protected]</a>
+                    <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6f070a0303002f0601091d0e0206011b410600">[email&#160;protected]</a>
                 </div>
             </div>
         </div>
@@ -2981,7 +2873,7 @@
     </div>
 </footer>
 
-<script data-cfasync="false" src="file:///cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Initialize Supabase
     const SUPABASE_URL = 'https://vyibnkztkacifahhlxof.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5aWJua3p0a2FjaWZhaGhseG9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5MTE0NzcsImV4cCI6MjA4NDQ4NzQ3N30.k0MGtmRKhQGJ9tX2arw7OUQg1y1SUZP3IBuSkq1E5l4';
@@ -4724,7 +4616,6 @@
     let recentGenerations = [];
     let isGenerating = false;
 
-    // Style definitions with prompts that create original art (no copying)
     const AI_STYLES = {
         'impressionist': {
             name: 'Impressionist',
@@ -4769,44 +4660,34 @@
     };
 
     function initAIGenerator() {
-        // Load saved API key
         const savedKey = localStorage.getItem('replicate_api_key');
         if (savedKey) {
             document.getElementById('replicate-api-key').value = savedKey;
         }
-        
-        // Load saved signature
         const savedSignature = localStorage.getItem('ai_signature');
         if (savedSignature) {
             document.getElementById('ai-signature').value = savedSignature;
         }
-        
-        // Load recent generations
         loadRecentGenerations();
     }
 
     function selectAIStyle(style) {
-        // Clear previous selection
         document.querySelectorAll('.ai-style-btn').forEach(btn => {
             btn.classList.remove('bg-pink-500/50', 'ring-2', 'ring-pink-500');
             btn.classList.add('bg-white/10');
         });
         
-        // Select new style
-        const btn = document.querySelector(`.ai-style-btn[data-style="${style}"]`);
+        const btn = document.querySelector('.ai-style-btn[data-style="' + style + '"]');
         if (btn) {
             btn.classList.remove('bg-white/10');
             btn.classList.add('bg-pink-500/50', 'ring-2', 'ring-pink-500');
         }
         
         selectedAIStyle = style;
-        
-        // Show badge
         document.getElementById('selected-style-badge').classList.remove('hidden');
         document.getElementById('selected-style-name').textContent = AI_STYLES[style].name;
         
-        // Add assistant message about style selection
-        addAIMessage(`Great choice! I'll create your artwork in the **${AI_STYLES[style].name}** style. Now describe what you'd like me to paint - the subject, scene, mood, or any specific elements you want to include.`);
+        addAIMessage('Great choice! I will create your artwork in the <strong class="text-pink-400">' + AI_STYLES[style].name + '</strong> style. Now describe what you would like me to paint.');
     }
 
     function clearAIStyle() {
@@ -4820,49 +4701,25 @@
 
     function addUserMessage(text) {
         const messagesContainer = document.getElementById('ai-chat-messages');
-        const messageHTML = `
-            <div class="flex gap-3 justify-end">
-                <div class="bg-gradient-to-r from-pink-500/20 to-purple-600/20 border border-pink-500/30 p-4 rounded-2xl rounded-tr-none max-w-[85%]">
-                    <p class="text-sm">${escapeHtml(text)}</p>
-                </div>
-                <div class="w-8 h-8 bg-gray-700 rounded-full flex-shrink-0 flex items-center justify-center text-sm">
-                    👤
-                </div>
-            </div>
-        `;
+        const div = document.createElement('div');
+        div.textContent = text;
+        const safeText = div.innerHTML;
+        
+        const messageHTML = '<div class="flex gap-3 justify-end"><div class="bg-gradient-to-r from-pink-500/20 to-purple-600/20 border border-pink-500/30 p-4 rounded-2xl rounded-tr-none max-w-[85%]"><p class="text-sm">' + safeText + '</p></div><div class="w-8 h-8 bg-gray-700 rounded-full flex-shrink-0 flex items-center justify-center text-sm">👤</div></div>';
         messagesContainer.insertAdjacentHTML('beforeend', messageHTML);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-    function addAIMessage(text, isLoading = false) {
+    function addAIMessage(text, isLoading) {
         const messagesContainer = document.getElementById('ai-chat-messages');
         const messageId = 'ai-msg-' + Date.now();
         
         let content = text;
         if (isLoading) {
-            content = `
-                <div class="flex items-center gap-2">
-                    <div class="animate-spin w-4 h-4 border-2 border-pink-500 border-t-transparent rounded-full"></div>
-                    <span>${text}</span>
-                </div>
-            `;
-        } else {
-            // Convert **bold** to actual bold
-            content = text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-pink-400">$1</strong>');
+            content = '<div class="flex items-center gap-2"><div class="animate-spin w-4 h-4 border-2 border-pink-500 border-t-transparent rounded-full"></div><span>' + text + '</span></div>';
         }
         
-        const messageHTML = `
-            <div class="flex gap-3" id="${messageId}">
-                <div class="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex-shrink-0 flex items-center justify-center">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                    </svg>
-                </div>
-                <div class="glass-effect p-4 rounded-2xl rounded-tl-none max-w-[85%]">
-                    <div class="text-sm">${content}</div>
-                </div>
-            </div>
-        `;
+        const messageHTML = '<div class="flex gap-3" id="' + messageId + '"><div class="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex-shrink-0 flex items-center justify-center"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg></div><div class="glass-effect p-4 rounded-2xl rounded-tl-none max-w-[85%]"><div class="text-sm">' + content + '</div></div></div>';
         messagesContainer.insertAdjacentHTML('beforeend', messageHTML);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
         
@@ -4874,16 +4731,9 @@
         if (messageEl) {
             const contentEl = messageEl.querySelector('.text-sm');
             if (contentEl) {
-                const content = text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-pink-400">$1</strong>');
-                contentEl.innerHTML = content;
+                contentEl.innerHTML = text;
             }
         }
-    }
-
-    function escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
     }
 
     async function sendAIMessage() {
@@ -4892,76 +4742,43 @@
         
         if (!userMessage || isGenerating) return;
         
-        // Check for API key
         const apiKey = document.getElementById('replicate-api-key').value.trim();
         if (!apiKey) {
-            addAIMessage("⚠️ Please enter your **Replicate API key** in the settings panel on the right before generating images. You can get one for free at replicate.com");
+            addAIMessage('⚠️ Please enter your <strong class="text-pink-400">Replicate API key</strong> in the settings panel on the right before generating images. You can get one free at replicate.com');
             return;
         }
         
-        // Add user message to chat
         addUserMessage(userMessage);
         input.value = '';
         lastPrompt = userMessage;
         
-        // Build the full prompt
         let fullPrompt = userMessage;
-        
-        // Add style if selected
         if (selectedAIStyle && AI_STYLES[selectedAIStyle]) {
-            fullPrompt += `, ${AI_STYLES[selectedAIStyle].prompt}`;
+            fullPrompt += ', ' + AI_STYLES[selectedAIStyle].prompt;
         }
-        
-        // Add quality enhancers
         fullPrompt += ', highly detailed, professional artwork, museum quality, masterpiece';
         
-        // Add loading message
         const loadingMsgId = addAIMessage('Creating your artwork... This may take 30-60 seconds.', true);
         
-        // Show generation status
         document.getElementById('generation-status').classList.remove('hidden');
         document.getElementById('generation-status-text').textContent = 'Generating...';
         isGenerating = true;
         
-        // Disable send button
         document.getElementById('ai-send-btn').disabled = true;
         document.getElementById('ai-send-btn').classList.add('opacity-50');
         
         try {
-            // Get settings
             const aspectRatio = document.getElementById('ai-aspect-ratio').value;
             const quality = document.getElementById('ai-quality').value;
             
-            // Map aspect ratio to dimensions
-            const dimensions = {
-                '1:1': { width: 1024, height: 1024 },
-                '16:9': { width: 1344, height: 768 },
-                '9:16': { width: 768, height: 1344 },
-                '4:3': { width: 1152, height: 896 },
-                '3:4': { width: 896, height: 1152 }
-            };
-            
-            const { width, height } = dimensions[aspectRatio] || dimensions['1:1'];
-            
-            // Map quality to steps
-            const steps = quality === 'ultra' ? 50 : (quality === 'hd' ? 30 : 20);
-            
-            // Call Replicate API (using FLUX schnell for speed, or FLUX dev for quality)
-            const model = quality === 'ultra' ? 
-                'black-forest-labs/flux-dev' : 
-                'black-forest-labs/flux-schnell';
-            
-            // Start prediction
-            const response = await fetch('https://api.replicate.com/v1/predictions', {
+            const response = await fetch('https://api.replicate.com/v1/models/black-forest-labs/flux-schnell/predictions', {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Token ${apiKey}`,
-                    'Content-Type': 'application/json'
+                    'Authorization': 'Bearer ' + apiKey,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'wait'
                 },
                 body: JSON.stringify({
-                    version: quality === 'ultra' ? 
-                        'black-forest-labs/flux-dev' :
-                        'black-forest-labs/flux-schnell',
                     input: {
                         prompt: fullPrompt,
                         num_outputs: 1,
@@ -4977,73 +4794,58 @@
                 throw new Error(errorData.detail || 'API request failed');
             }
             
-            const prediction = await response.json();
+            const result = await response.json();
             
-            // Poll for completion
-            let result = prediction;
-            let attempts = 0;
-            const maxAttempts = 60; // 2 minutes max
-            
-            while (result.status !== 'succeeded' && result.status !== 'failed' && attempts < maxAttempts) {
-                await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds
-                
-                const pollResponse = await fetch(`https://api.replicate.com/v1/predictions/${result.id}`, {
-                    headers: {
-                        'Authorization': `Token ${apiKey}`
+            let imageUrl = null;
+            if (result.output) {
+                imageUrl = Array.isArray(result.output) ? result.output[0] : result.output;
+            } else if (result.urls && result.urls.get) {
+                let pollResult = result;
+                let attempts = 0;
+                while (pollResult.status !== 'succeeded' && pollResult.status !== 'failed' && attempts < 60) {
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    const pollResponse = await fetch(result.urls.get, {
+                        headers: { 'Authorization': 'Bearer ' + apiKey }
+                    });
+                    pollResult = await pollResponse.json();
+                    attempts++;
+                    if (pollResult.status === 'processing') {
+                        document.getElementById('generation-status-text').textContent = 'Processing...';
                     }
-                });
-                
-                result = await pollResponse.json();
-                attempts++;
-                
-                // Update status
-                if (result.status === 'processing') {
-                    document.getElementById('generation-status-text').textContent = 'Processing...';
+                }
+                if (pollResult.status === 'succeeded' && pollResult.output) {
+                    imageUrl = Array.isArray(pollResult.output) ? pollResult.output[0] : pollResult.output;
+                } else {
+                    throw new Error('Generation failed or timed out');
                 }
             }
             
-            if (result.status === 'failed') {
-                throw new Error(result.error || 'Generation failed');
+            if (!imageUrl) {
+                throw new Error('No image URL in response');
             }
             
-            if (result.status !== 'succeeded') {
-                throw new Error('Generation timed out');
-            }
-            
-            // Get the image URL
-            const imageUrl = Array.isArray(result.output) ? result.output[0] : result.output;
-            
-            // Add signature to the image
             const signedImageUrl = await addSignatureToImage(imageUrl);
-            
-            // Store the generated image
             currentGeneratedImage = signedImageUrl;
-            
-            // Display the image
             displayGeneratedImage(signedImageUrl);
             
-            // Update chat message
-            updateAIMessage(loadingMsgId, `✨ Your artwork is ready! I've created an original piece based on your description${selectedAIStyle ? ` in the **${AI_STYLES[selectedAIStyle].name}** style` : ''}. You can download it or use it as a new project.`);
+            const styleName = selectedAIStyle ? AI_STYLES[selectedAIStyle].name : 'custom';
+            updateAIMessage(loadingMsgId, '✨ Your artwork is ready! I created an original piece in the <strong class="text-pink-400">' + styleName + '</strong> style. You can download it or use it as a new project.');
             
-            // Save to recent generations
             saveToRecentGenerations(signedImageUrl, userMessage);
             
         } catch (error) {
             console.error('Generation error:', error);
-            updateAIMessage(loadingMsgId, `❌ Sorry, there was an error generating your artwork: **${error.message}**. Please check your API key and try again.`);
+            updateAIMessage(loadingMsgId, '❌ Sorry, there was an error: <strong class="text-pink-400">' + error.message + '</strong>. Please check your API key and try again.');
         } finally {
-            // Hide generation status
             document.getElementById('generation-status').classList.add('hidden');
             isGenerating = false;
-            
-            // Re-enable send button
             document.getElementById('ai-send-btn').disabled = false;
             document.getElementById('ai-send-btn').classList.remove('opacity-50');
         }
     }
 
     async function addSignatureToImage(imageUrl) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             const signature = document.getElementById('ai-signature').value.trim() || 'InfraMint';
             
             const img = new Image();
@@ -5057,31 +4859,24 @@
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0);
                 
-                // Add signature in bottom right
-                const fontSize = Math.max(12, Math.floor(img.width / 60)); // Responsive font size
-                ctx.font = `${fontSize}px 'Inter', sans-serif`;
+                const fontSize = Math.max(12, Math.floor(img.width / 60));
+                ctx.font = fontSize + 'px Inter, sans-serif';
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
                 ctx.textAlign = 'right';
                 ctx.textBaseline = 'bottom';
-                
-                // Add subtle shadow for readability
                 ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
                 ctx.shadowBlur = 4;
                 ctx.shadowOffsetX = 1;
                 ctx.shadowOffsetY = 1;
                 
-                // Position: bottom right with padding
                 const padding = Math.floor(img.width / 40);
-                ctx.fillText(`© ${signature}`, img.width - padding, img.height - padding);
+                ctx.fillText('© ' + signature, img.width - padding, img.height - padding);
                 
-                // Convert to data URL
-                const signedImageUrl = canvas.toDataURL('image/png');
-                resolve(signedImageUrl);
+                resolve(canvas.toDataURL('image/png'));
             };
             
             img.onerror = () => {
-                console.error('Failed to load image for signing');
-                resolve(imageUrl); // Return original if signing fails
+                resolve(imageUrl);
             };
             
             img.src = imageUrl;
@@ -5090,11 +4885,7 @@
 
     function displayGeneratedImage(imageUrl) {
         const previewContainer = document.getElementById('ai-image-preview');
-        previewContainer.innerHTML = `
-            <img src="${imageUrl}" alt="Generated Artwork" class="w-full h-full object-contain">
-        `;
-        
-        // Show action buttons
+        previewContainer.innerHTML = '<img src="' + imageUrl + '" alt="Generated Artwork" class="w-full h-full object-contain">';
         document.getElementById('ai-image-actions').classList.remove('hidden');
     }
 
@@ -5103,7 +4894,7 @@
             document.getElementById('ai-chat-input').value = lastPrompt;
             sendAIMessage();
         } else {
-            addAIMessage("Please describe what you'd like me to create first!");
+            addAIMessage('Please describe what you would like me to create first!');
         }
     }
 
@@ -5115,41 +4906,34 @@
         
         const link = document.createElement('a');
         link.href = currentGeneratedImage;
-        link.download = `inframint-artwork-${Date.now()}.png`;
+        link.download = 'inframint-artwork-' + Date.now() + '.png';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
         
-        addAIMessage("Your artwork has been downloaded! 🎉");
+        addAIMessage('Your artwork has been downloaded! 🎉');
     }
 
     function saveReplicateKey() {
         const apiKey = document.getElementById('replicate-api-key').value.trim();
         if (apiKey) {
             localStorage.setItem('replicate_api_key', apiKey);
-            
-            // Also save signature
             const signature = document.getElementById('ai-signature').value.trim();
             if (signature) {
                 localStorage.setItem('ai_signature', signature);
             }
-            
-            addAIMessage("✅ Your API key has been saved securely in your browser. You're ready to create!");
+            addAIMessage('✅ Your API key has been saved. You are ready to create!');
         } else {
             alert('Please enter an API key');
         }
     }
 
     function saveToRecentGenerations(imageUrl, prompt) {
-        recentGenerations.unshift({ imageUrl, prompt, timestamp: Date.now() });
+        recentGenerations.unshift({ imageUrl: imageUrl, prompt: prompt, timestamp: Date.now() });
         if (recentGenerations.length > 9) {
             recentGenerations = recentGenerations.slice(0, 9);
         }
-        
-        // Save to localStorage
         localStorage.setItem('ai_recent_generations', JSON.stringify(recentGenerations));
-        
-        // Update UI
         updateRecentGenerationsUI();
     }
 
@@ -5167,31 +4951,21 @@
 
     function updateRecentGenerationsUI() {
         const container = document.getElementById('recent-generations');
+        if (!container) return;
         
         if (recentGenerations.length === 0) {
-            container.innerHTML = `
-                <div class="aspect-square rounded-lg bg-gray-800/50 flex items-center justify-center text-gray-600 text-xs">Empty</div>
-                <div class="aspect-square rounded-lg bg-gray-800/50 flex items-center justify-center text-gray-600 text-xs">Empty</div>
-                <div class="aspect-square rounded-lg bg-gray-800/50 flex items-center justify-center text-gray-600 text-xs">Empty</div>
-            `;
+            container.innerHTML = '<div class="aspect-square rounded-lg bg-gray-800/50 flex items-center justify-center text-gray-600 text-xs">Empty</div><div class="aspect-square rounded-lg bg-gray-800/50 flex items-center justify-center text-gray-600 text-xs">Empty</div><div class="aspect-square rounded-lg bg-gray-800/50 flex items-center justify-center text-gray-600 text-xs">Empty</div>';
             return;
         }
         
-        container.innerHTML = recentGenerations.slice(0, 3).map((gen, index) => `
-            <div class="aspect-square rounded-lg overflow-hidden cursor-pointer hover:ring-2 hover:ring-pink-500 transition-all" 
-                 onclick="loadRecentGeneration(${index})" 
-                 title="${escapeHtml(gen.prompt || 'Generated artwork')}">
-                <img src="${gen.imageUrl}" alt="Recent generation" class="w-full h-full object-cover">
-            </div>
-        `).join('');
-        
-        // Fill remaining slots
-        const remaining = 3 - Math.min(recentGenerations.length, 3);
-        for (let i = 0; i < remaining; i++) {
-            container.innerHTML += `
-                <div class="aspect-square rounded-lg bg-gray-800/50 flex items-center justify-center text-gray-600 text-xs">Empty</div>
-            `;
+        let html = '';
+        for (let i = 0; i < Math.min(recentGenerations.length, 3); i++) {
+            html += '<div class="aspect-square rounded-lg overflow-hidden cursor-pointer hover:ring-2 hover:ring-pink-500 transition-all" onclick="loadRecentGeneration(' + i + ')"><img src="' + recentGenerations[i].imageUrl + '" alt="Recent generation" class="w-full h-full object-cover"></div>';
         }
+        for (let i = recentGenerations.length; i < 3; i++) {
+            html += '<div class="aspect-square rounded-lg bg-gray-800/50 flex items-center justify-center text-gray-600 text-xs">Empty</div>';
+        }
+        container.innerHTML = html;
     }
 
     function loadRecentGeneration(index) {
@@ -5199,7 +4973,7 @@
         if (gen) {
             currentGeneratedImage = gen.imageUrl;
             displayGeneratedImage(gen.imageUrl);
-            addAIMessage(`Loaded your previous artwork. Original prompt: "${gen.prompt}"`);
+            addAIMessage('Loaded your previous artwork. Original prompt: "' + gen.prompt + '"');
         }
     }
 
@@ -5209,7 +4983,6 @@
             return;
         }
         
-        // Prompt for project details
         const title = prompt('Enter project title:', 'New AI Generated Project');
         if (!title) return;
         
@@ -5218,18 +4991,15 @@
         const totalSpots = prompt('How many contributor spots?', '5000');
         if (!totalSpots || isNaN(parseInt(totalSpots))) return;
         
-        addAIMessage("Creating project... Please wait.");
+        addAIMessage('Creating project... Please wait.');
         
         try {
-            // First, upload the image to Supabase Storage
-            // Convert base64 to blob
             const response = await fetch(currentGeneratedImage);
             const blob = await response.blob();
             
-            const fileName = `project-${Date.now()}.png`;
-            const filePath = `projects/${fileName}`;
+            const fileName = 'project-' + Date.now() + '.png';
+            const filePath = 'projects/' + fileName;
             
-            // Upload to Supabase Storage (assuming 'artworks' bucket exists)
             const { data: uploadData, error: uploadError } = await supabaseClient.storage
                 .from('contributions')
                 .upload(filePath, blob, {
@@ -5237,14 +5007,7 @@
                     upsert: true
                 });
             
-            if (uploadError) {
-                console.error('Upload error:', uploadError);
-                // If upload fails, use the data URL directly
-                // This is a fallback - in production you'd want proper storage
-            }
-            
-            // Get the public URL
-            let imageUrl = currentGeneratedImage; // Fallback to base64
+            let imageUrl = currentGeneratedImage;
             if (uploadData) {
                 const { data: urlData } = supabaseClient.storage
                     .from('contributions')
@@ -5254,7 +5017,6 @@
                 }
             }
             
-            // Create the project
             const { data: projectData, error: projectError } = await supabaseClient
                 .from('projects')
                 .insert({
@@ -5273,19 +5035,15 @@
             
             if (projectError) throw projectError;
             
-            addAIMessage(`✅ Project "**${title}**" has been created successfully with ${totalSpots} contributor spots! Go to the Artworks tab or the public site to see it.`);
-            
-            // Optionally switch to artworks tab
-            // showAdminTab('artworks');
+            addAIMessage('✅ Project "<strong class="text-pink-400">' + title + '</strong>" has been created successfully with ' + totalSpots + ' contributor spots!');
             
         } catch (error) {
             console.error('Error creating project:', error);
-            addAIMessage(`❌ Failed to create project: **${error.message}**`);
+            addAIMessage('❌ Failed to create project: <strong class="text-pink-400">' + error.message + '</strong>');
         }
     }
 
 </script>
 
-
-
- </body></html>
+</body>
+</html>
