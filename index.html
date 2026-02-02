@@ -2325,8 +2325,143 @@
                                 <button onclick="regenerateAIImage()" class="flex-1 px-4 py-2 bg-white/10 rounded-xl text-sm font-medium hover:bg-white/20 transition-colors">🔄 Regenerate</button>
                                 <button onclick="downloadAIImage()" class="flex-1 px-4 py-2 bg-white/10 rounded-xl text-sm font-medium hover:bg-white/20 transition-colors">⬇️ Download</button>
                             </div>
-                            <button onclick="useAsProject()" class="w-full px-4 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">✨ Use as New Project</button>
+                            <button onclick="showMosaicCalculator()" class="w-full px-4 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all">✨ Create Mosaic Project</button>
                         </div>
+                    </div>
+                    
+                    <!-- Mosaic Calculator Panel (Hidden by default) -->
+                    <div id="mosaic-calculator-panel" class="hidden glass-effect p-6 rounded-2xl border border-pink-500/30">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-xl font-bold gradient-text">🧮 Mosaic Calculator</h3>
+                            <button onclick="hideMosaicCalculator()" class="text-gray-400 hover:text-white">✕</button>
+                        </div>
+                        
+                        <!-- Image Analysis Results -->
+                        <div id="image-analysis-results" class="mb-6 p-4 bg-white/5 rounded-xl">
+                            <div class="flex items-center gap-2 mb-3">
+                                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                <span class="text-sm font-medium text-green-400">Image Analyzed</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 text-center">
+                                <div>
+                                    <div id="analysis-complexity" class="text-2xl font-bold text-pink-400">--</div>
+                                    <div class="text-xs text-gray-400">Complexity</div>
+                                </div>
+                                <div>
+                                    <div id="analysis-colors" class="text-2xl font-bold text-purple-400">--</div>
+                                    <div class="text-xs text-gray-400">Color Regions</div>
+                                </div>
+                                <div>
+                                    <div id="analysis-detail" class="text-2xl font-bold text-blue-400">--</div>
+                                    <div class="text-xs text-gray-400">Detail Level</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Print Size Selection -->
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Print Size</label>
+                            <select id="mosaic-print-size" onchange="calculateMosaic()" class="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-pink-500">
+                                <option value="small" class="bg-gray-900">Small - 50×50cm (Home Display)</option>
+                                <option value="medium" class="bg-gray-900">Medium - 100×100cm (Living Room)</option>
+                                <option value="large" selected class="bg-gray-900">Large - 150×100cm (Feature Wall)</option>
+                                <option value="xlarge" class="bg-gray-900">XL - 200×120cm (Gallery Size)</option>
+                                <option value="museum" class="bg-gray-900">Museum - 300×200cm (Exhibition)</option>
+                                <option value="custom" class="bg-gray-900">Custom Size...</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Custom Size Inputs (hidden by default) -->
+                        <div id="custom-size-inputs" class="hidden mb-4 grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1">Width (cm)</label>
+                                <input type="number" id="custom-width" value="150" min="20" max="500" onchange="calculateMosaic()" class="w-full px-3 py-2 bg-white/5 border border-gray-700 rounded-lg text-white text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1">Height (cm)</label>
+                                <input type="number" id="custom-height" value="100" min="20" max="500" onchange="calculateMosaic()" class="w-full px-3 py-2 bg-white/5 border border-gray-700 rounded-lg text-white text-sm">
+                            </div>
+                        </div>
+                        
+                        <!-- Quality Preset -->
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Quality Preset</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button onclick="setMosaicQuality('standard')" id="quality-standard" class="mosaic-quality-btn px-3 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-colors">
+                                    Standard<br><span class="text-xs text-gray-400">2.5cm tiles</span>
+                                </button>
+                                <button onclick="setMosaicQuality('hd')" id="quality-hd" class="mosaic-quality-btn px-3 py-2 bg-pink-500/30 ring-2 ring-pink-500 rounded-lg text-sm">
+                                    HD<br><span class="text-xs text-gray-400">2cm tiles</span>
+                                </button>
+                                <button onclick="setMosaicQuality('ultra')" id="quality-ultra" class="mosaic-quality-btn px-3 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-colors">
+                                    Ultra<br><span class="text-xs text-gray-400">1.5cm tiles</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Calculation Results -->
+                        <div class="p-4 bg-gradient-to-r from-pink-500/10 to-purple-600/10 rounded-xl border border-pink-500/20 mb-4">
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div class="text-center p-3 bg-white/5 rounded-lg">
+                                    <div id="calc-faces-needed" class="text-3xl font-bold gradient-text">--</div>
+                                    <div class="text-xs text-gray-400">Faces Needed</div>
+                                </div>
+                                <div class="text-center p-3 bg-white/5 rounded-lg">
+                                    <div id="calc-grid-size" class="text-lg font-bold text-white">--</div>
+                                    <div class="text-xs text-gray-400">Grid Size</div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2 text-center text-sm">
+                                <div>
+                                    <div id="calc-tile-size" class="font-semibold text-pink-400">--</div>
+                                    <div class="text-xs text-gray-500">Tile Size</div>
+                                </div>
+                                <div>
+                                    <div id="calc-print-dpi" class="font-semibold text-purple-400">--</div>
+                                    <div class="text-xs text-gray-500">Print DPI</div>
+                                </div>
+                                <div>
+                                    <div id="calc-view-distance" class="font-semibold text-blue-400">--</div>
+                                    <div class="text-xs text-gray-500">View Distance</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pricing Estimates -->
+                        <div class="p-4 bg-white/5 rounded-xl mb-4">
+                            <h4 class="text-sm font-semibold mb-3">💰 Pricing Estimates</h4>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Suggested Price</span>
+                                    <span id="calc-suggested-price" class="font-semibold text-green-400">--</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Per Contributor (75%)</span>
+                                    <span id="calc-per-contributor" class="font-semibold">--</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Est. Collection Time</span>
+                                    <span id="calc-collection-time" class="font-semibold">--</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Project Details -->
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Project Title</label>
+                            <input type="text" id="mosaic-project-title" placeholder="e.g., Sunset Dreams Collection" class="w-full px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:border-pink-500">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Description</label>
+                            <textarea id="mosaic-project-description" rows="2" placeholder="Describe this artwork project..." class="w-full px-4 py-2 bg-white/5 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:border-pink-500"></textarea>
+                        </div>
+                        
+                        <!-- Create Project Button -->
+                        <button onclick="createMosaicProject()" class="w-full px-6 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-pink-500/50 transition-all">
+                            🚀 Create Project & Open for Contributions
+                        </button>
+                        <p class="text-xs text-gray-500 text-center mt-2">Project will appear in Gallery for contributors to join</p>
                     </div>
                     
                     <!-- Generation Settings -->
@@ -4975,6 +5110,310 @@
             currentGeneratedImage = gen.imageUrl;
             displayGeneratedImage(gen.imageUrl);
             addAIMessage('Loaded your previous artwork. Original prompt: "' + gen.prompt + '"');
+        }
+    }
+
+    // ========== MOSAIC CALCULATOR FUNCTIONS ==========
+    
+    let mosaicSettings = {
+        quality: 'hd',
+        tileSize: 2, // cm
+        printWidth: 150,
+        printHeight: 100,
+        imageComplexity: 0,
+        colorRegions: 0,
+        detailLevel: 0
+    };
+    
+    const PRINT_PRESETS = {
+        small: { width: 50, height: 50, name: 'Small', viewDistance: '1m' },
+        medium: { width: 100, height: 100, name: 'Medium', viewDistance: '1.5m' },
+        large: { width: 150, height: 100, name: 'Large', viewDistance: '2m' },
+        xlarge: { width: 200, height: 120, name: 'XL', viewDistance: '2.5m' },
+        museum: { width: 300, height: 200, name: 'Museum', viewDistance: '3m+' }
+    };
+    
+    const QUALITY_PRESETS = {
+        standard: { tileSize: 2.5, dpi: 150, name: 'Standard' },
+        hd: { tileSize: 2.0, dpi: 200, name: 'HD' },
+        ultra: { tileSize: 1.5, dpi: 300, name: 'Ultra HD' }
+    };
+    
+    function showMosaicCalculator() {
+        if (!currentGeneratedImage) {
+            alert('Please generate an image first');
+            return;
+        }
+        
+        document.getElementById('mosaic-calculator-panel').classList.remove('hidden');
+        
+        // Analyze the image
+        analyzeImage(currentGeneratedImage);
+        
+        // Calculate initial values
+        calculateMosaic();
+    }
+    
+    function hideMosaicCalculator() {
+        document.getElementById('mosaic-calculator-panel').classList.add('hidden');
+    }
+    
+    function analyzeImage(imageUrl) {
+        // Create canvas to analyze image
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Sample at lower resolution for speed
+            const sampleSize = 100;
+            canvas.width = sampleSize;
+            canvas.height = sampleSize;
+            ctx.drawImage(img, 0, 0, sampleSize, sampleSize);
+            
+            const imageData = ctx.getImageData(0, 0, sampleSize, sampleSize);
+            const data = imageData.data;
+            
+            // Analyze color variance (complexity)
+            let colorSet = new Set();
+            let totalVariance = 0;
+            let prevR = 0, prevG = 0, prevB = 0;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                const r = Math.floor(data[i] / 32);     // Quantize to 8 levels
+                const g = Math.floor(data[i+1] / 32);
+                const b = Math.floor(data[i+2] / 32);
+                
+                colorSet.add(r + ',' + g + ',' + b);
+                
+                // Calculate local variance (edge detection proxy)
+                if (i > 0) {
+                    totalVariance += Math.abs(data[i] - prevR) + Math.abs(data[i+1] - prevG) + Math.abs(data[i+2] - prevB);
+                }
+                prevR = data[i];
+                prevG = data[i+1];
+                prevB = data[i+2];
+            }
+            
+            // Normalize scores
+            const numColors = colorSet.size;
+            const avgVariance = totalVariance / (data.length / 4);
+            
+            // Map to ratings
+            let complexity, colorRegions, detailLevel;
+            
+            if (avgVariance > 80) {
+                complexity = 'High';
+                detailLevel = 'Fine';
+            } else if (avgVariance > 40) {
+                complexity = 'Medium';
+                detailLevel = 'Medium';
+            } else {
+                complexity = 'Low';
+                detailLevel = 'Coarse';
+            }
+            
+            if (numColors > 400) {
+                colorRegions = '50+';
+            } else if (numColors > 200) {
+                colorRegions = '25-50';
+            } else if (numColors > 100) {
+                colorRegions = '10-25';
+            } else {
+                colorRegions = '<10';
+            }
+            
+            // Update UI
+            document.getElementById('analysis-complexity').textContent = complexity;
+            document.getElementById('analysis-colors').textContent = colorRegions;
+            document.getElementById('analysis-detail').textContent = detailLevel;
+            
+            // Store for calculations
+            mosaicSettings.imageComplexity = avgVariance;
+            mosaicSettings.colorRegions = numColors;
+            mosaicSettings.detailLevel = avgVariance;
+            
+            // Recalculate with analysis data
+            calculateMosaic();
+        };
+        
+        img.src = imageUrl;
+    }
+    
+    function setMosaicQuality(quality) {
+        mosaicSettings.quality = quality;
+        mosaicSettings.tileSize = QUALITY_PRESETS[quality].tileSize;
+        
+        // Update UI
+        document.querySelectorAll('.mosaic-quality-btn').forEach(btn => {
+            btn.classList.remove('bg-pink-500/30', 'ring-2', 'ring-pink-500');
+            btn.classList.add('bg-white/10');
+        });
+        document.getElementById('quality-' + quality).classList.remove('bg-white/10');
+        document.getElementById('quality-' + quality).classList.add('bg-pink-500/30', 'ring-2', 'ring-pink-500');
+        
+        calculateMosaic();
+    }
+    
+    function calculateMosaic() {
+        const sizeSelect = document.getElementById('mosaic-print-size');
+        const selectedSize = sizeSelect.value;
+        
+        // Handle custom size
+        if (selectedSize === 'custom') {
+            document.getElementById('custom-size-inputs').classList.remove('hidden');
+            mosaicSettings.printWidth = parseInt(document.getElementById('custom-width').value) || 150;
+            mosaicSettings.printHeight = parseInt(document.getElementById('custom-height').value) || 100;
+        } else {
+            document.getElementById('custom-size-inputs').classList.add('hidden');
+            const preset = PRINT_PRESETS[selectedSize];
+            mosaicSettings.printWidth = preset.width;
+            mosaicSettings.printHeight = preset.height;
+        }
+        
+        const tileSize = mosaicSettings.tileSize;
+        const qualityPreset = QUALITY_PRESETS[mosaicSettings.quality];
+        
+        // Calculate grid dimensions
+        const gridWidth = Math.ceil(mosaicSettings.printWidth / tileSize);
+        const gridHeight = Math.ceil(mosaicSettings.printHeight / tileSize);
+        const totalFaces = gridWidth * gridHeight;
+        
+        // Adjust for complexity (more complex images might need more faces for better result)
+        let complexityMultiplier = 1;
+        if (mosaicSettings.imageComplexity > 80) {
+            complexityMultiplier = 1.1; // Suggest 10% more faces for complex images
+        }
+        
+        const recommendedFaces = Math.ceil(totalFaces * complexityMultiplier);
+        
+        // Calculate view distance
+        let viewDistance = '2m';
+        if (selectedSize !== 'custom') {
+            viewDistance = PRINT_PRESETS[selectedSize].viewDistance;
+        } else {
+            const maxDim = Math.max(mosaicSettings.printWidth, mosaicSettings.printHeight);
+            viewDistance = (maxDim / 75).toFixed(1) + 'm';
+        }
+        
+        // Calculate pricing
+        const basePrice = recommendedFaces * 3; // $3 per face base
+        const suggestedPrice = Math.round(basePrice / 100) * 100; // Round to nearest $100
+        const contributorShare = (suggestedPrice * 0.75 / recommendedFaces).toFixed(2);
+        
+        // Estimate collection time (assuming 50 faces/day average)
+        const daysToCollect = Math.ceil(recommendedFaces / 50);
+        let collectionTime;
+        if (daysToCollect <= 7) {
+            collectionTime = daysToCollect + ' days';
+        } else if (daysToCollect <= 30) {
+            collectionTime = Math.ceil(daysToCollect / 7) + ' weeks';
+        } else {
+            collectionTime = Math.ceil(daysToCollect / 30) + ' months';
+        }
+        
+        // Update UI
+        document.getElementById('calc-faces-needed').textContent = recommendedFaces.toLocaleString();
+        document.getElementById('calc-grid-size').textContent = gridWidth + ' × ' + gridHeight + ' tiles';
+        document.getElementById('calc-tile-size').textContent = tileSize + ' cm';
+        document.getElementById('calc-print-dpi').textContent = qualityPreset.dpi + ' DPI';
+        document.getElementById('calc-view-distance').textContent = viewDistance;
+        document.getElementById('calc-suggested-price').textContent = '$' + suggestedPrice.toLocaleString();
+        document.getElementById('calc-per-contributor').textContent = '$' + contributorShare;
+        document.getElementById('calc-collection-time').textContent = collectionTime;
+        
+        // Store calculated values
+        mosaicSettings.calculatedFaces = recommendedFaces;
+        mosaicSettings.suggestedPrice = suggestedPrice;
+        mosaicSettings.gridWidth = gridWidth;
+        mosaicSettings.gridHeight = gridHeight;
+    }
+    
+    async function createMosaicProject() {
+        if (!currentGeneratedImage) {
+            alert('No image to use');
+            return;
+        }
+        
+        const title = document.getElementById('mosaic-project-title').value.trim();
+        if (!title) {
+            alert('Please enter a project title');
+            document.getElementById('mosaic-project-title').focus();
+            return;
+        }
+        
+        const description = document.getElementById('mosaic-project-description').value.trim() || 
+            'A ' + mosaicSettings.printWidth + '×' + mosaicSettings.printHeight + 'cm mosaic artwork requiring ' + mosaicSettings.calculatedFaces + ' contributors.';
+        
+        addAIMessage('🚀 Creating mosaic project... Please wait.');
+        
+        try {
+            // Upload the image
+            const response = await fetch(currentGeneratedImage);
+            const blob = await response.blob();
+            
+            const fileName = 'mosaic-' + Date.now() + '.png';
+            const filePath = 'projects/' + fileName;
+            
+            const { data: uploadData, error: uploadError } = await supabaseClient.storage
+                .from('contributions')
+                .upload(filePath, blob, {
+                    contentType: 'image/png',
+                    upsert: true
+                });
+            
+            let imageUrl = currentGeneratedImage;
+            if (uploadData) {
+                const { data: urlData } = supabaseClient.storage
+                    .from('contributions')
+                    .getPublicUrl(filePath);
+                if (urlData) {
+                    imageUrl = urlData.publicUrl;
+                }
+            }
+            
+            // Create project with mosaic settings
+            const { data: projectData, error: projectError } = await supabaseClient
+                .from('projects')
+                .insert({
+                    title: title,
+                    artist: document.getElementById('ai-signature').value.trim() || 'Y. Husri',
+                    description: description,
+                    image_url: imageUrl,
+                    total_spots: mosaicSettings.calculatedFaces,
+                    filled_spots: 0,
+                    status: 'open',
+                    price: mosaicSettings.suggestedPrice,
+                    source: 'AI Generated Mosaic',
+                    print_width: mosaicSettings.printWidth,
+                    print_height: mosaicSettings.printHeight,
+                    tile_size: mosaicSettings.tileSize,
+                    grid_width: mosaicSettings.gridWidth,
+                    grid_height: mosaicSettings.gridHeight
+                })
+                .select()
+                .single();
+            
+            if (projectError) throw projectError;
+            
+            addAIMessage('✅ Mosaic project "<strong class="text-pink-400">' + title + '</strong>" created!<br><br>' +
+                '📐 Size: ' + mosaicSettings.printWidth + '×' + mosaicSettings.printHeight + 'cm<br>' +
+                '👥 Faces needed: ' + mosaicSettings.calculatedFaces.toLocaleString() + '<br>' +
+                '💰 Price: $' + mosaicSettings.suggestedPrice.toLocaleString() + '<br><br>' +
+                'The project is now open for contributions in the Gallery!');
+            
+            // Hide calculator
+            hideMosaicCalculator();
+            
+            // Clear form
+            document.getElementById('mosaic-project-title').value = '';
+            document.getElementById('mosaic-project-description').value = '';
+            
+        } catch (error) {
+            console.error('Error creating mosaic project:', error);
+            addAIMessage('❌ Failed to create project: <strong class="text-pink-400">' + error.message + '</strong>');
         }
     }
 
