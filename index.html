@@ -4772,7 +4772,7 @@
             const quality = document.getElementById('ai-quality').value;
             
             // Use Supabase Edge Function to call Replicate API
-            const response = await fetch(SUPABASE_URL + '/functions/v1/replicate-proxy', {
+            const response = await fetch(SUPABASE_URL + '/functions/v1/quick-processor', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
