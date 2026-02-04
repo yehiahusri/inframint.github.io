@@ -48,6 +48,21 @@
         .admin-tab-active { background: rgba(239,68,68,0.2); color: #ef4444; border-bottom-color: #ef4444; }
         
         .hide-scrollbar::-webkit-scrollbar { display: none; }
+        
+        /* Artist signature overlay */
+        .artwork-signature {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            width: 40px;
+            height: auto;
+            opacity: 0.7;
+            pointer-events: none;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+        }
+        .artwork-signature-light {
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8)) brightness(1.2);
+        }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
@@ -130,13 +145,13 @@
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-7 relative overflow-hidden min-h-[400px] lg:min-h-0">
-                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1482160549825-59d1b23cb208?w=1200&q=90');"></div>
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1514539079130-25950c84af65?w=1200&q=90');"></div>
                 <div class="absolute inset-0 bg-gradient-to-r from-[#f2f2f2] via-[#f2f2f2]/20 to-transparent lg:via-transparent"></div>
                 <div class="absolute inset-0 bg-gradient-to-t from-[#f2f2f2]/50 via-transparent to-transparent"></div>
-                <div class="absolute bottom-8 right-8 bg-black text-white px-5 py-3 shadow-2xl">
-                    <div class="text-[10px] tracking-[0.3em] font-medium">FEATURED</div>
-                    <div class="text-lg font-black mt-1">$12,500</div>
-                </div>
+                <button onclick="showPage('gallery')" class="absolute bottom-8 right-8 bg-black text-white px-5 py-3 shadow-2xl hover:bg-purple-600 transition-colors cursor-pointer">
+                    <div class="text-[10px] tracking-[0.3em] font-medium">VIEW GALLERY</div>
+                    <div class="text-lg font-black mt-1">15+ ARTWORKS →</div>
+                </button>
             </div>
         </div>
     </section>
@@ -404,32 +419,16 @@
                 <h1 class="text-4xl lg:text-6xl font-black tracking-tighter">GALLERY</h1>
                 <p class="text-gray-500 mt-2">Each artwork is one of one. Once sold, it's gone forever.</p>
             </div>
+            
+            <!-- Filter Tabs -->
+            <div class="flex gap-4 mb-8 border-b border-gray-300">
+                <button onclick="filterGallery('all')" id="filter-all" class="gallery-filter pb-3 text-sm font-bold border-b-2 border-black">ALL</button>
+                <button onclick="filterGallery('available')" id="filter-available" class="gallery-filter pb-3 text-sm font-bold border-b-2 border-transparent text-gray-400 hover:text-black">AVAILABLE</button>
+                <button onclick="filterGallery('sold')" id="filter-sold" class="gallery-filter pb-3 text-sm font-bold border-b-2 border-transparent text-gray-400 hover:text-black">SOLD</button>
+            </div>
+            
             <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden bg-white p-2 shadow-lg">
-                        <div class="aspect-square bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600')"></div>
-                    </div>
-                    <div class="mt-4 flex items-center justify-between">
-                        <div><h3 class="font-black tracking-wide">IMPRESSIONS AT DAWN</h3><p class="text-xs text-gray-500">1,247 contributors</p></div>
-                        <span class="text-lg font-black">$12,500</span>
-                    </div>
-                </div>
-                <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden bg-white p-2 shadow-lg">
-                        <div class="aspect-square bg-cover bg-center grayscale" style="background-image: url('https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=600')"></div>
-                        <div class="absolute inset-2 bg-black/60 flex items-center justify-center"><span class="text-white font-black tracking-[0.3em] text-lg">SOLD</span></div>
-                    </div>
-                    <div class="mt-4"><h3 class="font-black tracking-wide text-gray-400">URBAN SYMPHONY</h3><p class="text-xs text-gray-400">2,134 contributors · SOLD</p></div>
-                </div>
-                <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden bg-white p-2 shadow-lg">
-                        <div class="aspect-square bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600')"></div>
-                    </div>
-                    <div class="mt-4 flex items-center justify-between">
-                        <div><h3 class="font-black tracking-wide">GARDEN OF FACES</h3><p class="text-xs text-gray-500">892 contributors</p></div>
-                        <span class="text-lg font-black">$9,500</span>
-                    </div>
-                </div>
+                <div class="col-span-full text-center py-12 text-gray-400">Loading gallery...</div>
             </div>
         </div>
     </section>
@@ -1334,6 +1333,9 @@
                         <img src="${project.image_url}" alt="${project.title}" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                         
+                        <!-- YH Signature -->
+                        <img src="YH_Signature.png" alt="" class="absolute top-3 left-3 h-5 opacity-50" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));">
+                        
                         <!-- Selected Badge -->
                         <div class="absolute top-3 right-3 ${isSelected ? '' : 'hidden'}" id="selected-badge-${project.id}">
                             <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center">
@@ -1405,6 +1407,9 @@
                             <img src="${project.image_url}" alt="${project.title}" class="w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                             
+                            <!-- YH Signature -->
+                            <img src="YH_Signature.png" alt="" class="absolute top-3 left-3 h-5 opacity-50" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));">
+                            
                             <!-- Progress Bar -->
                             <div class="absolute bottom-0 left-0 right-0 p-4">
                                 <div class="flex items-center justify-between text-sm mb-2">
@@ -1432,6 +1437,185 @@
 
     // Load homepage projects on initial page load
     document.addEventListener('DOMContentLoaded', loadHomeProjects);
+
+    // ==================== GALLERY FUNCTIONS ====================
+    let galleryArtworks = [];
+    let currentGalleryFilter = 'all';
+
+    async function loadGallery() {
+        try {
+            const { data: artworks, error } = await supabaseClient
+                .from('projects')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) throw error;
+
+            galleryArtworks = artworks || [];
+            renderGallery();
+
+        } catch (error) {
+            console.error('Error loading gallery:', error);
+            document.getElementById('gallery-grid').innerHTML = `
+                <div class="col-span-full text-center py-12">
+                    <p class="text-red-500">Error loading gallery. Please refresh.</p>
+                </div>
+            `;
+        }
+    }
+
+    function filterGallery(filter) {
+        currentGalleryFilter = filter;
+        
+        // Update filter buttons
+        document.querySelectorAll('.gallery-filter').forEach(btn => {
+            btn.classList.remove('border-black', 'text-black');
+            btn.classList.add('border-transparent', 'text-gray-400');
+        });
+        document.getElementById('filter-' + filter).classList.remove('border-transparent', 'text-gray-400');
+        document.getElementById('filter-' + filter).classList.add('border-black', 'text-black');
+        
+        renderGallery();
+    }
+
+    function renderGallery() {
+        const grid = document.getElementById('gallery-grid');
+        if (!grid) return;
+
+        let filtered = galleryArtworks;
+        
+        if (currentGalleryFilter === 'available') {
+            filtered = galleryArtworks.filter(a => a.status !== 'sold' && a.status !== 'completed');
+        } else if (currentGalleryFilter === 'sold') {
+            filtered = galleryArtworks.filter(a => a.status === 'sold' || a.status === 'completed');
+        }
+
+        if (!filtered || filtered.length === 0) {
+            grid.innerHTML = `
+                <div class="col-span-full text-center py-16">
+                    <div class="text-6xl mb-4">🎨</div>
+                    <p class="text-gray-400 text-lg">No artworks found</p>
+                    <p class="text-gray-500 text-sm mt-2">Check back soon for new masterpieces!</p>
+                </div>
+            `;
+            return;
+        }
+
+        grid.innerHTML = filtered.map(artwork => {
+            const isSold = artwork.status === 'sold' || artwork.status === 'completed';
+            const percentFilled = artwork.total_spots > 0 ? Math.round((artwork.filled_spots / artwork.total_spots) * 100) : 0;
+            
+            return `
+                <div class="group cursor-pointer" onclick="showArtworkDetail('${artwork.id}')">
+                    <div class="relative overflow-hidden bg-white p-2 shadow-lg">
+                        <div class="aspect-square bg-cover bg-center transition-transform duration-700 group-hover:scale-105 ${isSold ? 'grayscale' : ''}" 
+                             style="background-image: url('${artwork.image_url}')"></div>
+                        <!-- YH Signature -->
+                        <img src="YH_Signature.png" alt="" class="absolute bottom-4 right-4 h-6 opacity-60" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));">
+                        ${isSold ? `
+                            <div class="absolute inset-2 bg-black/60 flex items-center justify-center">
+                                <span class="text-white font-black tracking-[0.3em] text-lg">SOLD</span>
+                            </div>
+                        ` : `
+                            <div class="absolute bottom-4 left-4 right-12">
+                                <div class="h-1 bg-gray-300 rounded-full overflow-hidden">
+                                    <div class="h-full bg-purple-600" style="width: ${percentFilled}%"></div>
+                                </div>
+                                <div class="text-[10px] text-gray-500 mt-1">${percentFilled}% filled</div>
+                            </div>
+                        `}
+                    </div>
+                    <div class="mt-4 ${isSold ? '' : 'flex items-center justify-between'}">
+                        <div>
+                            <h3 class="font-black tracking-wide ${isSold ? 'text-gray-400' : ''}">${artwork.title.toUpperCase()}</h3>
+                            <p class="text-xs ${isSold ? 'text-gray-400' : 'text-gray-500'}">${artwork.total_spots.toLocaleString()} spots${isSold ? ' · SOLD' : ''}</p>
+                            <p class="text-xs text-gray-400 mt-1">${artwork.print_size || '120 x 120 cm'}</p>
+                        </div>
+                        ${!isSold ? `<span class="text-lg font-black">$${(artwork.price || 15000).toLocaleString()}</span>` : ''}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function showArtworkDetail(artworkId) {
+        const artwork = galleryArtworks.find(a => a.id === artworkId);
+        if (!artwork) return;
+
+        const isSold = artwork.status === 'sold' || artwork.status === 'completed';
+        const percentFilled = artwork.total_spots > 0 ? Math.round((artwork.filled_spots / artwork.total_spots) * 100) : 0;
+
+        const modal = document.createElement('div');
+        modal.id = 'artwork-detail-modal';
+        modal.className = 'fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-6';
+        modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+        
+        modal.innerHTML = `
+            <div class="bg-white max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="grid md:grid-cols-2">
+                    <div class="aspect-square bg-cover bg-center relative ${isSold ? 'grayscale' : ''}" style="background-image: url('${artwork.image_url}')">
+                        <img src="YH_Signature.png" alt="" class="absolute bottom-6 right-6 h-10 opacity-70" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">
+                        ${isSold ? '<div class="w-full h-full bg-black/40 flex items-center justify-center"><span class="text-white font-black tracking-[0.3em] text-2xl">SOLD</span></div>' : ''}
+                    </div>
+                    <div class="p-8">
+                        <button onclick="document.getElementById('artwork-detail-modal').remove()" class="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl">&times;</button>
+                        <span class="text-[10px] tracking-[0.3em] text-gray-400">${isSold ? 'SOLD ARTWORK' : 'AVAILABLE'}</span>
+                        <h2 class="text-3xl font-black mt-2">${artwork.title}</h2>
+                        <p class="text-gray-500 mt-1">by ${artwork.artist || 'InfraMint AI'}</p>
+                        
+                        <div class="mt-6 space-y-4">
+                            <div class="flex justify-between py-3 border-b border-gray-200">
+                                <span class="text-gray-500">Print Size</span>
+                                <span class="font-bold">${artwork.print_size || '120 x 120 cm'}</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-gray-200">
+                                <span class="text-gray-500">Contributors</span>
+                                <span class="font-bold">${artwork.total_spots.toLocaleString()} spots</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-gray-200">
+                                <span class="text-gray-500">Progress</span>
+                                <span class="font-bold">${percentFilled}% filled</span>
+                            </div>
+                            ${!isSold ? `
+                            <div class="flex justify-between py-3 border-b border-gray-200">
+                                <span class="text-gray-500">Price</span>
+                                <span class="font-black text-2xl">$${(artwork.price || 15000).toLocaleString()}</span>
+                            </div>
+                            ` : ''}
+                        </div>
+                        
+                        <p class="text-gray-600 mt-6 leading-relaxed">${artwork.description || ''}</p>
+                        
+                        ${!isSold ? `
+                        <div class="mt-8 space-y-3">
+                            <button onclick="showPage('contribute'); document.getElementById('artwork-detail-modal').remove();" class="w-full btn-primary">
+                                CONTRIBUTE TO THIS ARTWORK
+                            </button>
+                            <button onclick="alert('Purchase coming soon!')" class="w-full btn-secondary">
+                                PURCHASE ARTWORK
+                            </button>
+                        </div>
+                        ` : `
+                        <div class="mt-8 p-4 bg-gray-100 text-center">
+                            <p class="text-gray-500">This artwork has been sold to a collector.</p>
+                        </div>
+                        `}
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+    }
+
+    // Load gallery when page becomes visible
+    const originalShowPage = showPage;
+    showPage = function(pageId) {
+        originalShowPage(pageId);
+        if (pageId === 'gallery' && galleryArtworks.length === 0) {
+            loadGallery();
+        }
+    };
 
     // Set max date for DOB field (must be 18+ years ago)
     document.addEventListener('DOMContentLoaded', function() {
