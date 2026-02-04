@@ -889,14 +889,14 @@
                                 <button onclick="selectAIStyle('custom')" class="ai-style-btn p-3 bg-white/5 hover:bg-white/10 border border-white/10 text-center text-xs" data-style="custom">✏️ Custom</button>
                             </div>
                         </div>
-                        <div id="ai-selected-style" class="hidden mb-4 p-3 bg-purple-500/20 border border-purple-500/50 flex items-center justify-between">
-                            <span>Selected: <span id="ai-style-name" class="font-bold"></span></span>
+                        <div id="selected-style-badge" class="hidden mb-4 p-3 bg-purple-500/20 border border-purple-500/50 flex items-center justify-between">
+                            <span>Selected: <span id="selected-style-name" class="font-bold"></span></span>
                             <button onclick="clearAIStyle()" class="text-xs text-gray-400 hover:text-white">Clear</button>
                         </div>
                         <div id="ai-chat-messages" class="h-64 overflow-y-auto mb-4 space-y-3 hide-scrollbar"></div>
                         <div class="flex gap-2">
                             <input type="text" id="ai-chat-input" placeholder="Describe what you want to generate..." class="input-dark flex-1" onkeypress="if(event.key==='Enter')sendAIMessage()">
-                            <button onclick="sendAIMessage()" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 font-semibold">Generate</button>
+                            <button id="ai-send-btn" onclick="sendAIMessage()" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 font-semibold">Generate</button>
                         </div>
                     </div>
                     <div class="bg-white/5 p-6 border border-white/10">
@@ -916,9 +916,13 @@
                 </div>
                 <div class="mt-6 bg-white/5 p-6 border border-white/10">
                     <h3 class="text-xl font-bold mb-4">API Settings</h3>
-                    <div class="flex gap-4 items-end">
+                    <div class="flex gap-4 items-end mb-4">
                         <div class="flex-1"><label class="block text-sm text-gray-400 mb-2">Replicate API Key</label><input type="password" id="replicate-api-key" placeholder="Enter your API key" class="input-dark w-full"></div>
                         <button onclick="saveReplicateKey()" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 font-semibold">Save Key</button>
+                    </div>
+                    <div class="flex gap-4 items-end">
+                        <div class="flex-1"><label class="block text-sm text-gray-400 mb-2">Artist Signature</label><input type="text" id="ai-signature" placeholder="Your artist name (default: Y. Husri)" class="input-dark w-full"></div>
+                        <button onclick="saveSignature()" class="bg-gray-600 hover:bg-gray-700 px-6 py-3 font-semibold">Save</button>
                     </div>
                 </div>
             </div>
@@ -3349,6 +3353,17 @@
             addAIMessage('✅ Your API key has been saved. You are ready to create!');
         } else {
             alert('Please enter an API key');
+        }
+    }
+
+    function saveSignature() {
+        const signature = document.getElementById('ai-signature').value.trim();
+        if (signature) {
+            localStorage.setItem('ai_signature', signature);
+            addAIMessage('✅ Artist signature saved: ' + signature);
+        } else {
+            localStorage.removeItem('ai_signature');
+            addAIMessage('Artist signature cleared. Default will be used.');
         }
     }
 
