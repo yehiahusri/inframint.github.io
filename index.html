@@ -3553,6 +3553,9 @@
             
             addAIMessage('✅ Project "<strong class="text-pink-400">' + title + '</strong>" has been created successfully with ' + totalSpots + ' contributor spots!');
             
+        } catch (error) {
+            console.error('Error creating project:', error);
+            addAIMessage('❌ Failed to create project: ' + error.message);
         }
     }
 
