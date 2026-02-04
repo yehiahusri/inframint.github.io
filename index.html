@@ -850,15 +850,27 @@
             <div id="admin-content-artworks" class="admin-content hidden">
                 <div class="bg-white/5 p-6 border border-white/10 mb-6">
                     <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-xl font-bold">Manage Artworks</h3>
+                        <h3 class="text-xl font-bold">Manage Artworks / Projects</h3>
                         <button onclick="showCreateArtworkModal()" class="bg-purple-600 hover:bg-purple-700 px-4 py-2 text-sm font-semibold">+ Create New Artwork</button>
                     </div>
-                    <div class="bg-white/5 p-6 border border-white/10 mb-6">
+                    
+                    <!-- Projects Grid (Gallery Items) -->
+                    <div class="mb-8">
+                        <h4 class="font-bold mb-4 text-lg">Gallery Projects</h4>
+                        <p class="text-sm text-gray-400 mb-4">These are the artworks shown in the public Gallery and available for contributions.</p>
+                        <div id="admin-projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"><div class="col-span-full text-center py-8 text-gray-400">Loading projects...</div></div>
+                    </div>
+                    
+                    <div class="border-t border-white/10 pt-6">
                         <h4 class="font-bold mb-4">Approved Faces Directory</h4>
                         <div id="approved-faces-directory" class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-2 max-h-64 overflow-y-auto"><div class="col-span-full text-center py-8 text-gray-400">Loading approved faces...</div></div>
                         <div id="selected-faces-count" class="mt-4 text-sm text-gray-400">Selected: <span id="faces-count">0</span> faces</div>
                     </div>
-                    <div id="admin-artworks-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><div class="col-span-full text-center py-12 text-gray-400">Loading artworks...</div></div>
+                    
+                    <div class="border-t border-white/10 pt-6 mt-6">
+                        <h4 class="font-bold mb-4">Generated Artworks</h4>
+                        <div id="admin-artworks-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><div class="col-span-full text-center py-12 text-gray-400">Loading artworks...</div></div>
+                    </div>
                 </div>
             </div>
 
@@ -3001,6 +3013,9 @@
         // First load approved faces directory
         await loadApprovedFacesDirectory();
         
+        // Load Gallery Projects (from projects table)
+        await loadAdminProjects();
+        
         try {
             const { data: artworks } = await supabaseClient
                 .from('artworks')
@@ -3037,6 +3052,89 @@
         } catch (error) {
             console.error('Error loading artworks:', error);
         }
+    }
+
+    // Load and display projects with delete functionality
+    async function loadAdminProjects() {
+        try {
+            const { data: projects, error } = await supabaseClient
+                .from('projects')
+                .select('*')
+                .order('created_at', { ascending: false });
+            
+            const grid = document.getElementById('admin-projects-grid');
+            if (!grid) return;
+            
+            if (error) throw error;
+            
+            if (!projects || projects.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-8 text-gray-400">
+                        <p>No projects in database</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = projects.map(p => `
+                <div class="bg-white/5 border border-white/10 rounded-lg overflow-hidden" id="project-card-${p.id}">
+                    <div class="aspect-video bg-gray-800 relative">
+                        <img src="${p.image_url}" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                        <div class="absolute top-2 right-2 flex gap-2">
+                            <span class="px-2 py-1 text-[10px] font-bold ${p.status === 'sold' ? 'bg-green-500' : p.status === 'open' ? 'bg-purple-500' : 'bg-gray-500'}">${p.status}</span>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h5 class="font-bold text-sm truncate">${p.title}</h5>
+                        <div class="text-xs text-gray-400 mt-1">${p.filled_spots || 0} / ${p.total_spots} spots</div>
+                        <div class="text-sm font-bold text-purple-400 mt-1">$${(p.price || 0).toLocaleString()}</div>
+                        <div class="flex gap-2 mt-3">
+                            <button onclick="editProject('${p.id}')" class="flex-1 bg-white/10 hover:bg-white/20 py-2 text-xs font-semibold">Edit</button>
+                            <button onclick="deleteProject('${p.id}', '${p.title.replace(/'/g, "\\'")}')" class="flex-1 bg-red-500/20 hover:bg-red-500/40 text-red-400 py-2 text-xs font-semibold">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+        } catch (error) {
+            console.error('Error loading projects:', error);
+        }
+    }
+
+    // Delete a project
+    async function deleteProject(projectId, projectTitle) {
+        if (!confirm(`Are you sure you want to delete "${projectTitle}"?\n\nThis action cannot be undone.`)) {
+            return;
+        }
+        
+        try {
+            const { error } = await supabaseClient
+                .from('projects')
+                .delete()
+                .eq('id', projectId);
+            
+            if (error) throw error;
+            
+            // Remove from UI
+            const card = document.getElementById('project-card-' + projectId);
+            if (card) {
+                card.style.transition = 'opacity 0.3s, transform 0.3s';
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.9)';
+                setTimeout(() => card.remove(), 300);
+            }
+            
+            alert('Project deleted successfully!');
+            
+        } catch (error) {
+            console.error('Error deleting project:', error);
+            alert('Error deleting project: ' + error.message);
+        }
+    }
+
+    // Edit project (placeholder - opens alert for now)
+    function editProject(projectId) {
+        alert('Edit functionality coming soon. For now, you can delete and recreate projects.');
     }
 
     async function loadApprovedFacesDirectory() {
