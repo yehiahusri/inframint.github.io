@@ -1272,6 +1272,21 @@
         if (pageId === 'home') {
             loadHomeProjects();
         }
+        
+        // Load gallery when gallery page is shown
+        if (pageId === 'gallery') {
+            loadGallery();
+        }
+        
+        // Load edit profile data
+        if (pageId === 'edit-profile') {
+            loadEditProfile();
+        }
+        
+        // Load admin data
+        if (pageId === 'admin') {
+            loadAdminData();
+        }
     }
 
     function toggleMobileMenu() {
@@ -1607,15 +1622,6 @@
         
         document.body.appendChild(modal);
     }
-
-    // Load gallery when page becomes visible
-    const originalShowPage = showPage;
-    showPage = function(pageId) {
-        originalShowPage(pageId);
-        if (pageId === 'gallery' && galleryArtworks.length === 0) {
-            loadGallery();
-        }
-    };
 
     // Set max date for DOB field (must be 18+ years ago)
     document.addEventListener('DOMContentLoaded', function() {
@@ -2742,18 +2748,6 @@
             activeTab.classList.add('border-pink-500', 'text-white');
         }
     }
-
-    // Override showPage to load data for certain pages
-    const originalShowPage = showPage;
-    showPage = function(pageId) {
-        if (pageId === 'edit-profile') {
-            loadEditProfile();
-        }
-        if (pageId === 'admin') {
-            loadAdminData();
-        }
-        originalShowPage(pageId);
-    };
 
     // ==================== ADMIN FUNCTIONS ====================
 
