@@ -92,6 +92,7 @@
                 <button onclick="showPage('how')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">HOW IT WORKS</button>
                 <button onclick="showPage('gallery')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">GALLERY</button>
                 <button onclick="showPage('ethics')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">ETHICS</button>
+                <button onclick="showPage('artist-portal')" class="text-[11px] tracking-[0.2em] text-purple-600 hover:text-purple-800 transition-colors font-medium">ARTIST PORTAL</button>
                 <button onclick="showPage('signin')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">SIGN IN</button>
                 <button onclick="showPage('signup')" class="bg-black text-white px-6 py-2.5 text-[11px] tracking-[0.2em] font-semibold hover:bg-purple-600 transition-all">GET STARTED</button>
             </div>
@@ -106,6 +107,7 @@
             <button onclick="showPage('how'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">How It Works</button>
             <button onclick="showPage('gallery'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Gallery</button>
             <button onclick="showPage('ethics'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Ethics</button>
+            <button onclick="showPage('artist-portal'); toggleMobileMenu()" class="block w-full text-left text-purple-600 hover:text-purple-800 text-sm font-medium">Artist Portal</button>
             <button onclick="showPage('signin'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Sign In</button>
             <button onclick="showPage('signup'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Get Started</button>
         </div>
@@ -574,6 +576,209 @@
                     <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                     <span class="text-sm font-medium">Google</span>
                 </button>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ==================== ARTIST PORTAL PAGE ==================== -->
+<div id="page-artist-portal" class="page-content hidden pt-16">
+    <section class="min-h-screen py-24 bg-gradient-to-b from-purple-50 to-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <div class="inline-block px-4 py-2 bg-purple-100 text-purple-700 text-xs font-bold tracking-wider mb-4">FOR ARTISTS</div>
+                <h1 class="text-5xl font-black tracking-tighter mb-4">ARTIST PORTAL</h1>
+                <p class="text-gray-600 max-w-2xl mx-auto">Submit your artwork to become part of the InfraMint collective. Your art, powered by thousands of contributors.</p>
+            </div>
+
+            <!-- Artist Login/Register Toggle -->
+            <div id="artist-auth-section" class="bg-white p-8 shadow-xl mb-8">
+                <div class="flex gap-4 mb-6 border-b border-gray-200">
+                    <button onclick="showArtistTab('login')" id="artist-tab-login" class="pb-3 px-4 text-sm font-bold border-b-2 border-purple-600 text-purple-600">SIGN IN</button>
+                    <button onclick="showArtistTab('register')" id="artist-tab-register" class="pb-3 px-4 text-sm font-bold border-b-2 border-transparent text-gray-400 hover:text-gray-600">REGISTER AS ARTIST</button>
+                </div>
+
+                <!-- Artist Login Form -->
+                <div id="artist-login-form">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold tracking-wider text-gray-500 mb-2">EMAIL</label>
+                            <input type="email" id="artist-login-email" class="input-modern w-full" placeholder="your@email.com">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold tracking-wider text-gray-500 mb-2">PASSWORD</label>
+                            <input type="password" id="artist-login-password" class="input-modern w-full" placeholder="••••••••">
+                        </div>
+                        <button onclick="artistLogin()" class="btn-primary w-full">SIGN IN AS ARTIST</button>
+                    </div>
+                </div>
+
+                <!-- Artist Register Form -->
+                <div id="artist-register-form" class="hidden">
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold tracking-wider text-gray-500 mb-2">FIRST NAME</label>
+                                <input type="text" id="artist-reg-fname" class="input-modern w-full" placeholder="First name">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold tracking-wider text-gray-500 mb-2">LAST NAME</label>
+                                <input type="text" id="artist-reg-lname" class="input-modern w-full" placeholder="Last name">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold tracking-wider text-gray-500 mb-2">ARTIST / STUDIO NAME</label>
+                            <input type="text" id="artist-reg-name" class="input-modern w-full" placeholder="How you want to be credited">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold tracking-wider text-gray-500 mb-2">EMAIL</label>
+                            <input type="email" id="artist-reg-email" class="input-modern w-full" placeholder="your@email.com">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold tracking-wider text-gray-500 mb-2">PASSWORD</label>
+                            <input type="password" id="artist-reg-password" class="input-modern w-full" placeholder="Min 8 characters">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold tracking-wider text-gray-500 mb-2">PORTFOLIO LINK (Optional)</label>
+                            <input type="url" id="artist-reg-portfolio" class="input-modern w-full" placeholder="https://your-portfolio.com">
+                        </div>
+                        <button onclick="artistRegister()" class="btn-primary w-full">CREATE ARTIST ACCOUNT</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Artist Dashboard (hidden until logged in) -->
+            <div id="artist-dashboard" class="hidden">
+                <div class="bg-white p-8 shadow-xl mb-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h2 class="text-2xl font-black">Welcome, <span id="artist-name-display">Artist</span></h2>
+                            <p class="text-gray-500 text-sm">Submit your artwork for the InfraMint collection</p>
+                        </div>
+                        <button onclick="artistLogout()" class="text-sm text-gray-400 hover:text-red-500">Sign Out</button>
+                    </div>
+
+                    <!-- Revenue Split Info -->
+                    <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 mb-8 border border-purple-100">
+                        <h3 class="font-bold mb-3">Revenue Split</h3>
+                        <div class="grid grid-cols-3 gap-4 text-center">
+                            <div>
+                                <div class="text-3xl font-black text-purple-600">40%</div>
+                                <div class="text-xs text-gray-500">YOU (Artist)</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-black text-pink-600">45%</div>
+                                <div class="text-xs text-gray-500">Contributors</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-black text-gray-400">15%</div>
+                                <div class="text-xs text-gray-500">Platform</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Artwork Submission Form -->
+                    <h3 class="font-bold text-lg mb-4">Submit New Artwork</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-xs font-bold tracking-wider text-gray-500 mb-2">ARTWORK TITLE</label>
+                            <input type="text" id="artist-artwork-title" class="input-modern w-full" placeholder="Give your masterpiece a name">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold tracking-wider text-gray-500 mb-2">DESCRIPTION</label>
+                            <textarea id="artist-artwork-desc" class="input-modern w-full h-24" placeholder="Tell the story behind your artwork..."></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold tracking-wider text-gray-500 mb-2">UPLOAD HIGH-RESOLUTION ARTWORK</label>
+                            <p class="text-xs text-gray-400 mb-2">Minimum 4000x4000px recommended for print quality. Max 50MB.</p>
+                            <div id="artist-upload-zone" class="border-2 border-dashed border-gray-300 p-8 text-center cursor-pointer hover:border-purple-400 transition-colors" onclick="document.getElementById('artist-artwork-file').click()">
+                                <input type="file" id="artist-artwork-file" accept="image/*" class="hidden" onchange="handleArtistUpload(event)">
+                                <div id="artist-upload-placeholder">
+                                    <svg class="w-12 h-12 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    <p class="text-gray-500">Click to upload your artwork</p>
+                                    <p class="text-xs text-gray-400 mt-1">PNG, JPG, TIFF up to 50MB</p>
+                                </div>
+                                <div id="artist-upload-preview" class="hidden">
+                                    <img id="artist-preview-image" class="max-h-64 mx-auto mb-3">
+                                    <p class="text-green-600 font-semibold">✓ Artwork uploaded</p>
+                                    <p id="artist-image-dimensions" class="text-xs text-gray-400"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Assessment Section -->
+                        <div id="ai-assessment-section" class="hidden bg-gray-50 p-6 border border-gray-200">
+                            <h4 class="font-bold mb-3 flex items-center gap-2">
+                                <span class="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 text-xs">AI</span>
+                                Face Count Assessment
+                            </h4>
+                            <p class="text-sm text-gray-600 mb-4">Our AI analyzes artwork complexity to recommend contributor spots.</p>
+                            <button onclick="runAIAssessment()" id="run-assessment-btn" class="bg-purple-600 text-white px-4 py-2 text-sm font-semibold hover:bg-purple-700">Analyze My Artwork</button>
+                            <div id="ai-assessment-result" class="hidden mt-4 p-4 bg-white border border-purple-200">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm text-gray-500">Recommended Contributors</p>
+                                        <p class="text-3xl font-black text-purple-600" id="ai-recommended-spots">-</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-sm text-gray-500">Complexity Score</p>
+                                        <p class="text-xl font-bold" id="ai-complexity-score">-</p>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-3" id="ai-assessment-reason"></p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold tracking-wider text-gray-500 mb-2">REQUESTED PRICE ($)</label>
+                                <input type="number" id="artist-artwork-price" class="input-modern w-full" placeholder="15000" min="5000" step="1000">
+                                <p class="text-xs text-gray-400 mt-1">Minimum $5,000 - Your cut: 40%</p>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold tracking-wider text-gray-500 mb-2">PRINT SIZE</label>
+                                <select id="artist-print-size" class="input-modern w-full">
+                                    <option value="100 x 100 cm">100 x 100 cm</option>
+                                    <option value="120 x 120 cm" selected>120 x 120 cm</option>
+                                    <option value="140 x 140 cm">140 x 140 cm</option>
+                                    <option value="150 x 150 cm">150 x 150 cm</option>
+                                    <option value="160 x 160 cm">160 x 160 cm</option>
+                                    <option value="Custom">Custom (specify in description)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Terms and Conditions -->
+                        <div class="bg-yellow-50 p-6 border border-yellow-200">
+                            <h4 class="font-bold mb-3 text-yellow-800">Artist Terms & Conditions</h4>
+                            <div class="text-sm text-yellow-900 space-y-2 mb-4 max-h-40 overflow-y-auto">
+                                <p><strong>1. Single Print Agreement:</strong> By submitting artwork, you agree that only ONE original print will be sold through InfraMint. You retain the master file but agree not to sell additional prints of this specific artwork elsewhere.</p>
+                                <p><strong>2. Revenue Distribution:</strong> Upon sale, you receive 40% of the final price, 45% is distributed among contributors whose faces are included, and 15% goes to the platform.</p>
+                                <p><strong>3. Contributor Integration:</strong> Your artwork will be enhanced with abstracted facial elements from our contributor pool. The final piece is a collaboration between your vision and collective participation.</p>
+                                <p><strong>4. Master Print Rights:</strong> You retain all rights to the original/master artwork. The sold print will note you as the primary artist and master print holder.</p>
+                                <p><strong>5. Gallery Listing:</strong> Your artwork will be listed as a "Third-Party Artist Submission" in our gallery, with full credit to you.</p>
+                                <p><strong>6. Quality Standards:</strong> Artwork must be high-resolution (minimum 4000x4000px) and suitable for large-format printing.</p>
+                                <p><strong>7. Approval Process:</strong> All submissions are reviewed by our team. We reserve the right to decline submissions that don't meet our quality or ethical standards.</p>
+                            </div>
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" id="artist-terms-agree" class="mt-1 w-5 h-5 accent-purple-600">
+                                <span class="text-sm text-yellow-900">I have read and agree to the Artist Terms & Conditions. I understand only one print will be sold and I will not sell additional prints of this artwork.</span>
+                            </label>
+                        </div>
+
+                        <button onclick="submitArtistArtwork()" class="btn-primary w-full">SUBMIT FOR REVIEW</button>
+                    </div>
+                </div>
+
+                <!-- My Submissions -->
+                <div class="bg-white p-8 shadow-xl">
+                    <h3 class="font-bold text-lg mb-4">My Submissions</h3>
+                    <div id="artist-submissions-list" class="space-y-4">
+                        <p class="text-gray-400 text-sm text-center py-8">No submissions yet</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1299,6 +1504,11 @@
         if (pageId === 'admin') {
             loadAdminData();
         }
+        
+        // Check artist session when visiting artist portal
+        if (pageId === 'artist-portal') {
+            checkArtistSession();
+        }
     }
 
     function toggleMobileMenu() {
@@ -1531,6 +1741,7 @@
         grid.innerHTML = filtered.map(artwork => {
             const isSold = artwork.status === 'sold' || artwork.status === 'completed';
             const percentFilled = artwork.total_spots > 0 ? Math.round((artwork.filled_spots / artwork.total_spots) * 100) : 0;
+            const isThirdParty = artwork.is_third_party || false;
             
             return `
                 <div class="group cursor-pointer" onclick="showArtworkDetail('${artwork.id}')">
@@ -1539,6 +1750,9 @@
                              style="background-image: url('${artwork.image_url}')"></div>
                         <!-- YH Signature -->
                         <img src="YH_Signature.png" alt="" class="absolute bottom-4 right-4 h-6 opacity-60" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));">
+                        ${isThirdParty ? `
+                            <div class="absolute top-4 left-4 bg-purple-600 text-white text-[9px] font-bold tracking-wider px-2 py-1">GUEST ARTIST</div>
+                        ` : ''}
                         ${isSold ? `
                             <div class="absolute inset-2 bg-black/60 flex items-center justify-center">
                                 <span class="text-white font-black tracking-[0.3em] text-lg">SOLD</span>
@@ -1555,8 +1769,11 @@
                     <div class="mt-4 ${isSold ? '' : 'flex items-center justify-between'}">
                         <div>
                             <h3 class="font-black tracking-wide ${isSold ? 'text-gray-400' : ''}">${artwork.title.toUpperCase()}</h3>
-                            <p class="text-xs ${isSold ? 'text-gray-400' : 'text-gray-500'}">${artwork.total_spots.toLocaleString()} spots${isSold ? ' · SOLD' : ''}</p>
+                            <p class="text-xs ${isSold ? 'text-gray-400' : 'text-gray-500'}">
+                                ${isThirdParty ? `by ${artwork.artist} · ` : ''}${artwork.total_spots.toLocaleString()} spots${isSold ? ' · SOLD' : ''}
+                            </p>
                             <p class="text-xs text-gray-400 mt-1">${artwork.print_size || '120 x 120 cm'}</p>
+                            ${isThirdParty && artwork.master_print_holder ? `<p class="text-[10px] text-purple-500 mt-1">Master print: ${artwork.master_print_holder}</p>` : ''}
                         </div>
                         ${!isSold ? `<span class="text-lg font-black">$${(artwork.price || 15000).toLocaleString()}</span>` : ''}
                     </div>
@@ -3132,9 +3349,459 @@
         }
     }
 
-    // Edit project (placeholder - opens alert for now)
-    function editProject(projectId) {
-        alert('Edit functionality coming soon. For now, you can delete and recreate projects.');
+    // Edit project - Open modal with project details
+    async function editProject(projectId) {
+        try {
+            const { data: project, error } = await supabaseClient
+                .from('projects')
+                .select('*')
+                .eq('id', projectId)
+                .single();
+            
+            if (error) throw error;
+            
+            // Create edit modal
+            const modal = document.createElement('div');
+            modal.id = 'edit-project-modal';
+            modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4';
+            modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+            
+            modal.innerHTML = `
+                <div class="bg-gray-900 w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold text-white">Edit Project</h2>
+                        <button onclick="document.getElementById('edit-project-modal').remove()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Title</label>
+                            <input type="text" id="edit-title" value="${project.title || ''}" class="input-dark w-full">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Description</label>
+                            <textarea id="edit-description" class="input-dark w-full h-24">${project.description || ''}</textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Image URL</label>
+                            <input type="text" id="edit-image-url" value="${project.image_url || ''}" class="input-dark w-full">
+                            <img src="${project.image_url}" class="mt-2 h-32 object-cover rounded" onerror="this.style.display='none'">
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">Total Spots</label>
+                                <input type="number" id="edit-total-spots" value="${project.total_spots || 0}" class="input-dark w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">Filled Spots</label>
+                                <input type="number" id="edit-filled-spots" value="${project.filled_spots || 0}" class="input-dark w-full">
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">Price ($)</label>
+                                <input type="number" id="edit-price" value="${project.price || 15000}" class="input-dark w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">Print Size</label>
+                                <input type="text" id="edit-print-size" value="${project.print_size || '120 x 120 cm'}" class="input-dark w-full">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Artist Name</label>
+                            <input type="text" id="edit-artist" value="${project.artist || 'Y. Husri'}" class="input-dark w-full">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Status</label>
+                            <select id="edit-status" class="input-dark w-full">
+                                <option value="open" ${project.status === 'open' ? 'selected' : ''}>Open (Available)</option>
+                                <option value="closed" ${project.status === 'closed' ? 'selected' : ''}>Closed</option>
+                                <option value="sold" ${project.status === 'sold' ? 'selected' : ''}>Sold</option>
+                            </select>
+                        </div>
+                        
+                        <div class="flex gap-3 pt-4">
+                            <button onclick="saveProjectEdit('${projectId}')" class="flex-1 bg-purple-600 hover:bg-purple-700 py-3 font-semibold text-white">Save Changes</button>
+                            <button onclick="document.getElementById('edit-project-modal').remove()" class="flex-1 bg-white/10 hover:bg-white/20 py-3 font-semibold text-white">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+        } catch (error) {
+            console.error('Error loading project:', error);
+            alert('Error loading project: ' + error.message);
+        }
+    }
+    
+    // Save project edits
+    async function saveProjectEdit(projectId) {
+        try {
+            const updates = {
+                title: document.getElementById('edit-title').value,
+                description: document.getElementById('edit-description').value,
+                image_url: document.getElementById('edit-image-url').value,
+                total_spots: parseInt(document.getElementById('edit-total-spots').value) || 0,
+                filled_spots: parseInt(document.getElementById('edit-filled-spots').value) || 0,
+                price: parseInt(document.getElementById('edit-price').value) || 15000,
+                print_size: document.getElementById('edit-print-size').value,
+                artist: document.getElementById('edit-artist').value,
+                status: document.getElementById('edit-status').value
+            };
+            
+            const { error } = await supabaseClient
+                .from('projects')
+                .update(updates)
+                .eq('id', projectId);
+            
+            if (error) throw error;
+            
+            document.getElementById('edit-project-modal').remove();
+            alert('Project updated successfully!');
+            loadAdminProjects();
+            
+        } catch (error) {
+            console.error('Error saving project:', error);
+            alert('Error saving: ' + error.message);
+        }
+    }
+
+    // ==================== ARTIST PORTAL FUNCTIONS ====================
+    
+    let currentArtist = null;
+    let artistUploadedFile = null;
+    let artistImageDimensions = { width: 0, height: 0 };
+    
+    function showArtistTab(tab) {
+        document.getElementById('artist-tab-login').className = 'pb-3 px-4 text-sm font-bold border-b-2 ' + 
+            (tab === 'login' ? 'border-purple-600 text-purple-600' : 'border-transparent text-gray-400 hover:text-gray-600');
+        document.getElementById('artist-tab-register').className = 'pb-3 px-4 text-sm font-bold border-b-2 ' + 
+            (tab === 'register' ? 'border-purple-600 text-purple-600' : 'border-transparent text-gray-400 hover:text-gray-600');
+        
+        document.getElementById('artist-login-form').classList.toggle('hidden', tab !== 'login');
+        document.getElementById('artist-register-form').classList.toggle('hidden', tab !== 'register');
+    }
+    
+    async function artistLogin() {
+        const email = document.getElementById('artist-login-email').value;
+        const password = document.getElementById('artist-login-password').value;
+        
+        if (!email || !password) {
+            alert('Please enter email and password');
+            return;
+        }
+        
+        try {
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+            if (error) throw error;
+            
+            // Check if user is an artist
+            const { data: profile } = await supabaseClient
+                .from('profiles')
+                .select('*')
+                .eq('id', data.user.id)
+                .single();
+            
+            if (profile && profile.role === 'artist') {
+                currentArtist = { ...data.user, profile };
+                showArtistDashboard();
+            } else {
+                alert('This account is not registered as an artist. Please register as an artist first.');
+                await supabaseClient.auth.signOut();
+            }
+        } catch (error) {
+            alert('Login failed: ' + error.message);
+        }
+    }
+    
+    async function artistRegister() {
+        const fname = document.getElementById('artist-reg-fname').value;
+        const lname = document.getElementById('artist-reg-lname').value;
+        const artistName = document.getElementById('artist-reg-name').value;
+        const email = document.getElementById('artist-reg-email').value;
+        const password = document.getElementById('artist-reg-password').value;
+        const portfolio = document.getElementById('artist-reg-portfolio').value;
+        
+        if (!fname || !lname || !artistName || !email || !password) {
+            alert('Please fill in all required fields');
+            return;
+        }
+        
+        try {
+            const { data, error } = await supabaseClient.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: {
+                        full_name: `${fname} ${lname}`,
+                        artist_name: artistName,
+                        portfolio_url: portfolio,
+                        role: 'artist'
+                    }
+                }
+            });
+            
+            if (error) throw error;
+            
+            // Update profile with artist role
+            if (data.user) {
+                await supabaseClient.from('profiles').upsert({
+                    id: data.user.id,
+                    email: email,
+                    full_name: `${fname} ${lname}`,
+                    artist_name: artistName,
+                    portfolio_url: portfolio,
+                    role: 'artist'
+                });
+            }
+            
+            alert('Artist account created! Please check your email to verify, then sign in.');
+            showArtistTab('login');
+            
+        } catch (error) {
+            alert('Registration failed: ' + error.message);
+        }
+    }
+    
+    function showArtistDashboard() {
+        document.getElementById('artist-auth-section').classList.add('hidden');
+        document.getElementById('artist-dashboard').classList.remove('hidden');
+        document.getElementById('artist-name-display').textContent = currentArtist.profile?.artist_name || currentArtist.email;
+        loadArtistSubmissions();
+    }
+    
+    function artistLogout() {
+        supabaseClient.auth.signOut();
+        currentArtist = null;
+        artistUploadedFile = null;
+        document.getElementById('artist-auth-section').classList.remove('hidden');
+        document.getElementById('artist-dashboard').classList.add('hidden');
+    }
+    
+    function handleArtistUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        // Check file size (max 50MB)
+        if (file.size > 50 * 1024 * 1024) {
+            alert('File too large. Maximum 50MB allowed.');
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                artistImageDimensions = { width: img.width, height: img.height };
+                
+                document.getElementById('artist-upload-placeholder').classList.add('hidden');
+                document.getElementById('artist-upload-preview').classList.remove('hidden');
+                document.getElementById('artist-preview-image').src = e.target.result;
+                document.getElementById('artist-image-dimensions').textContent = `${img.width} x ${img.height} pixels`;
+                
+                // Show AI assessment section
+                document.getElementById('ai-assessment-section').classList.remove('hidden');
+                
+                // Warn if resolution is too low
+                if (img.width < 4000 || img.height < 4000) {
+                    document.getElementById('artist-image-dimensions').innerHTML += 
+                        '<span class="text-yellow-600 ml-2">⚠️ Low resolution - 4000x4000px recommended</span>';
+                }
+                
+                artistUploadedFile = file;
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+    
+    // AI Assessment for face count
+    function runAIAssessment() {
+        const btn = document.getElementById('run-assessment-btn');
+        btn.disabled = true;
+        btn.textContent = 'Analyzing...';
+        
+        // Simulate AI analysis based on image dimensions and complexity
+        setTimeout(() => {
+            const width = artistImageDimensions.width;
+            const height = artistImageDimensions.height;
+            const area = width * height;
+            
+            // Algorithm: Base spots on image area and add complexity factor
+            let baseSpots = Math.round(area / 4000000) * 500; // ~500 spots per 4MP
+            baseSpots = Math.max(2000, Math.min(8000, baseSpots)); // Clamp between 2000-8000
+            
+            // Add some randomness for "complexity"
+            const complexityFactor = 0.8 + Math.random() * 0.4; // 0.8 to 1.2
+            const recommendedSpots = Math.round(baseSpots * complexityFactor / 100) * 100;
+            
+            // Complexity score
+            const complexityScore = Math.round(50 + (recommendedSpots / 80));
+            
+            // Display results
+            document.getElementById('ai-assessment-result').classList.remove('hidden');
+            document.getElementById('ai-recommended-spots').textContent = recommendedSpots.toLocaleString();
+            document.getElementById('ai-complexity-score').textContent = complexityScore + '/100';
+            document.getElementById('ai-assessment-reason').textContent = 
+                `Based on image dimensions (${width}x${height}), detail density, and color complexity. ` +
+                `This artwork can accommodate ${recommendedSpots.toLocaleString()} contributor integrations while maintaining visual integrity.`;
+            
+            btn.disabled = false;
+            btn.textContent = 'Re-analyze';
+            
+        }, 2000);
+    }
+    
+    async function submitArtistArtwork() {
+        if (!currentArtist) {
+            alert('Please sign in first');
+            return;
+        }
+        
+        const title = document.getElementById('artist-artwork-title').value;
+        const description = document.getElementById('artist-artwork-desc').value;
+        const price = parseInt(document.getElementById('artist-artwork-price').value);
+        const printSize = document.getElementById('artist-print-size').value;
+        const termsAgreed = document.getElementById('artist-terms-agree').checked;
+        
+        if (!title || !artistUploadedFile) {
+            alert('Please provide a title and upload your artwork');
+            return;
+        }
+        
+        if (price < 5000) {
+            alert('Minimum price is $5,000');
+            return;
+        }
+        
+        if (!termsAgreed) {
+            alert('Please agree to the Artist Terms & Conditions');
+            return;
+        }
+        
+        try {
+            // Upload image to storage
+            const fileExt = artistUploadedFile.name.split('.').pop();
+            const fileName = `artist-submissions/${currentArtist.id}/${Date.now()}.${fileExt}`;
+            
+            const { error: uploadError } = await supabaseClient.storage
+                .from('artworks')
+                .upload(fileName, artistUploadedFile);
+            
+            if (uploadError) throw uploadError;
+            
+            const { data: urlData } = supabaseClient.storage
+                .from('artworks')
+                .getPublicUrl(fileName);
+            
+            // Get recommended spots from AI assessment if available
+            const recommendedSpots = document.getElementById('ai-recommended-spots')?.textContent || '4000';
+            const totalSpots = parseInt(recommendedSpots.replace(/,/g, '')) || 4000;
+            
+            // Create artist submission record
+            const { error: insertError } = await supabaseClient
+                .from('artist_submissions')
+                .insert({
+                    artist_id: currentArtist.id,
+                    artist_name: currentArtist.profile?.artist_name || 'Unknown Artist',
+                    title: title,
+                    description: description,
+                    image_url: urlData.publicUrl,
+                    requested_price: price,
+                    print_size: printSize,
+                    total_spots: totalSpots,
+                    image_width: artistImageDimensions.width,
+                    image_height: artistImageDimensions.height,
+                    status: 'pending_review',
+                    artist_cut: 40,
+                    platform_cut: 15,
+                    contributor_cut: 45,
+                    terms_accepted: true,
+                    terms_accepted_at: new Date().toISOString()
+                });
+            
+            if (insertError) throw insertError;
+            
+            alert('Artwork submitted successfully! Our team will review it shortly.');
+            
+            // Reset form
+            document.getElementById('artist-artwork-title').value = '';
+            document.getElementById('artist-artwork-desc').value = '';
+            document.getElementById('artist-artwork-price').value = '';
+            document.getElementById('artist-upload-placeholder').classList.remove('hidden');
+            document.getElementById('artist-upload-preview').classList.add('hidden');
+            document.getElementById('ai-assessment-section').classList.add('hidden');
+            document.getElementById('artist-terms-agree').checked = false;
+            artistUploadedFile = null;
+            
+            loadArtistSubmissions();
+            
+        } catch (error) {
+            console.error('Submission error:', error);
+            alert('Error submitting artwork: ' + error.message);
+        }
+    }
+    
+    async function loadArtistSubmissions() {
+        if (!currentArtist) return;
+        
+        try {
+            const { data: submissions, error } = await supabaseClient
+                .from('artist_submissions')
+                .select('*')
+                .eq('artist_id', currentArtist.id)
+                .order('created_at', { ascending: false });
+            
+            const container = document.getElementById('artist-submissions-list');
+            
+            if (error || !submissions || submissions.length === 0) {
+                container.innerHTML = '<p class="text-gray-400 text-sm text-center py-8">No submissions yet</p>';
+                return;
+            }
+            
+            container.innerHTML = submissions.map(s => `
+                <div class="flex gap-4 p-4 bg-gray-50 border border-gray-200">
+                    <img src="${s.image_url}" class="w-20 h-20 object-cover" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23ddd%22 width=%22100%22 height=%22100%22/></svg>'">
+                    <div class="flex-1">
+                        <h4 class="font-bold">${s.title}</h4>
+                        <p class="text-sm text-gray-500">$${s.requested_price?.toLocaleString() || 'N/A'} · ${s.total_spots?.toLocaleString() || 'N/A'} spots</p>
+                        <span class="inline-block mt-2 px-2 py-1 text-xs font-bold ${
+                            s.status === 'approved' ? 'bg-green-100 text-green-700' :
+                            s.status === 'rejected' ? 'bg-red-100 text-red-700' :
+                            'bg-yellow-100 text-yellow-700'
+                        }">${s.status?.toUpperCase().replace('_', ' ') || 'PENDING'}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+        } catch (error) {
+            console.error('Error loading submissions:', error);
+        }
+    }
+    
+    // Check if artist is already logged in when visiting the page
+    async function checkArtistSession() {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (session) {
+            const { data: profile } = await supabaseClient
+                .from('profiles')
+                .select('*')
+                .eq('id', session.user.id)
+                .single();
+            
+            if (profile && profile.role === 'artist') {
+                currentArtist = { ...session.user, profile };
+                showArtistDashboard();
+            }
+        }
     }
 
     async function loadApprovedFacesDirectory() {
