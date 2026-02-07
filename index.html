@@ -70,50 +70,54 @@
 
 <!-- Navigation -->
 <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 glass-light">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-4">
+    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-3">
         <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="showPage('home')">
-                <svg width="36" height="36" viewBox="0 0 80 80" fill="none">
+            <div class="flex items-center gap-2 cursor-pointer flex-shrink-0" onclick="showPage('home')">
+                <svg width="32" height="32" viewBox="0 0 80 80" fill="none">
                     <defs><linearGradient id="nav-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#667eea"/><stop offset="100%" stop-color="#764ba2"/></linearGradient></defs>
                     <ellipse cx="40" cy="38" rx="28" ry="32" fill="url(#nav-grad)" opacity="0.15"/>
                     <ellipse cx="34" cy="34" rx="22" ry="26" fill="url(#nav-grad)" opacity="0.25"/>
                     <ellipse cx="42" cy="40" rx="18" ry="22" fill="url(#nav-grad)" opacity="0.45"/>
                     <ellipse cx="40" cy="38" rx="12" ry="15" fill="url(#nav-grad)" opacity="0.85"/>
                 </svg>
-                <div class="text-lg font-black tracking-tight flex items-center">
+                <div class="text-base font-black tracking-tight flex items-center">
                     <span class="text-black">INFRA</span>
-                    <span class="text-purple-500 mx-1.5 font-light">/</span>
+                    <span class="text-purple-500 mx-1 font-light">/</span>
                     <span class="text-gray-400 font-light">MINT</span>
                 </div>
             </div>
             
-            <div id="desktop-nav" class="hidden md:flex items-center gap-8">
-                <button onclick="showPage('home')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">HOME</button>
-                <button onclick="showPage('how')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">HOW IT WORKS</button>
-                <button onclick="showPage('gallery')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">GALLERY</button>
-                <button onclick="showPage('collabs')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">COLLABS</button>
-                <button onclick="showPage('custom-projects')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">CUSTOM PROJECTS</button>
-                <button onclick="showPage('ethics')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">ETHICS</button>
-                <button onclick="showPage('artist-portal')" class="text-[11px] tracking-[0.2em] text-purple-600 hover:text-purple-800 transition-colors font-medium">ARTIST PORTAL</button>
-                <button onclick="showPage('signin')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">SIGN IN</button>
-                <button onclick="showPage('signup')" class="bg-black text-white px-6 py-2.5 text-[11px] tracking-[0.2em] font-semibold hover:bg-purple-600 transition-all">GET STARTED</button>
+            <!-- Desktop Nav - Only show on lg screens and up -->
+            <div id="desktop-nav" class="hidden lg:flex items-center gap-4 xl:gap-6">
+                <button onclick="showPage('home')" class="text-[10px] xl:text-[11px] tracking-[0.15em] text-gray-400 hover:text-black transition-colors font-medium whitespace-nowrap">HOME</button>
+                <button onclick="showPage('how')" class="text-[10px] xl:text-[11px] tracking-[0.15em] text-gray-400 hover:text-black transition-colors font-medium whitespace-nowrap">HOW IT WORKS</button>
+                <button onclick="showPage('gallery')" class="text-[10px] xl:text-[11px] tracking-[0.15em] text-gray-400 hover:text-black transition-colors font-medium whitespace-nowrap">GALLERY</button>
+                <button onclick="showPage('collabs')" class="text-[10px] xl:text-[11px] tracking-[0.15em] text-gray-400 hover:text-black transition-colors font-medium whitespace-nowrap">COLLABS</button>
+                <button onclick="showPage('custom-projects')" class="text-[10px] xl:text-[11px] tracking-[0.15em] text-gray-400 hover:text-black transition-colors font-medium whitespace-nowrap">CUSTOM</button>
+                <button onclick="showPage('ethics')" class="text-[10px] xl:text-[11px] tracking-[0.15em] text-gray-400 hover:text-black transition-colors font-medium whitespace-nowrap">ETHICS</button>
+                <button onclick="showPage('artist-portal')" class="text-[10px] xl:text-[11px] tracking-[0.15em] text-purple-600 hover:text-purple-800 transition-colors font-medium whitespace-nowrap">ARTIST PORTAL</button>
+                <button onclick="showPage('signin')" class="text-[10px] xl:text-[11px] tracking-[0.15em] text-gray-400 hover:text-black transition-colors font-medium whitespace-nowrap">SIGN IN</button>
+                <button onclick="showPage('signup')" class="bg-black text-white px-4 xl:px-5 py-2 text-[10px] xl:text-[11px] tracking-[0.15em] font-semibold hover:bg-purple-600 transition-all whitespace-nowrap">GET STARTED</button>
             </div>
 
-            <button onclick="toggleMobileMenu()" class="md:hidden text-black">
+            <!-- Mobile/Tablet Menu Button - Show on screens smaller than lg -->
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-black p-2">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden pt-4 pb-2 space-y-3 border-t border-gray-200 mt-4">
-            <button onclick="showPage('home'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Home</button>
-            <button onclick="showPage('how'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">How It Works</button>
-            <button onclick="showPage('gallery'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Gallery</button>
-            <button onclick="showPage('collabs'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Collabs</button>
-            <button onclick="showPage('custom-projects'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Custom Projects</button>
-            <button onclick="showPage('ethics'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Ethics</button>
-            <button onclick="showPage('artist-portal'); toggleMobileMenu()" class="block w-full text-left text-purple-600 hover:text-purple-800 text-sm font-medium">Artist Portal</button>
-            <button onclick="showPage('signin'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Sign In</button>
-            <button onclick="showPage('signup'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Get Started</button>
+        <div id="mobile-menu" class="hidden lg:hidden pt-4 pb-2 space-y-3 border-t border-gray-200 mt-4">
+            <button onclick="showPage('home'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm py-1">Home</button>
+            <button onclick="showPage('how'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm py-1">How It Works</button>
+            <button onclick="showPage('gallery'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm py-1">Gallery</button>
+            <button onclick="showPage('collabs'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm py-1">Collabs</button>
+            <button onclick="showPage('custom-projects'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm py-1">Custom Projects</button>
+            <button onclick="showPage('ethics'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm py-1">Ethics</button>
+            <button onclick="showPage('artist-portal'); toggleMobileMenu()" class="block w-full text-left text-purple-600 hover:text-purple-800 text-sm font-medium py-1">Artist Portal</button>
+            <div class="pt-3 border-t border-gray-200 flex gap-3">
+                <button onclick="showPage('signin'); toggleMobileMenu()" class="flex-1 text-center text-gray-500 hover:text-black text-sm py-2 border border-gray-300">Sign In</button>
+                <button onclick="showPage('signup'); toggleMobileMenu()" class="flex-1 text-center bg-black text-white text-sm py-2 hover:bg-purple-600">Get Started</button>
+            </div>
         </div>
     </div>
 </nav>
@@ -147,7 +151,7 @@
                 <div class="flex gap-8 mt-16 pt-8 border-t border-gray-300">
                     <div><div class="text-2xl lg:text-3xl font-black text-black">2.8K</div><div class="text-[9px] tracking-[0.2em] text-gray-400 mt-1">CONTRIBUTORS</div></div>
                     <div><div class="text-2xl lg:text-3xl font-black text-black">$45K</div><div class="text-[9px] tracking-[0.2em] text-gray-400 mt-1">PAID OUT</div></div>
-                    <div><div class="text-2xl lg:text-3xl font-black text-black">75%</div><div class="text-[9px] tracking-[0.2em] text-gray-400 mt-1">REVENUE SHARE</div></div>
+                    <div><div class="text-2xl lg:text-3xl font-black text-black">50%</div><div class="text-[9px] tracking-[0.2em] text-gray-400 mt-1">TO CONTRIBUTORS</div></div>
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-7 relative overflow-hidden min-h-[400px] lg:min-h-0">
@@ -183,7 +187,7 @@
                 <div class="p-8 border border-gray-200 card-hover cursor-pointer">
                     <div class="text-3xl mb-4">💰</div>
                     <h3 class="text-xl font-black mb-3">Automatic Revenue</h3>
-                    <p class="text-gray-500 leading-relaxed">75% distributed to contributors instantly via Stripe.</p>
+                    <p class="text-gray-500 leading-relaxed">50% distributed to contributors instantly via Stripe. 50% to artists.</p>
                 </div>
             </div>
         </div>
@@ -266,10 +270,10 @@
                         <span class="text-7xl lg:text-8xl font-black text-gray-200 group-hover:text-purple-200 transition-colors leading-none">04</span>
                         <div class="flex-1 pt-4">
                             <h3 class="text-2xl font-black tracking-tight mb-4">AUTOMATIC REVENUE SHARE</h3>
-                            <p class="text-gray-500 leading-relaxed mb-6">75% of the sale is instantly distributed to all contributors via Stripe. No delays.</p>
+                            <p class="text-gray-500 leading-relaxed mb-6">50% of the sale is instantly distributed to all contributors via Stripe. Artists receive 50%.</p>
                             <div class="flex flex-wrap gap-2">
-                                <span class="text-[10px] tracking-wider px-3 py-1 bg-purple-100 text-purple-600 font-semibold">75% TO CONTRIBUTORS</span>
-                                <span class="text-[10px] tracking-wider px-3 py-1 bg-white text-gray-500">VIA STRIPE</span>
+                                <span class="text-[10px] tracking-wider px-3 py-1 bg-purple-100 text-purple-600 font-semibold">50% CONTRIBUTORS</span>
+                                <span class="text-[10px] tracking-wider px-3 py-1 bg-pink-100 text-pink-600 font-semibold">50% ARTIST</span>
                             </div>
                         </div>
                     </div>
@@ -281,15 +285,17 @@
                     <div>
                         <span class="text-[10px] tracking-[0.4em] text-gray-500">EXAMPLE CALCULATION</span>
                         <h3 class="text-2xl lg:text-3xl font-black mt-4 mb-6">How Much Could You Earn?</h3>
-                        <p class="text-gray-400 leading-relaxed">If an artwork sells for $10,000 with 1,000 contributors, each receives an equal share of the 75% pool.</p>
+                        <p class="text-gray-400 leading-relaxed">If an artwork sells for $10,000 with 1,000 contributors, each receives an equal share of the 50% contributor pool.</p>
                     </div>
                     <div class="bg-white/10 p-6 lg:p-8">
                         <div class="space-y-4">
                             <div class="flex justify-between items-center pb-4 border-b border-white/10"><span class="text-gray-400">Sale Price</span><span class="text-2xl font-black">$10,000</span></div>
-                            <div class="flex justify-between items-center pb-4 border-b border-white/10"><span class="text-gray-400">Contributor Pool (75%)</span><span class="text-xl font-bold text-purple-400">$7,500</span></div>
+                            <div class="flex justify-between items-center pb-4 border-b border-white/10"><span class="text-gray-400">Contributor Pool (50%)</span><span class="text-xl font-bold text-purple-400">$5,000</span></div>
+                            <div class="flex justify-between items-center pb-4 border-b border-white/10"><span class="text-gray-400">Artist Share (50%)</span><span class="text-xl font-bold text-pink-400">$5,000</span></div>
                             <div class="flex justify-between items-center pb-4 border-b border-white/10"><span class="text-gray-400">Contributors</span><span class="text-xl font-bold">1,000</span></div>
-                            <div class="flex justify-between items-center pt-2"><span class="text-white font-semibold">Your Earnings</span><span class="text-3xl font-black text-purple-400">$7.50</span></div>
+                            <div class="flex justify-between items-center pt-2"><span class="text-white font-semibold">Your Earnings</span><span class="text-3xl font-black text-purple-400">$5.00</span></div>
                         </div>
+                        <p class="text-xs text-gray-500 mt-4 text-center">Platform takes 15% service fee from artist's share only</p>
                     </div>
                 </div>
             </div>
@@ -458,7 +464,7 @@
                 <div class="p-8 border border-gray-200 hover:border-purple-300 transition-colors">
                     <div class="flex items-start gap-6">
                         <div class="text-4xl">💰</div>
-                        <div><h3 class="text-2xl font-black mb-3">Fair Revenue Share</h3><p class="text-gray-500 leading-relaxed">75% of every sale goes to contributors. Automatic and proportional distribution. Platform keeps 25% for operations.</p></div>
+                        <div><h3 class="text-2xl font-black mb-3">Fair Revenue Share</h3><p class="text-gray-500 leading-relaxed">50% of every sale goes to contributors, 50% to artists. Platform takes a 15% service fee from artist's share only.</p></div>
                     </div>
                 </div>
                 <div class="p-8 border border-gray-200 hover:border-purple-300 transition-colors">
@@ -1644,7 +1650,7 @@
                 <p class="text-gray-600 mb-4">You must provide accurate information when creating an account, including your true date of birth. You are responsible for maintaining the security of your account and all activities under it.</p>
                 
                 <h2 class="text-xl font-black mt-8 mb-4">6. Revenue Sharing</h2>
-                <p class="text-gray-600 mb-4">Contributors receive 75% of artwork sales, distributed proportionally among all contributors whose faces appear in the sold artwork. Platform retains 25% for operations.</p>
+                <p class="text-gray-600 mb-4">Contributors receive 50% of artwork sales, distributed proportionally among all contributors whose faces appear in the sold artwork. Artists receive 50% (subject to 15% platform service fee).</p>
                 
                 <h2 class="text-xl font-black mt-8 mb-4">7. Intellectual Property</h2>
                 <p class="text-gray-600 mb-4">Final artworks are owned by their purchasers. Contributors retain no ownership rights to the generated artworks but are entitled to revenue share as specified.</p>
@@ -1730,7 +1736,7 @@
                 <p class="text-gray-600 mb-4">Your facial image will be transformed beyond recognition through AI processing. The final artwork will not contain identifiable features of your face. We do not use facial recognition technology for identification purposes.</p>
 
                 <h2 class="text-xl font-black mt-8 mb-4">6. Revenue Share</h2>
-                <p class="text-gray-600 mb-4">You will receive a proportional share of 75% of the sale price for each artwork sold that includes your contribution. Payments are processed automatically via Stripe within 48 hours of a sale.</p>
+                <p class="text-gray-600 mb-4">You will receive a proportional share of 50% of the sale price for each artwork sold that includes your contribution. Payments are processed automatically via Stripe within 48 hours of a sale.</p>
 
                 <h2 class="text-xl font-black mt-8 mb-4">7. Withdrawal Rights</h2>
                 <p class="text-gray-600 mb-4">You may withdraw your contribution at any time. Existing artworks containing your abstracted image will remain unchanged, but your face will not be used in future artworks. You may request complete deletion of your data under GDPR rights.</p>
@@ -2139,7 +2145,7 @@
                         </div>
                         <!-- Only show YH Signature if NOT third-party artwork -->
                         ${!isThirdParty ? `
-                            <img src="YH_Signature.png" alt="" class="absolute bottom-3 right-3 h-5 opacity-50" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));">
+                            <img src="YH_Signature.png" alt="" class="absolute bottom-2 right-2 h-3 opacity-35" style="filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2));">
                         ` : ''}
                         ${isThirdParty ? `
                             <div class="absolute top-3 left-3 bg-purple-600 text-white text-[9px] font-bold tracking-wider px-2 py-1">GUEST ARTIST</div>
@@ -2192,7 +2198,7 @@
                         
                         <!-- Only show YH Signature if NOT third-party artwork -->
                         ${!isThirdParty ? `
-                            <img src="YH_Signature.png" alt="" class="absolute bottom-4 right-4 h-8 opacity-60" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">
+                            <img src="YH_Signature.png" alt="" class="absolute bottom-3 right-3 h-5 opacity-45" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));">
                         ` : ''}
                         
                         ${isSold ? `
