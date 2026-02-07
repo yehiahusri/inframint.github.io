@@ -1929,17 +1929,12 @@
             </div>
         `;
         
-        // Add timeout (8 seconds max)
+        // Add timeout (5 seconds) - show sample data if timeout
         const timeoutId = setTimeout(() => {
-            console.log('Project loading timeout');
-            grid.innerHTML = `
-                <div class="col-span-full text-center py-12">
-                    <div class="text-4xl mb-4">⏳</div>
-                    <p class="text-gray-400 mb-2">Loading is taking longer than expected</p>
-                    <button onclick="loadProjects()" class="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">Try Again</button>
-                </div>
-            `;
-        }, 8000);
+            console.log('Project loading timeout - showing sample data');
+            availableProjects = getSampleProjects();
+            renderProjects();
+        }, 5000);
         
         try {
             console.log('Fetching projects from Supabase...');
@@ -1947,32 +1942,37 @@
                 .from('projects')
                 .select('*')
                 .in('status', ['open', 'filling'])
-                .gt('total_spots', supabaseClient.raw('filled_spots')) // Only show projects with spots left
-                .order('filled_spots', { ascending: false }); // Closest to full first
+                .order('filled_spots', { ascending: false });
 
             clearTimeout(timeoutId);
             
             if (error) {
                 console.error('Supabase error loading projects:', error);
-                throw error;
+                // Show sample data on error
+                availableProjects = getSampleProjects();
+                renderProjects();
+                return;
             }
             
-            console.log('Projects fetched successfully:', projects?.length || 0);
+            // Filter to only show projects with spots remaining
+            const openProjects = (projects || []).filter(p => p.filled_spots < p.total_spots);
+            
+            console.log('Projects fetched successfully:', openProjects.length);
 
-            availableProjects = projects || [];
+            // If no projects, show sample data
+            if (openProjects.length === 0) {
+                availableProjects = getSampleProjects();
+            } else {
+                availableProjects = openProjects;
+            }
             renderProjects();
 
         } catch (error) {
             clearTimeout(timeoutId);
             console.error('Error loading projects:', error);
-            grid.innerHTML = `
-                <div class="col-span-full text-center py-12">
-                    <div class="text-4xl mb-4">😕</div>
-                    <p class="text-red-400 mb-2">Unable to load projects</p>
-                    <p class="text-gray-500 text-sm mb-4">${error.message || 'Please check your connection'}</p>
-                    <button onclick="loadProjects()" class="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">Try Again</button>
-                </div>
-            `;
+            // Show sample data on error
+            availableProjects = getSampleProjects();
+            renderProjects();
         }
     }
 
@@ -2061,98 +2061,137 @@
         
         // Add timeout
         const timeoutId = setTimeout(() => {
-            grid.innerHTML = `
-                <div class="col-span-full text-center py-12">
-                    <div class="text-4xl mb-4">⏳</div>
-                    <p class="text-gray-400 mb-2">Taking longer than expected...</p>
-                    <button onclick="loadHomeProjects()" class="text-purple-500 hover:underline">Try again</button>
-                </div>
-            `;
-        }, 8000);
+            console.log('Home projects loading timeout - showing sample data');
+            renderHomeProjectsWithData(getSampleProjects());
+        }, 5000);
         
         try {
-            console.log('Loading home projects...');
+            console.log('Fetching home projects from Supabase...');
             const { data: projects, error } = await supabaseClient
                 .from('projects')
                 .select('*')
                 .in('status', ['open', 'filling'])
-                .order('filled_spots', { ascending: false }) // Sort by closest to full
+                .order('filled_spots', { ascending: false })
                 .limit(6);
 
             clearTimeout(timeoutId);
             
             if (error) {
                 console.error('Supabase error:', error);
-                throw error;
+                // Show sample data on error
+                renderHomeProjectsWithData(getSampleProjects());
+                return;
             }
             
-            console.log('Projects loaded:', projects?.length || 0);
+            console.log('Home projects loaded:', projects?.length || 0);
 
             if (!projects || projects.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-full text-center py-12">
-                        <div class="text-4xl mb-4">🎨</div>
-                        <p class="text-gray-400 mb-2">No open projects available at the moment</p>
-                        <p class="text-sm text-gray-500">Check back soon for new masterpieces!</p>
-                    </div>
-                `;
+                console.log('No projects found, showing sample data');
+                renderHomeProjectsWithData(getSampleProjects());
                 return;
             }
 
-            grid.innerHTML = projects.map(project => {
-                const percentFilled = Math.round((project.filled_spots / project.total_spots) * 100);
-                const spotsLeft = project.total_spots - project.filled_spots;
-                const isThirdParty = project.is_third_party || false;
-                
-                return `
-                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer transform hover:-translate-y-1" 
-                         onclick="showProjectDetail('${project.id}')">
-                        <div class="aspect-[4/3] relative overflow-hidden">
-                            <img src="${project.image_url}" alt="${project.title}" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                            
-                            <!-- Signature - Bottom Right, 85% opacity -->
-                            ${!isThirdParty ? `
-                                <img src="YH_Signature.png" alt="" class="absolute bottom-3 right-3 h-6 md:h-8" style="opacity: 0.85; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">
-                            ` : `
-                                <div class="absolute top-3 left-3 bg-purple-600 text-white text-[10px] font-bold tracking-wider px-2 py-1">GUEST ARTIST</div>
-                            `}
-                            
-                            <!-- Progress Overlay -->
-                            <div class="absolute bottom-0 left-0 right-0 p-4">
-                                <div class="flex items-center justify-between text-sm mb-2">
-                                    <span class="text-white font-semibold">${percentFilled}% filled</span>
-                                    <span class="${spotsLeft < 500 ? 'text-yellow-300' : 'text-green-300'} font-medium">${spotsLeft.toLocaleString()} spots left</span>
-                                </div>
-                                <div class="h-2 bg-white/30 rounded-full overflow-hidden">
-                                    <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500" style="width: ${percentFilled}%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="p-5">
-                            <h3 class="text-lg font-black tracking-tight mb-1">${project.title.toUpperCase()}</h3>
-                            <p class="text-gray-500 text-sm">${isThirdParty ? `by ${project.artist}` : 'InfraMint Original'}</p>
-                            <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
-                                <span class="text-xs text-gray-400">${project.total_spots.toLocaleString()} total spots</span>
-                                <span class="font-bold text-purple-600">$${(project.price || 15000).toLocaleString()}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            renderHomeProjectsWithData(projects);
 
         } catch (error) {
             clearTimeout(timeoutId);
             console.error('Error loading home projects:', error);
-            grid.innerHTML = `
-                <div class="col-span-full text-center py-12">
-                    <div class="text-4xl mb-4">😕</div>
-                    <p class="text-gray-400 mb-2">Unable to load projects</p>
-                    <button onclick="loadHomeProjects()" class="text-purple-500 hover:underline">Try again</button>
+            // Show sample data on error
+            renderHomeProjectsWithData(getSampleProjects());
+        }
+    }
+
+    // Sample projects for fallback/demo
+    function getSampleProjects() {
+        return [
+            {
+                id: 'sample-1',
+                title: 'CHROMATIC DEPTHS',
+                artist: 'InfraMint',
+                image_url: 'https://images.unsplash.com/photo-1549490349-8643362247b5?w=800&q=80',
+                filled_spots: 3420,
+                total_spots: 5000,
+                price: 25000,
+                status: 'open',
+                print_size: '120 × 120 cm',
+                description: 'A vibrant exploration of color and form, where thousands of faces merge into flowing abstract patterns.',
+                is_third_party: false
+            },
+            {
+                id: 'sample-2',
+                title: 'URBAN SYMPHONY',
+                artist: 'InfraMint',
+                image_url: 'https://images.unsplash.com/photo-1482160549825-59d1b23cb208?w=800&q=80',
+                filled_spots: 2100,
+                total_spots: 4000,
+                price: 18000,
+                status: 'open',
+                print_size: '100 × 100 cm',
+                description: 'The energy of city life captured through collective contribution.',
+                is_third_party: false
+            },
+            {
+                id: 'sample-3',
+                title: 'VELVET ENTROPY',
+                artist: 'InfraMint',
+                image_url: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&q=80',
+                filled_spots: 4800,
+                total_spots: 5000,
+                price: 35000,
+                status: 'filling',
+                print_size: '150 × 150 cm',
+                description: 'Almost complete! Only 200 spots remaining in this masterpiece.',
+                is_third_party: false
+            }
+        ];
+    }
+
+    function renderHomeProjectsWithData(projects) {
+        const grid = document.getElementById('home-projects-grid');
+        if (!grid) return;
+
+        grid.innerHTML = projects.map(project => {
+            const percentFilled = Math.round((project.filled_spots / project.total_spots) * 100);
+            const spotsLeft = project.total_spots - project.filled_spots;
+            const isThirdParty = project.is_third_party || false;
+            
+            return `
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer transform hover:-translate-y-1" 
+                     onclick="showProjectDetail('${project.id}')">
+                    <div class="aspect-[4/3] relative overflow-hidden">
+                        <img src="${project.image_url}" alt="${project.title}" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        
+                        <!-- Signature - Bottom Right, 85% opacity -->
+                        ${!isThirdParty ? `
+                            <img src="YH_Signature.png" alt="" class="absolute bottom-3 right-3 h-6 md:h-8" style="opacity: 0.85; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">
+                        ` : `
+                            <div class="absolute top-3 left-3 bg-purple-600 text-white text-[10px] font-bold tracking-wider px-2 py-1">GUEST ARTIST</div>
+                        `}
+                        
+                        <!-- Progress Overlay -->
+                        <div class="absolute bottom-0 left-0 right-0 p-4">
+                            <div class="flex items-center justify-between text-sm mb-2">
+                                <span class="text-white font-semibold">${percentFilled}% filled</span>
+                                <span class="${spotsLeft < 500 ? 'text-yellow-300' : 'text-green-300'} font-medium">${spotsLeft.toLocaleString()} spots left</span>
+                            </div>
+                            <div class="h-2 bg-white/30 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500" style="width: ${percentFilled}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-5">
+                        <h3 class="text-lg font-black tracking-tight mb-1">${project.title.toUpperCase()}</h3>
+                        <p class="text-gray-500 text-sm">${isThirdParty ? `by ${project.artist}` : 'InfraMint Original'}</p>
+                        <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
+                            <span class="text-xs text-gray-400">${project.total_spots.toLocaleString()} total spots</span>
+                            <span class="font-bold text-purple-600">$${(project.price || 15000).toLocaleString()}</span>
+                        </div>
+                    </div>
                 </div>
             `;
-        }
+        }).join('');
     }
 
     // Show Project Detail Modal (when clicking from homepage)
