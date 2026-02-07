@@ -91,6 +91,7 @@
                 <button onclick="showPage('home')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">HOME</button>
                 <button onclick="showPage('how')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">HOW IT WORKS</button>
                 <button onclick="showPage('gallery')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">GALLERY</button>
+                <button onclick="showPage('collabs')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">COLLABS</button>
                 <button onclick="showPage('ethics')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">ETHICS</button>
                 <button onclick="showPage('artist-portal')" class="text-[11px] tracking-[0.2em] text-purple-600 hover:text-purple-800 transition-colors font-medium">ARTIST PORTAL</button>
                 <button onclick="showPage('signin')" class="text-[11px] tracking-[0.2em] text-gray-400 hover:text-black transition-colors font-medium">SIGN IN</button>
@@ -106,6 +107,7 @@
             <button onclick="showPage('home'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Home</button>
             <button onclick="showPage('how'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">How It Works</button>
             <button onclick="showPage('gallery'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Gallery</button>
+            <button onclick="showPage('collabs'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Collabs</button>
             <button onclick="showPage('ethics'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Ethics</button>
             <button onclick="showPage('artist-portal'); toggleMobileMenu()" class="block w-full text-left text-purple-600 hover:text-purple-800 text-sm font-medium">Artist Portal</button>
             <button onclick="showPage('signin'); toggleMobileMenu()" class="block w-full text-left text-gray-500 hover:text-black text-sm">Sign In</button>
@@ -581,6 +583,55 @@
     </section>
 </div>
 
+<!-- ==================== COLLABS BLOG PAGE ==================== -->
+<div id="page-collabs" class="page-content hidden pt-16">
+    <section class="min-h-screen py-24 bg-black text-white relative overflow-hidden">
+        <!-- Background pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-pink-500 rounded-full filter blur-3xl"></div>
+            <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-blue-500 rounded-full filter blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <!-- Header with glitch/hype aesthetic -->
+            <div class="text-center mb-16">
+                <div class="inline-block mb-6">
+                    <span class="text-[10px] tracking-[0.5em] text-purple-400 font-bold">THE CREATIVE NETWORK</span>
+                </div>
+                <h1 class="text-7xl md:text-9xl font-black tracking-tighter mb-6 relative">
+                    <span class="relative inline-block">
+                        COLLABS
+                        <span class="absolute -top-2 -left-2 text-purple-500 opacity-50 blur-sm">COLLABS</span>
+                        <span class="absolute top-2 left-2 text-pink-500 opacity-30 blur-sm">COLLABS</span>
+                    </span>
+                </h1>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    Artists, creators, and visionaries joining forces to redefine collective art.
+                </p>
+            </div>
+
+            <!-- Collabs Grid - Collage Style -->
+            <div id="collabs-grid" class="relative">
+                <!-- Loading state -->
+                <div id="collabs-loading" class="text-center py-24">
+                    <div class="inline-block w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+                    <p class="text-gray-400">Loading collaborators...</p>
+                </div>
+                
+                <!-- Empty state -->
+                <div id="collabs-empty" class="hidden text-center py-24">
+                    <div class="text-8xl mb-6">🎨</div>
+                    <h3 class="text-2xl font-bold mb-2">Coming Soon</h3>
+                    <p class="text-gray-400">Exciting collaborations in the works...</p>
+                </div>
+                
+                <!-- Collabs will be inserted here dynamically -->
+            </div>
+        </div>
+    </section>
+</div>
+
 <!-- ==================== ARTIST PORTAL PAGE ==================== -->
 <div id="page-artist-portal" class="page-content hidden pt-16">
     <section class="min-h-screen py-24 bg-gradient-to-b from-purple-50 to-white">
@@ -750,22 +801,83 @@
                             </div>
                         </div>
 
-                        <!-- Terms and Conditions -->
-                        <div class="bg-yellow-50 p-6 border border-yellow-200">
-                            <h4 class="font-bold mb-3 text-yellow-800">Artist Terms & Conditions</h4>
-                            <div class="text-sm text-yellow-900 space-y-2 mb-4 max-h-40 overflow-y-auto">
-                                <p><strong>1. Single Print Agreement:</strong> By submitting artwork, you agree that only ONE original print will be sold through InfraMint. You retain the master file but agree not to sell additional prints of this specific artwork elsewhere.</p>
-                                <p><strong>2. Revenue Distribution:</strong> Upon sale, you receive 40% of the final price, 45% is distributed among contributors whose faces are included, and 15% goes to the platform.</p>
-                                <p><strong>3. Contributor Integration:</strong> Your artwork will be enhanced with abstracted facial elements from our contributor pool. The final piece is a collaboration between your vision and collective participation.</p>
-                                <p><strong>4. Master Print Rights:</strong> You retain all rights to the original/master artwork. The sold print will note you as the primary artist and master print holder.</p>
-                                <p><strong>5. Gallery Listing:</strong> Your artwork will be listed as a "Third-Party Artist Submission" in our gallery, with full credit to you.</p>
-                                <p><strong>6. Quality Standards:</strong> Artwork must be high-resolution (minimum 4000x4000px) and suitable for large-format printing.</p>
-                                <p><strong>7. Approval Process:</strong> All submissions are reviewed by our team. We reserve the right to decline submissions that don't meet our quality or ethical standards.</p>
+                        <!-- Terms and Conditions - Legally Binding -->
+                        <div class="bg-red-50 p-6 border-2 border-red-300">
+                            <h4 class="font-bold mb-3 text-red-800 flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                LEGALLY BINDING ARTIST AGREEMENT
+                            </h4>
+                            <div class="text-xs text-red-900 space-y-3 mb-4 max-h-64 overflow-y-auto bg-white p-4 border border-red-200">
+                                <p class="font-bold text-sm border-b border-red-200 pb-2">INFRAMINT ARTIST SUBMISSION AGREEMENT</p>
+                                <p class="italic">This is a legally binding contract. Please read carefully before submitting.</p>
+                                
+                                <p><strong>1. EXCLUSIVE SINGLE PRINT LICENSE</strong><br>
+                                By submitting artwork to InfraMint ("Platform"), the Artist ("You") hereby grants an exclusive, worldwide license for the sale of ONE (1) physical print of the submitted artwork through the Platform. This license is irrevocable once the artwork is approved and listed.</p>
+                                
+                                <p><strong>2. PROHIBITION ON ADDITIONAL PRINTS</strong><br>
+                                <span class="text-red-700 font-bold">You expressly agree NOT to sell, distribute, license, mint as NFT, or otherwise commercially exploit any additional prints, copies, or reproductions of the submitted artwork in any form, digital or physical, anywhere in the world.</span> This restriction applies from the moment of submission and continues in perpetuity after sale.</p>
+                                
+                                <p><strong>3. REVENUE DISTRIBUTION</strong><br>
+                                Upon successful sale, proceeds shall be distributed as follows: Artist: 40% | Face Contributors: 45% | Platform: 15%. Payment will be processed within 30 business days of sale completion via the payment method on file.</p>
+                                
+                                <p><strong>4. MASTER FILE RETENTION</strong><br>
+                                You retain ownership of the original master file for personal/archival purposes only. Commercial use of the master file for this specific artwork composition is prohibited.</p>
+                                
+                                <p><strong>5. CONTRIBUTOR INTEGRATION CONSENT</strong><br>
+                                You consent to the integration of abstracted facial elements from Platform contributors into your artwork. The final piece is a collaborative work, and you acknowledge the rights of all contributors.</p>
+                                
+                                <p><strong>6. REPRESENTATIONS & WARRANTIES</strong><br>
+                                You represent and warrant that: (a) You are the sole creator and owner of the submitted artwork; (b) The artwork does not infringe any third-party intellectual property rights; (c) You have full authority to enter this agreement; (d) The artwork contains no illegal, defamatory, or harmful content.</p>
+                                
+                                <p><strong>7. BREACH & PENALTIES</strong><br>
+                                <span class="text-red-700 font-bold">In the event of breach of Section 2 (unauthorized prints/sales), You agree to pay liquidated damages equal to: (a) 500% of the original sale price, plus (b) all profits derived from unauthorized sales, plus (c) Platform's legal fees and costs.</span> This clause survives termination.</p>
+                                
+                                <p><strong>8. INDEMNIFICATION</strong><br>
+                                You agree to indemnify, defend, and hold harmless InfraMint, its officers, directors, employees, and the Collector who purchased the print, from any claims, damages, or expenses arising from: (a) Your breach of this Agreement; (b) Any unauthorized reproduction or sale; (c) Any third-party IP claims related to your artwork.</p>
+                                
+                                <p><strong>9. DISPUTE RESOLUTION & GOVERNING LAW</strong><br>
+                                <span class="font-bold">This Agreement shall be governed by International Commercial Law and the UNIDROIT Principles of International Commercial Contracts.</span><br><br>
+                                <strong>9.1 Arbitration:</strong> Any dispute arising from this Agreement shall be finally resolved by arbitration under the Rules of the International Chamber of Commerce (ICC) in Paris, France. The arbitration shall be conducted in English by a single arbitrator appointed in accordance with ICC Rules.<br><br>
+                                <strong>9.2 Jurisdiction:</strong> For enforcement of arbitral awards or injunctive relief, the parties submit to the exclusive jurisdiction of the courts of: (a) Paris, France; (b) The courts of the Artist's country of residence; or (c) The International Court of Arbitration. The prevailing party shall be entitled to recover reasonable attorney's fees.<br><br>
+                                <strong>9.3 Injunctive Relief:</strong> Platform may seek immediate injunctive relief in any court of competent jurisdiction to prevent ongoing or imminent breach without posting bond.</p>
+                                
+                                <p><strong>10. IDENTITY VERIFICATION</strong><br>
+                                You agree to provide valid government-issued identification upon request for verification purposes. Failure to verify identity may result in withholding of payment and termination of this Agreement.</p>
+                                
+                                <p><strong>11. AUDIT RIGHTS</strong><br>
+                                Platform reserves the right to audit, investigate, and monitor marketplaces, galleries, and online platforms to detect unauthorized sales of submitted artworks.</p>
+                                
+                                <p><strong>12. TERM & TERMINATION</strong><br>
+                                This Agreement remains in effect indefinitely. The restrictions in Section 2 survive any termination. Platform may terminate for convenience with 30 days notice if artwork has not yet sold.</p>
+                                
+                                <p><strong>13. ENTIRE AGREEMENT</strong><br>
+                                This constitutes the entire agreement between parties. No modification is valid unless in writing signed by both parties. If any provision is unenforceable, remaining provisions continue in effect.</p>
+                                
+                                <p class="font-bold text-sm border-t border-red-200 pt-3 mt-3">BY CHECKING THE BOX BELOW, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREE TO BE LEGALLY BOUND BY ALL TERMS OF THIS AGREEMENT.</p>
                             </div>
-                            <label class="flex items-start gap-3 cursor-pointer">
-                                <input type="checkbox" id="artist-terms-agree" class="mt-1 w-5 h-5 accent-purple-600">
-                                <span class="text-sm text-yellow-900">I have read and agree to the Artist Terms & Conditions. I understand only one print will be sold and I will not sell additional prints of this artwork.</span>
-                            </label>
+                            
+                            <div class="space-y-3">
+                                <label class="flex items-start gap-3 cursor-pointer bg-white p-3 border border-red-200">
+                                    <input type="checkbox" id="artist-terms-agree" class="mt-1 w-5 h-5 accent-red-600">
+                                    <span class="text-sm text-red-900"><strong>I have read and fully understand the Artist Agreement.</strong> I agree to be legally bound by all terms, including the prohibition on selling additional prints and the dispute resolution provisions.</span>
+                                </label>
+                                
+                                <label class="flex items-start gap-3 cursor-pointer bg-white p-3 border border-red-200">
+                                    <input type="checkbox" id="artist-penalty-agree" class="mt-1 w-5 h-5 accent-red-600">
+                                    <span class="text-sm text-red-900"><strong>I acknowledge the penalty clause.</strong> I understand that selling unauthorized prints will result in liquidated damages of 500% of the sale price plus all profits from unauthorized sales.</span>
+                                </label>
+                                
+                                <label class="flex items-start gap-3 cursor-pointer bg-white p-3 border border-red-200">
+                                    <input type="checkbox" id="artist-arbitration-agree" class="mt-1 w-5 h-5 accent-red-600">
+                                    <span class="text-sm text-red-900"><strong>I agree to international arbitration.</strong> Any disputes will be resolved through ICC arbitration in Paris, France, under international commercial law.</span>
+                                </label>
+                                
+                                <div class="bg-yellow-100 p-3 border border-yellow-300">
+                                    <label class="block text-xs font-bold tracking-wider text-yellow-800 mb-2">DIGITAL SIGNATURE (Type your full legal name)</label>
+                                    <input type="text" id="artist-legal-signature" class="input-modern w-full" placeholder="Your full legal name as it appears on ID">
+                                    <p class="text-[10px] text-yellow-700 mt-1">This constitutes your electronic signature under the ESIGN Act and eIDAS Regulation.</p>
+                                </div>
+                            </div>
                         </div>
 
                         <button onclick="submitArtistArtwork()" class="btn-primary w-full">SUBMIT FOR REVIEW</button>
@@ -992,7 +1104,12 @@
                 <button onclick="showAdminTab('overview')" id="admin-tab-overview" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-purple-500 text-white whitespace-nowrap">Overview</button>
                 <button onclick="showAdminTab('users')" id="admin-tab-users" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">Users</button>
                 <button onclick="showAdminTab('moderation')" id="admin-tab-moderation" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">Photo Moderation</button>
+                <button onclick="showAdminTab('artist-submissions')" id="admin-tab-artist-submissions" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap flex items-center gap-2">
+                    <span class="w-2 h-2 bg-orange-500 rounded-full animate-pulse" id="artist-submissions-dot"></span>
+                    Artist Submissions
+                </button>
                 <button onclick="showAdminTab('artworks')" id="admin-tab-artworks" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">Artworks</button>
+                <button onclick="showAdminTab('collabs')" id="admin-tab-collabs" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">Collabs Blog</button>
                 <button onclick="showAdminTab('payments')" id="admin-tab-payments" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">Payments</button>
                 <button onclick="showAdminTab('ai-generator')" id="admin-tab-ai-generator" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
@@ -1084,6 +1201,97 @@
                 <div class="bg-white/5 p-6 border border-white/10">
                     <h3 class="text-xl font-bold mb-6">Payment History</h3>
                     <div id="admin-payments-list" class="space-y-4"><div class="text-center py-8 text-gray-400">No payments yet</div></div>
+                </div>
+            </div>
+
+            <!-- Artist Submissions Tab (Review/Approve) -->
+            <div id="admin-content-artist-submissions" class="admin-content hidden">
+                <div class="bg-white/5 p-6 border border-white/10">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold">Artist Submission Review</h3>
+                            <p class="text-sm text-gray-400 mt-1">Review and approve artwork from external artists</p>
+                        </div>
+                        <select id="artist-submission-filter" class="input-dark px-4 py-2 text-sm" onchange="loadArtistSubmissionsAdmin()">
+                            <option value="pending_review">Pending Review</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="all">All Submissions</option>
+                        </select>
+                    </div>
+                    <div id="admin-artist-submissions-grid" class="space-y-4">
+                        <div class="text-center py-12 text-gray-400">
+                            <div class="text-4xl mb-3">🎨</div>
+                            <p>No artist submissions to review</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Collabs Blog Tab -->
+            <div id="admin-content-collabs" class="admin-content hidden">
+                <div class="bg-white/5 p-6 border border-white/10">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold">Manage Collaborations Blog</h3>
+                            <p class="text-sm text-gray-400 mt-1">Add artists you're collaborating with - newest appears first</p>
+                        </div>
+                        <button onclick="showAddCollabModal()" class="bg-purple-600 hover:bg-purple-700 px-4 py-2 text-sm font-semibold">+ Add Collaborator</button>
+                    </div>
+                    
+                    <!-- Add New Collab Form -->
+                    <div id="add-collab-form" class="hidden bg-white/5 p-6 border border-purple-500/50 mb-6">
+                        <h4 class="font-bold mb-4">Add New Collaborating Artist</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">Artist Name *</label>
+                                <input type="text" id="collab-artist-name" class="input-dark w-full" placeholder="Full name or artist name">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">Title / Role</label>
+                                <input type="text" id="collab-artist-title" class="input-dark w-full" placeholder="e.g. Digital Artist, Sculptor">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm text-gray-400 mb-1">Bio / Description *</label>
+                                <textarea id="collab-artist-bio" class="input-dark w-full h-24" placeholder="Tell us about this artist and the collaboration..."></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">Photo *</label>
+                                <input type="file" id="collab-artist-photo" accept="image/*" class="input-dark w-full text-sm" onchange="previewCollabPhoto(event)">
+                                <img id="collab-photo-preview" class="hidden mt-2 h-24 w-24 object-cover rounded-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">Website / Social Link</label>
+                                <input type="url" id="collab-artist-link" class="input-dark w-full" placeholder="https://...">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">Instagram Handle</label>
+                                <input type="text" id="collab-artist-instagram" class="input-dark w-full" placeholder="@username">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">Collaboration Type</label>
+                                <select id="collab-type" class="input-dark w-full">
+                                    <option value="featured">Featured Artist</option>
+                                    <option value="guest">Guest Artist</option>
+                                    <option value="partner">Partner</option>
+                                    <option value="resident">Resident Artist</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 mt-4">
+                            <button onclick="saveNewCollab()" class="bg-purple-600 hover:bg-purple-700 px-6 py-2 text-sm font-semibold">Save Collaborator</button>
+                            <button onclick="hideAddCollabModal()" class="bg-white/10 hover:bg-white/20 px-6 py-2 text-sm font-semibold">Cancel</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Existing Collabs List -->
+                    <div id="admin-collabs-list" class="space-y-4">
+                        <div class="text-center py-12 text-gray-400">
+                            <div class="text-4xl mb-3">🤝</div>
+                            <p>No collaborators added yet</p>
+                            <p class="text-sm">Click "+ Add Collaborator" to get started</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1508,6 +1716,11 @@
         // Check artist session when visiting artist portal
         if (pageId === 'artist-portal') {
             checkArtistSession();
+        }
+        
+        // Load collabs page
+        if (pageId === 'collabs') {
+            loadPublicCollabs();
         }
     }
 
@@ -3010,6 +3223,8 @@
         if (tabName === 'users') loadAdminUsers();
         if (tabName === 'moderation') loadModerationQueue();
         if (tabName === 'artworks') loadAdminArtworks();
+        if (tabName === 'artist-submissions') loadArtistSubmissionsAdmin();
+        if (tabName === 'collabs') loadAdminCollabs();
         if (tabName === 'payments') loadAdminPayments();
         if (tabName === 'ai-generator') initAIGenerator();
     }
@@ -3666,11 +3881,22 @@
             return;
         }
         
+        // Check email verification
+        if (!currentArtist.email_confirmed_at) {
+            alert('Please verify your email address before submitting artwork. Check your inbox for a verification link.');
+            return;
+        }
+        
         const title = document.getElementById('artist-artwork-title').value;
         const description = document.getElementById('artist-artwork-desc').value;
         const price = parseInt(document.getElementById('artist-artwork-price').value);
         const printSize = document.getElementById('artist-print-size').value;
+        
+        // Validate all agreement checkboxes
         const termsAgreed = document.getElementById('artist-terms-agree').checked;
+        const penaltyAgreed = document.getElementById('artist-penalty-agree').checked;
+        const arbitrationAgreed = document.getElementById('artist-arbitration-agree').checked;
+        const legalSignature = document.getElementById('artist-legal-signature').value.trim();
         
         if (!title || !artistUploadedFile) {
             alert('Please provide a title and upload your artwork');
@@ -3682,10 +3908,29 @@
             return;
         }
         
-        if (!termsAgreed) {
-            alert('Please agree to the Artist Terms & Conditions');
+        if (!termsAgreed || !penaltyAgreed || !arbitrationAgreed) {
+            alert('You must agree to ALL terms including:\n• Artist Agreement\n• Penalty Clause\n• International Arbitration\n\nPlease check all boxes to proceed.');
             return;
         }
+        
+        if (!legalSignature || legalSignature.length < 3) {
+            alert('Please provide your full legal name as a digital signature.');
+            return;
+        }
+        
+        // Confirm submission with legal warning
+        const confirmed = confirm(
+            `⚠️ LEGAL CONFIRMATION\n\n` +
+            `You are about to submit "${title}" under a legally binding agreement.\n\n` +
+            `Digital Signature: ${legalSignature}\n\n` +
+            `By clicking OK, you confirm:\n` +
+            `• You will NOT sell additional prints of this artwork\n` +
+            `• Violation results in 500% damages + legal action\n` +
+            `• Disputes resolved via ICC Arbitration in Paris\n\n` +
+            `Do you wish to proceed?`
+        );
+        
+        if (!confirmed) return;
         
         try {
             // Upload image to storage
@@ -3706,12 +3951,13 @@
             const recommendedSpots = document.getElementById('ai-recommended-spots')?.textContent || '4000';
             const totalSpots = parseInt(recommendedSpots.replace(/,/g, '')) || 4000;
             
-            // Create artist submission record
+            // Create artist submission record with full legal data
             const { error: insertError } = await supabaseClient
                 .from('artist_submissions')
                 .insert({
                     artist_id: currentArtist.id,
                     artist_name: currentArtist.profile?.artist_name || 'Unknown Artist',
+                    artist_email: currentArtist.email,
                     title: title,
                     description: description,
                     image_url: urlData.publicUrl,
@@ -3724,13 +3970,19 @@
                     artist_cut: 40,
                     platform_cut: 15,
                     contributor_cut: 45,
+                    // Legal agreement data
                     terms_accepted: true,
-                    terms_accepted_at: new Date().toISOString()
+                    penalty_clause_accepted: true,
+                    arbitration_accepted: true,
+                    legal_signature: legalSignature,
+                    terms_accepted_at: new Date().toISOString(),
+                    ip_address: 'collected-server-side',
+                    user_agent: navigator.userAgent
                 });
             
             if (insertError) throw insertError;
             
-            alert('Artwork submitted successfully! Our team will review it shortly.');
+            alert('Artwork submitted successfully! Our team will review it within 48-72 hours. You will receive an email notification when a decision is made.');
             
             // Reset form
             document.getElementById('artist-artwork-title').value = '';
@@ -3739,8 +3991,13 @@
             document.getElementById('artist-upload-placeholder').classList.remove('hidden');
             document.getElementById('artist-upload-preview').classList.add('hidden');
             document.getElementById('ai-assessment-section').classList.add('hidden');
+            document.getElementById('ai-assessment-result').classList.add('hidden');
             document.getElementById('artist-terms-agree').checked = false;
+            document.getElementById('artist-penalty-agree').checked = false;
+            document.getElementById('artist-arbitration-agree').checked = false;
+            document.getElementById('artist-legal-signature').value = '';
             artistUploadedFile = null;
+            artistImageDimensions = { width: 0, height: 0 };
             
             loadArtistSubmissions();
             
@@ -3802,6 +4059,447 @@
                 showArtistDashboard();
             }
         }
+    }
+
+    // ==================== ADMIN: ARTIST SUBMISSIONS ====================
+    
+    async function loadArtistSubmissionsAdmin() {
+        const filter = document.getElementById('artist-submission-filter')?.value || 'pending_review';
+        const container = document.getElementById('admin-artist-submissions-grid');
+        if (!container) return;
+        
+        try {
+            let query = supabaseClient
+                .from('artist_submissions')
+                .select('*')
+                .order('created_at', { ascending: false });
+            
+            if (filter !== 'all') {
+                query = query.eq('status', filter);
+            }
+            
+            const { data: submissions, error } = await query;
+            
+            if (error) throw error;
+            
+            // Update notification dot
+            const dot = document.getElementById('artist-submissions-dot');
+            const pendingCount = submissions?.filter(s => s.status === 'pending_review').length || 0;
+            if (dot) dot.style.display = pendingCount > 0 ? 'inline-block' : 'none';
+            
+            if (!submissions || submissions.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-gray-400">
+                        <div class="text-4xl mb-3">🎨</div>
+                        <p>No ${filter === 'all' ? '' : filter.replace('_', ' ')} submissions</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = submissions.map(s => `
+                <div class="bg-white/5 border border-white/10 p-4 rounded-lg" id="submission-${s.id}">
+                    <div class="flex gap-4">
+                        <div class="w-32 h-32 flex-shrink-0">
+                            <img src="${s.image_url}" class="w-full h-full object-cover rounded" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23333%22 width=%22100%22 height=%22100%22/></svg>'">
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <h4 class="font-bold text-lg">${s.title}</h4>
+                                    <p class="text-sm text-purple-400">${s.artist_name}</p>
+                                    <p class="text-xs text-gray-500">${s.artist_email || 'No email'}</p>
+                                </div>
+                                <span class="px-2 py-1 text-xs font-bold ${
+                                    s.status === 'approved' ? 'bg-green-500/20 text-green-400' :
+                                    s.status === 'rejected' ? 'bg-red-500/20 text-red-400' :
+                                    'bg-yellow-500/20 text-yellow-400'
+                                }">${s.status?.toUpperCase().replace('_', ' ')}</span>
+                            </div>
+                            <p class="text-sm text-gray-400 mt-2 line-clamp-2">${s.description || 'No description'}</p>
+                            <div class="flex gap-4 mt-2 text-xs text-gray-500">
+                                <span>Price: $${(s.requested_price || 0).toLocaleString()}</span>
+                                <span>Spots: ${(s.total_spots || 0).toLocaleString()}</span>
+                                <span>Size: ${s.print_size || 'N/A'}</span>
+                                <span>Resolution: ${s.image_width || '?'}x${s.image_height || '?'}</span>
+                            </div>
+                            
+                            <!-- Legal Agreement Info -->
+                            <div class="mt-3 p-2 bg-black/30 rounded text-xs">
+                                <span class="text-green-400">✓ Terms Accepted</span>
+                                <span class="mx-2">|</span>
+                                <span class="text-gray-400">Signed: ${s.legal_signature || 'N/A'}</span>
+                                <span class="mx-2">|</span>
+                                <span class="text-gray-400">${s.terms_accepted_at ? new Date(s.terms_accepted_at).toLocaleDateString() : 'N/A'}</span>
+                            </div>
+                            
+                            ${s.status === 'pending_review' ? `
+                                <div class="flex gap-2 mt-4">
+                                    <button onclick="approveArtistSubmission('${s.id}')" class="bg-green-600 hover:bg-green-700 px-4 py-2 text-xs font-bold">✓ APPROVE & LIST</button>
+                                    <button onclick="showRejectModal('${s.id}')" class="bg-red-600 hover:bg-red-700 px-4 py-2 text-xs font-bold">✗ REJECT</button>
+                                    <button onclick="viewSubmissionFull('${s.id}')" class="bg-white/10 hover:bg-white/20 px-4 py-2 text-xs font-bold">VIEW FULL</button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+        } catch (error) {
+            console.error('Error loading artist submissions:', error);
+            container.innerHTML = `<div class="text-center py-8 text-red-400">Error loading submissions</div>`;
+        }
+    }
+    
+    async function approveArtistSubmission(submissionId) {
+        if (!confirm('Approve this submission and list it in the Gallery?\\n\\nThis will create a new project visible to the public.')) return;
+        
+        try {
+            // Get submission details
+            const { data: submission, error: fetchError } = await supabaseClient
+                .from('artist_submissions')
+                .select('*')
+                .eq('id', submissionId)
+                .single();
+            
+            if (fetchError) throw fetchError;
+            
+            // Create project from submission
+            const { data: project, error: projectError } = await supabaseClient
+                .from('projects')
+                .insert({
+                    title: submission.title,
+                    description: submission.description + '\\n\\n---\\nThird-party artwork by ' + submission.artist_name + '. Master print retained by artist.',
+                    image_url: submission.image_url,
+                    price: submission.requested_price,
+                    total_spots: submission.total_spots,
+                    filled_spots: 0,
+                    print_size: submission.print_size,
+                    artist: submission.artist_name,
+                    status: 'open',
+                    is_third_party: true,
+                    artist_submission_id: submissionId,
+                    artist_user_id: submission.artist_id,
+                    artist_cut: 40,
+                    platform_cut: 15,
+                    contributor_cut: 45,
+                    master_print_holder: submission.artist_name
+                })
+                .select()
+                .single();
+            
+            if (projectError) throw projectError;
+            
+            // Update submission status
+            const { error: updateError } = await supabaseClient
+                .from('artist_submissions')
+                .update({
+                    status: 'approved',
+                    reviewed_at: new Date().toISOString(),
+                    project_id: project.id
+                })
+                .eq('id', submissionId);
+            
+            if (updateError) throw updateError;
+            
+            alert('Submission approved! Artwork is now listed in the Gallery.');
+            loadArtistSubmissionsAdmin();
+            
+        } catch (error) {
+            console.error('Error approving submission:', error);
+            alert('Error: ' + error.message);
+        }
+    }
+    
+    function showRejectModal(submissionId) {
+        const reason = prompt('Enter rejection reason (will be sent to artist):');
+        if (reason === null) return;
+        
+        rejectArtistSubmission(submissionId, reason);
+    }
+    
+    async function rejectArtistSubmission(submissionId, reason) {
+        try {
+            const { error } = await supabaseClient
+                .from('artist_submissions')
+                .update({
+                    status: 'rejected',
+                    reviewed_at: new Date().toISOString(),
+                    rejection_reason: reason || 'Does not meet quality standards'
+                })
+                .eq('id', submissionId);
+            
+            if (error) throw error;
+            
+            alert('Submission rejected.');
+            loadArtistSubmissionsAdmin();
+            
+        } catch (error) {
+            console.error('Error rejecting submission:', error);
+            alert('Error: ' + error.message);
+        }
+    }
+    
+    function viewSubmissionFull(submissionId) {
+        // Open image in new tab for full review
+        const card = document.getElementById('submission-' + submissionId);
+        const img = card?.querySelector('img');
+        if (img) window.open(img.src, '_blank');
+    }
+
+    // ==================== ADMIN: COLLABS BLOG ====================
+    
+    let collabPhotoFile = null;
+    
+    function showAddCollabModal() {
+        document.getElementById('add-collab-form').classList.remove('hidden');
+    }
+    
+    function hideAddCollabModal() {
+        document.getElementById('add-collab-form').classList.add('hidden');
+        // Reset form
+        document.getElementById('collab-artist-name').value = '';
+        document.getElementById('collab-artist-title').value = '';
+        document.getElementById('collab-artist-bio').value = '';
+        document.getElementById('collab-artist-link').value = '';
+        document.getElementById('collab-artist-instagram').value = '';
+        document.getElementById('collab-artist-photo').value = '';
+        document.getElementById('collab-photo-preview').classList.add('hidden');
+        collabPhotoFile = null;
+    }
+    
+    function previewCollabPhoto(event) {
+        const file = event.target.files[0];
+        if (file) {
+            collabPhotoFile = file;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('collab-photo-preview');
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+    
+    async function saveNewCollab() {
+        const name = document.getElementById('collab-artist-name').value.trim();
+        const title = document.getElementById('collab-artist-title').value.trim();
+        const bio = document.getElementById('collab-artist-bio').value.trim();
+        const link = document.getElementById('collab-artist-link').value.trim();
+        const instagram = document.getElementById('collab-artist-instagram').value.trim();
+        const collabType = document.getElementById('collab-type').value;
+        
+        if (!name || !bio) {
+            alert('Please fill in the artist name and bio');
+            return;
+        }
+        
+        if (!collabPhotoFile) {
+            alert('Please upload a photo');
+            return;
+        }
+        
+        try {
+            // Upload photo
+            const fileExt = collabPhotoFile.name.split('.').pop();
+            const fileName = `collabs/${Date.now()}-${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
+            
+            const { error: uploadError } = await supabaseClient.storage
+                .from('artworks')
+                .upload(fileName, collabPhotoFile);
+            
+            if (uploadError) throw uploadError;
+            
+            const { data: urlData } = supabaseClient.storage
+                .from('artworks')
+                .getPublicUrl(fileName);
+            
+            // Save to database
+            const { error: insertError } = await supabaseClient
+                .from('collabs')
+                .insert({
+                    artist_name: name,
+                    title: title,
+                    bio: bio,
+                    photo_url: urlData.publicUrl,
+                    website_url: link,
+                    instagram: instagram,
+                    collab_type: collabType,
+                    is_active: true
+                });
+            
+            if (insertError) throw insertError;
+            
+            alert('Collaborator added successfully!');
+            hideAddCollabModal();
+            loadAdminCollabs();
+            
+        } catch (error) {
+            console.error('Error saving collab:', error);
+            alert('Error: ' + error.message);
+        }
+    }
+    
+    async function loadAdminCollabs() {
+        const container = document.getElementById('admin-collabs-list');
+        if (!container) return;
+        
+        try {
+            const { data: collabs, error } = await supabaseClient
+                .from('collabs')
+                .select('*')
+                .order('created_at', { ascending: false });
+            
+            if (error) throw error;
+            
+            if (!collabs || collabs.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-gray-400">
+                        <div class="text-4xl mb-3">🤝</div>
+                        <p>No collaborators added yet</p>
+                        <p class="text-sm">Click "+ Add Collaborator" to get started</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = collabs.map((c, index) => `
+                <div class="flex gap-4 p-4 bg-white/5 border border-white/10 rounded-lg ${index === 0 ? 'border-purple-500/50' : ''}">
+                    <img src="${c.photo_url}" class="w-20 h-20 rounded-full object-cover flex-shrink-0" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23333%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2250%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23666%22 font-size=%2240%22>?</text></svg>'">
+                    <div class="flex-1">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="font-bold">${c.artist_name}</h4>
+                                <p class="text-sm text-purple-400">${c.title || c.collab_type}</p>
+                            </div>
+                            <div class="flex gap-2">
+                                ${index === 0 ? '<span class="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs font-bold">LATEST</span>' : ''}
+                                <span class="px-2 py-1 ${c.is_active ? 'bg-green-500/20 text-green-400' : 'bg-gray-500/20 text-gray-400'} text-xs font-bold">${c.is_active ? 'ACTIVE' : 'HIDDEN'}</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-400 mt-1 line-clamp-2">${c.bio}</p>
+                        <div class="flex gap-4 mt-2">
+                            ${c.instagram ? `<a href="https://instagram.com/${c.instagram.replace('@', '')}" target="_blank" class="text-xs text-pink-400 hover:underline">@${c.instagram.replace('@', '')}</a>` : ''}
+                            ${c.website_url ? `<a href="${c.website_url}" target="_blank" class="text-xs text-blue-400 hover:underline">Website</a>` : ''}
+                        </div>
+                        <div class="flex gap-2 mt-3">
+                            <button onclick="toggleCollabActive('${c.id}', ${!c.is_active})" class="text-xs px-3 py-1 bg-white/10 hover:bg-white/20">${c.is_active ? 'Hide' : 'Show'}</button>
+                            <button onclick="deleteCollab('${c.id}')" class="text-xs px-3 py-1 bg-red-500/20 hover:bg-red-500/40 text-red-400">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+        } catch (error) {
+            console.error('Error loading collabs:', error);
+        }
+    }
+    
+    async function toggleCollabActive(collabId, isActive) {
+        try {
+            const { error } = await supabaseClient
+                .from('collabs')
+                .update({ is_active: isActive })
+                .eq('id', collabId);
+            
+            if (error) throw error;
+            loadAdminCollabs();
+        } catch (error) {
+            alert('Error: ' + error.message);
+        }
+    }
+    
+    async function deleteCollab(collabId) {
+        if (!confirm('Delete this collaborator?')) return;
+        
+        try {
+            const { error } = await supabaseClient
+                .from('collabs')
+                .delete()
+                .eq('id', collabId);
+            
+            if (error) throw error;
+            loadAdminCollabs();
+        } catch (error) {
+            alert('Error: ' + error.message);
+        }
+    }
+
+    // ==================== PUBLIC: COLLABS PAGE ====================
+    
+    async function loadPublicCollabs() {
+        const grid = document.getElementById('collabs-grid');
+        const loading = document.getElementById('collabs-loading');
+        const empty = document.getElementById('collabs-empty');
+        
+        if (!grid) return;
+        
+        try {
+            const { data: collabs, error } = await supabaseClient
+                .from('collabs')
+                .select('*')
+                .eq('is_active', true)
+                .order('created_at', { ascending: false });
+            
+            loading.classList.add('hidden');
+            
+            if (error) throw error;
+            
+            if (!collabs || collabs.length === 0) {
+                empty.classList.remove('hidden');
+                return;
+            }
+            
+            // Create collage-style grid
+            grid.innerHTML = collabs.map((c, i) => {
+                // Vary sizes for collage effect
+                const sizes = ['col-span-2 row-span-2', 'col-span-1 row-span-1', 'col-span-1 row-span-2', 'col-span-2 row-span-1'];
+                const sizeClass = i === 0 ? 'col-span-2 row-span-2' : sizes[i % sizes.length];
+                const rotation = (Math.random() * 4 - 2).toFixed(1);
+                
+                return `
+                    <div class="group relative ${sizeClass} min-h-[250px] bg-gradient-to-br from-purple-900/50 to-pink-900/50 overflow-hidden transform hover:scale-105 hover:z-10 transition-all duration-500 cursor-pointer"
+                         style="transform: rotate(${rotation}deg);"
+                         onclick="showCollabDetail('${c.id}')">
+                        <!-- Background Image -->
+                        <div class="absolute inset-0">
+                            <img src="${c.photo_url}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                        </div>
+                        
+                        <!-- Content -->
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="px-2 py-0.5 bg-purple-500 text-[10px] font-bold tracking-wider">${c.collab_type?.toUpperCase() || 'FEATURED'}</span>
+                                ${i === 0 ? '<span class="px-2 py-0.5 bg-pink-500 text-[10px] font-bold tracking-wider animate-pulse">NEW</span>' : ''}
+                            </div>
+                            <h3 class="text-2xl font-black tracking-tight">${c.artist_name}</h3>
+                            <p class="text-sm text-gray-300">${c.title || ''}</p>
+                            ${c.instagram ? `<p class="text-xs text-pink-400 mt-1">@${c.instagram.replace('@', '')}</p>` : ''}
+                        </div>
+                        
+                        <!-- Hover overlay -->
+                        <div class="absolute inset-0 bg-purple-600/0 group-hover:bg-purple-600/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                            <span class="text-sm font-bold tracking-wider">VIEW PROFILE →</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Wrap in grid container
+            grid.innerHTML = `<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-min">${grid.innerHTML}</div>`;
+            
+        } catch (error) {
+            console.error('Error loading collabs:', error);
+            loading.classList.add('hidden');
+            empty.classList.remove('hidden');
+        }
+    }
+    
+    function showCollabDetail(collabId) {
+        // Could open a modal with more details - for now just highlight
+        alert('Collab detail view coming soon!');
     }
 
     async function loadApprovedFacesDirectory() {
