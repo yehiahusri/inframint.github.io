@@ -1544,9 +1544,9 @@
                     Custom Projects
                 </button>
                 <button onclick="showAdminTab('payments')" id="admin-tab-payments" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap">Payments</button>
-                <button onclick="showAdminTab('ai-generator')" id="admin-tab-ai-generator" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                    AI Generator
+                <button onclick="showAdminTab('mosaic-generator')" id="admin-tab-ai-generator" class="admin-tab px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-white whitespace-nowrap flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    Mosaic Generator
                 </button>
             </div>
 
@@ -1757,56 +1757,258 @@
 
             <!-- AI Generator Tab -->
             <div id="admin-content-ai-generator" class="admin-content hidden">
-                <div class="grid lg:grid-cols-2 gap-6">
-                    <div class="bg-white/5 p-6 border border-white/10">
-                        <h3 class="text-xl font-bold mb-6">AI Image Generator</h3>
-                        <div class="mb-6">
-                            <label class="block text-sm text-gray-400 mb-2">Style Preset</label>
-                            <div id="ai-style-grid" class="grid grid-cols-4 gap-2">
-                                <button onclick="selectAIStyle('monet')" class="ai-style-btn p-3 bg-white/5 hover:bg-white/10 border border-white/10 text-center text-xs" data-style="monet">🎨 Monet</button>
-                                <button onclick="selectAIStyle('vangogh')" class="ai-style-btn p-3 bg-white/5 hover:bg-white/10 border border-white/10 text-center text-xs" data-style="vangogh">🌻 Van Gogh</button>
-                                <button onclick="selectAIStyle('abstract')" class="ai-style-btn p-3 bg-white/5 hover:bg-white/10 border border-white/10 text-center text-xs" data-style="abstract">🔷 Abstract</button>
-                                <button onclick="selectAIStyle('portrait')" class="ai-style-btn p-3 bg-white/5 hover:bg-white/10 border border-white/10 text-center text-xs" data-style="portrait">👤 Portrait</button>
-                                <button onclick="selectAIStyle('landscape')" class="ai-style-btn p-3 bg-white/5 hover:bg-white/10 border border-white/10 text-center text-xs" data-style="landscape">🏞️ Landscape</button>
-                                <button onclick="selectAIStyle('surreal')" class="ai-style-btn p-3 bg-white/5 hover:bg-white/10 border border-white/10 text-center text-xs" data-style="surreal">🌀 Surreal</button>
-                                <button onclick="selectAIStyle('minimal')" class="ai-style-btn p-3 bg-white/5 hover:bg-white/10 border border-white/10 text-center text-xs" data-style="minimal">◻️ Minimal</button>
-                                <button onclick="selectAIStyle('custom')" class="ai-style-btn p-3 bg-white/5 hover:bg-white/10 border border-white/10 text-center text-xs" data-style="custom">✏️ Custom</button>
+                <!-- Mosaic Generator Header -->
+                <div class="bg-gradient-to-r from-purple-900/50 to-pink-900/50 p-6 border border-purple-500/30 mb-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold flex items-center gap-3">
+                                <span class="text-3xl">🖼️</span> Photo Mosaic Generator
+                            </h3>
+                            <p class="text-gray-400 mt-1">Transform contributor photos into museum-quality mosaic artworks</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm text-gray-400">API Status</div>
+                            <div id="mosaic-api-status" class="flex items-center gap-2 mt-1">
+                                <span class="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></span>
+                                <span class="text-yellow-400 text-sm">Not Connected</span>
                             </div>
-                        </div>
-                        <div id="selected-style-badge" class="hidden mb-4 p-3 bg-purple-500/20 border border-purple-500/50 flex items-center justify-between">
-                            <span>Selected: <span id="selected-style-name" class="font-bold"></span></span>
-                            <button onclick="clearAIStyle()" class="text-xs text-gray-400 hover:text-white">Clear</button>
-                        </div>
-                        <div id="ai-chat-messages" class="h-64 overflow-y-auto mb-4 space-y-3 hide-scrollbar"></div>
-                        <div class="flex gap-2">
-                            <input type="text" id="ai-chat-input" placeholder="Describe what you want to generate..." class="input-dark flex-1" onkeypress="if(event.key==='Enter')sendAIMessage()">
-                            <button id="ai-send-btn" onclick="sendAIMessage()" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 font-semibold">Generate</button>
-                        </div>
-                    </div>
-                    <div class="bg-white/5 p-6 border border-white/10">
-                        <h3 class="text-xl font-bold mb-6">Generated Image</h3>
-                        <div id="ai-generated-container" class="aspect-square bg-white/5 flex items-center justify-center border border-white/10">
-                            <div class="text-center text-gray-400"><div class="text-4xl mb-3">🎨</div><p>Generated image will appear here</p></div>
-                        </div>
-                        <div id="ai-image-actions" class="hidden mt-4 flex gap-3">
-                            <button onclick="regenerateAIImage()" class="flex-1 bg-white/10 hover:bg-white/20 py-3 text-sm font-semibold">↻ Regenerate</button>
-                            <button onclick="downloadAIImage()" class="flex-1 bg-purple-600 hover:bg-purple-700 py-3 text-sm font-semibold">↓ Download</button>
-                        </div>
-                        <div class="mt-6">
-                            <h4 class="font-bold mb-3">Recent Generations</h4>
-                            <div id="ai-recent-generations" class="grid grid-cols-4 gap-2"><div class="col-span-4 text-center py-4 text-gray-500 text-sm">No recent generations</div></div>
                         </div>
                     </div>
                 </div>
-                <div class="mt-6 bg-white/5 p-6 border border-white/10">
-                    <h3 class="text-xl font-bold mb-4">API Settings</h3>
-                    <div class="flex gap-4 items-end mb-4">
-                        <div class="flex-1"><label class="block text-sm text-gray-400 mb-2">Replicate API Key</label><input type="password" id="replicate-api-key" placeholder="Enter your API key" class="input-dark w-full"></div>
-                        <button onclick="saveReplicateKey()" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 font-semibold">Save Key</button>
+
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <!-- Step 1: Select Project -->
+                    <div class="bg-white/5 p-6 border border-white/10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center font-bold">1</div>
+                            <h4 class="font-bold">Select Project</h4>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-4">Choose a project with enough contributions</p>
+                        
+                        <div id="mosaic-projects-list" class="space-y-3 max-h-64 overflow-y-auto">
+                            <!-- Demo projects -->
+                            <div class="mosaic-project-item p-3 bg-white/5 border border-white/10 cursor-pointer hover:bg-white/10 transition-colors" onclick="selectMosaicProject('chromatic-depths', this)">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=100&q=60" class="w-12 h-12 object-cover rounded">
+                                    <div class="flex-1">
+                                        <div class="font-medium text-sm">CHROMATIC DEPTHS</div>
+                                        <div class="text-xs text-gray-400">3,400 / 5,000 faces</div>
+                                        <div class="w-full h-1 bg-white/10 rounded mt-1"><div class="h-full bg-green-500 rounded" style="width: 68%"></div></div>
+                                    </div>
+                                    <span class="text-green-400 text-xs">✓ Ready</span>
+                                </div>
+                            </div>
+                            <div class="mosaic-project-item p-3 bg-white/5 border border-white/10 cursor-pointer hover:bg-white/10 transition-colors" onclick="selectMosaicProject('urban-symphony', this)">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1482160549825-59d1b23cb208?w=100&q=60" class="w-12 h-12 object-cover rounded">
+                                    <div class="flex-1">
+                                        <div class="font-medium text-sm">URBAN SYMPHONY</div>
+                                        <div class="text-xs text-gray-400">2,080 / 4,000 faces</div>
+                                        <div class="w-full h-1 bg-white/10 rounded mt-1"><div class="h-full bg-yellow-500 rounded" style="width: 52%"></div></div>
+                                    </div>
+                                    <span class="text-yellow-400 text-xs">52%</span>
+                                </div>
+                            </div>
+                            <div class="mosaic-project-item p-3 bg-white/5 border border-white/10 cursor-pointer hover:bg-white/10 transition-colors" onclick="selectMosaicProject('velvet-entropy', this)">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=100&q=60" class="w-12 h-12 object-cover rounded">
+                                    <div class="flex-1">
+                                        <div class="font-medium text-sm">VELVET ENTROPY</div>
+                                        <div class="text-xs text-gray-400">4,800 / 5,000 faces</div>
+                                        <div class="w-full h-1 bg-white/10 rounded mt-1"><div class="h-full bg-green-500 rounded" style="width: 96%"></div></div>
+                                    </div>
+                                    <span class="text-green-400 text-xs">✓ Ready</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="selected-mosaic-project" class="hidden mt-4 p-3 bg-purple-500/20 border border-purple-500/50">
+                            <div class="text-xs text-purple-400 mb-1">SELECTED</div>
+                            <div class="font-bold" id="selected-project-name">-</div>
+                            <div class="text-sm text-gray-400"><span id="selected-project-faces">0</span> contributor faces</div>
+                        </div>
                     </div>
-                    <div class="flex gap-4 items-end">
-                        <div class="flex-1"><label class="block text-sm text-gray-400 mb-2">Artist Signature</label><input type="text" id="ai-signature" placeholder="Your artist name (default: Y. Husri)" class="input-dark w-full"></div>
-                        <button onclick="saveSignature()" class="bg-gray-600 hover:bg-gray-700 px-6 py-3 font-semibold">Save</button>
+
+                    <!-- Step 2: Configure Mosaic -->
+                    <div class="bg-white/5 p-6 border border-white/10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center font-bold">2</div>
+                            <h4 class="font-bold">Configure Mosaic</h4>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Source Image (Main Artwork)</label>
+                                <div id="mosaic-source-upload" class="border-2 border-dashed border-white/20 p-4 text-center cursor-pointer hover:border-purple-500 transition-colors" onclick="document.getElementById('mosaic-source-input').click()">
+                                    <input type="file" id="mosaic-source-input" class="hidden" accept="image/jpeg,image/jpg" onchange="handleMosaicSourceUpload(event)">
+                                    <div id="mosaic-source-preview" class="hidden">
+                                        <img id="mosaic-source-img" class="max-h-32 mx-auto rounded">
+                                        <div class="text-xs text-green-400 mt-2">✓ Source uploaded</div>
+                                    </div>
+                                    <div id="mosaic-source-placeholder">
+                                        <div class="text-2xl mb-2">📤</div>
+                                        <div class="text-sm text-gray-400">Click to upload source image</div>
+                                        <div class="text-xs text-gray-500 mt-1">JPEG only, max 1200px</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Mosaic Size</label>
+                                <select id="mosaic-size" class="input-dark w-full text-sm">
+                                    <option value="medium">Medium (24×18 inches)</option>
+                                    <option value="large">Large (36×24 inches)</option>
+                                    <option value="x-large" selected>X-Large (48×36 inches)</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Cell Size</label>
+                                <select id="mosaic-cell-size" class="input-dark w-full text-sm">
+                                    <option value="small">Small (more cells, less detail)</option>
+                                    <option value="medium" selected>Medium (balanced)</option>
+                                    <option value="large">Large (fewer cells, more detail)</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Cell Ratio</label>
+                                <select id="mosaic-cell-ratio" class="input-dark w-full text-sm">
+                                    <option value="1:1" selected>1:1 (Square)</option>
+                                    <option value="3:2">3:2 (Landscape)</option>
+                                    <option value="2:3">2:3 (Portrait)</option>
+                                    <option value="4:3">4:3 (Standard)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-2">Color Overlay: <span id="color-overlay-val">25</span>%</label>
+                                    <input type="range" id="mosaic-color-overlay" min="0" max="100" value="25" class="w-full" oninput="document.getElementById('color-overlay-val').textContent = this.value">
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-2">Source Overlay: <span id="source-overlay-val">20</span>%</label>
+                                    <input type="range" id="mosaic-source-overlay" min="0" max="100" value="20" class="w-full" oninput="document.getElementById('source-overlay-val').textContent = this.value">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Generate & Publish -->
+                    <div class="bg-white/5 p-6 border border-white/10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center font-bold">3</div>
+                            <h4 class="font-bold">Generate & Publish</h4>
+                        </div>
+                        
+                        <div id="mosaic-preview-area" class="aspect-square bg-white/5 border border-white/10 flex items-center justify-center mb-4">
+                            <div id="mosaic-preview-placeholder" class="text-center text-gray-400">
+                                <div class="text-4xl mb-2">🖼️</div>
+                                <p class="text-sm">Mosaic preview will appear here</p>
+                            </div>
+                            <img id="mosaic-preview-img" class="hidden w-full h-full object-cover">
+                        </div>
+                        
+                        <div id="mosaic-progress" class="hidden mb-4">
+                            <div class="flex items-center justify-between text-sm mb-2">
+                                <span id="mosaic-progress-text">Generating...</span>
+                                <span id="mosaic-progress-percent">0%</span>
+                            </div>
+                            <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                                <div id="mosaic-progress-bar" class="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all" style="width: 0%"></div>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2" id="mosaic-progress-detail">Uploading contributor faces...</div>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <button id="btn-generate-preview" onclick="generateMosaicPreview()" class="w-full bg-white/10 hover:bg-white/20 py-3 font-semibold transition-colors flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                Generate Preview
+                            </button>
+                            
+                            <button id="btn-generate-final" onclick="generateMosaicFinal()" class="w-full bg-purple-600 hover:bg-purple-700 py-3 font-semibold transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                Generate Final (High-Res)
+                            </button>
+                            
+                            <button id="btn-publish-mosaic" onclick="publishMosaicToGallery()" class="w-full bg-green-600 hover:bg-green-700 py-3 font-semibold transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Publish to Gallery for Sale
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Published Mosaics Section -->
+                <div class="mt-6 bg-white/5 p-6 border border-white/10">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold">Published Mosaics (For Sale)</h3>
+                        <span class="text-sm text-gray-400"><span id="published-mosaic-count">3</span> artworks</span>
+                    </div>
+                    <div id="published-mosaics-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        <!-- Demo published mosaics -->
+                        <div class="relative group cursor-pointer" onclick="viewPublishedMosaic('chromatic-depths')">
+                            <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=300&q=80" class="w-full aspect-square object-cover rounded">
+                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="text-white text-sm font-bold">VIEW</span>
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
+                                <div class="text-xs font-bold truncate">CHROMATIC DEPTHS</div>
+                                <div class="text-xs text-green-400">$25,000 • FOR SALE</div>
+                            </div>
+                        </div>
+                        <div class="relative group cursor-pointer" onclick="viewPublishedMosaic('velvet-entropy')">
+                            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=300&q=80" class="w-full aspect-square object-cover rounded">
+                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="text-white text-sm font-bold">VIEW</span>
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
+                                <div class="text-xs font-bold truncate">VELVET ENTROPY</div>
+                                <div class="text-xs text-green-400">$35,000 • FOR SALE</div>
+                            </div>
+                        </div>
+                        <div class="relative group cursor-pointer" onclick="viewPublishedMosaic('abstract-horizons')">
+                            <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=300&q=80" class="w-full aspect-square object-cover rounded">
+                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="text-white text-sm font-bold">VIEW</span>
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
+                                <div class="text-xs font-bold truncate">ABSTRACT HORIZONS</div>
+                                <div class="text-xs text-gray-400">SOLD</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Settings -->
+                <div class="mt-6 bg-white/5 p-6 border border-white/10">
+                    <h3 class="text-xl font-bold mb-4">Picture Mosaics API Settings</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">API Token</label>
+                            <div class="flex gap-2">
+                                <input type="password" id="picturemosaics-token" placeholder="Enter your Picture Mosaics API token" class="input-dark flex-1">
+                                <button onclick="savePictureMosaicsToken()" class="bg-purple-600 hover:bg-purple-700 px-4 py-2 font-semibold text-sm">Save</button>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">Get your token from Picture Mosaics after providing your server IP</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Server IP (for API access)</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="server-ip" value="Not configured" class="input-dark flex-1" readonly>
+                                <button onclick="copyServerIP()" class="bg-gray-600 hover:bg-gray-700 px-4 py-2 font-semibold text-sm">Copy</button>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">Send this IP to Picture Mosaics for whitelisting</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-4 bg-blue-500/10 border border-blue-500/30 rounded">
+                        <div class="flex items-start gap-3">
+                            <span class="text-2xl">📧</span>
+                            <div>
+                                <div class="font-bold text-blue-400">Need API Access?</div>
+                                <p class="text-sm text-gray-400 mt-1">Contact Picture Mosaics at <a href="mailto:info@picturemosaics.com" class="text-blue-400 hover:underline">info@picturemosaics.com</a> or call 610-441-7986</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -5127,6 +5329,350 @@
         const img = card?.querySelector('img');
         if (img) window.open(img.src, '_blank');
     }
+
+    // ==================== MOSAIC GENERATOR FUNCTIONS ====================
+    let selectedMosaicProjectId = null;
+    let mosaicSourceImage = null;
+    let mosaicPreviewGenerated = false;
+    let mosaicFinalGenerated = false;
+
+    // Demo project data for mosaic generator
+    const mosaicProjects = {
+        'chromatic-depths': {
+            id: 'chromatic-depths',
+            title: 'CHROMATIC DEPTHS',
+            faces: 3400,
+            totalSpots: 5000,
+            image: 'https://images.unsplash.com/photo-1549490349-8643362247b5?w=800&q=80',
+            price: 25000,
+            status: 'ready'
+        },
+        'urban-symphony': {
+            id: 'urban-symphony',
+            title: 'URBAN SYMPHONY',
+            faces: 2080,
+            totalSpots: 4000,
+            image: 'https://images.unsplash.com/photo-1482160549825-59d1b23cb208?w=800&q=80',
+            price: 18000,
+            status: 'collecting'
+        },
+        'velvet-entropy': {
+            id: 'velvet-entropy',
+            title: 'VELVET ENTROPY',
+            faces: 4800,
+            totalSpots: 5000,
+            image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&q=80',
+            price: 35000,
+            status: 'ready'
+        }
+    };
+
+    function selectMosaicProject(projectId, element) {
+        // Remove selection from all
+        document.querySelectorAll('.mosaic-project-item').forEach(item => {
+            item.classList.remove('border-purple-500', 'bg-purple-500/20');
+            item.classList.add('border-white/10');
+        });
+        
+        // Select this one
+        element.classList.remove('border-white/10');
+        element.classList.add('border-purple-500', 'bg-purple-500/20');
+        
+        selectedMosaicProjectId = projectId;
+        const project = mosaicProjects[projectId];
+        
+        // Show selected project info
+        document.getElementById('selected-mosaic-project').classList.remove('hidden');
+        document.getElementById('selected-project-name').textContent = project.title;
+        document.getElementById('selected-project-faces').textContent = project.faces.toLocaleString();
+        
+        console.log('Selected project for mosaic:', projectId);
+    }
+
+    function handleMosaicSourceUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        // Validate file type
+        if (!file.type.match('image/jpeg') && !file.type.match('image/jpg')) {
+            alert('Please upload a JPEG image only');
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            mosaicSourceImage = e.target.result;
+            
+            // Show preview
+            document.getElementById('mosaic-source-placeholder').classList.add('hidden');
+            document.getElementById('mosaic-source-preview').classList.remove('hidden');
+            document.getElementById('mosaic-source-img').src = e.target.result;
+            
+            console.log('Source image uploaded');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function generateMosaicPreview() {
+        if (!selectedMosaicProjectId) {
+            alert('Please select a project first');
+            return;
+        }
+        
+        if (!mosaicSourceImage) {
+            alert('Please upload a source image first');
+            return;
+        }
+        
+        const project = mosaicProjects[selectedMosaicProjectId];
+        
+        // Show progress
+        document.getElementById('mosaic-progress').classList.remove('hidden');
+        document.getElementById('mosaic-preview-placeholder').classList.add('hidden');
+        
+        // Simulate generation progress
+        let progress = 0;
+        const progressBar = document.getElementById('mosaic-progress-bar');
+        const progressText = document.getElementById('mosaic-progress-text');
+        const progressPercent = document.getElementById('mosaic-progress-percent');
+        const progressDetail = document.getElementById('mosaic-progress-detail');
+        
+        const stages = [
+            { percent: 10, text: 'Creating project...', detail: 'Initializing mosaic project on server' },
+            { percent: 20, text: 'Uploading source...', detail: 'Uploading main artwork image' },
+            { percent: 40, text: 'Processing faces...', detail: `Uploading ${project.faces.toLocaleString()} contributor faces` },
+            { percent: 70, text: 'Building mosaic...', detail: 'Analyzing colors and arranging cells' },
+            { percent: 90, text: 'Finalizing preview...', detail: 'Generating preview image' },
+            { percent: 100, text: 'Complete!', detail: 'Mosaic preview ready' }
+        ];
+        
+        let stageIndex = 0;
+        
+        const interval = setInterval(() => {
+            if (stageIndex < stages.length) {
+                const stage = stages[stageIndex];
+                progressBar.style.width = stage.percent + '%';
+                progressPercent.textContent = stage.percent + '%';
+                progressText.textContent = stage.text;
+                progressDetail.textContent = stage.detail;
+                stageIndex++;
+            } else {
+                clearInterval(interval);
+                
+                // Show preview (using project image as demo)
+                document.getElementById('mosaic-preview-img').src = project.image;
+                document.getElementById('mosaic-preview-img').classList.remove('hidden');
+                document.getElementById('mosaic-progress').classList.add('hidden');
+                
+                // Enable final generation button
+                document.getElementById('btn-generate-final').disabled = false;
+                mosaicPreviewGenerated = true;
+                
+                console.log('Mosaic preview generated for:', project.title);
+            }
+        }, 800);
+    }
+
+    function generateMosaicFinal() {
+        if (!mosaicPreviewGenerated) {
+            alert('Please generate a preview first');
+            return;
+        }
+        
+        const project = mosaicProjects[selectedMosaicProjectId];
+        
+        // Show progress
+        document.getElementById('mosaic-progress').classList.remove('hidden');
+        
+        const progressBar = document.getElementById('mosaic-progress-bar');
+        const progressText = document.getElementById('mosaic-progress-text');
+        const progressPercent = document.getElementById('mosaic-progress-percent');
+        const progressDetail = document.getElementById('mosaic-progress-detail');
+        
+        progressBar.style.width = '0%';
+        progressText.textContent = 'Generating high-resolution mosaic...';
+        progressDetail.textContent = 'This may take 5-8 minutes';
+        
+        // Simulate final generation (5-8 minutes in real, 5 seconds in demo)
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += Math.random() * 15;
+            if (progress > 100) progress = 100;
+            
+            progressBar.style.width = progress + '%';
+            progressPercent.textContent = Math.round(progress) + '%';
+            
+            if (progress >= 100) {
+                clearInterval(interval);
+                
+                progressText.textContent = 'High-resolution mosaic ready!';
+                progressDetail.textContent = 'Ready to publish to gallery';
+                
+                // Enable publish button
+                document.getElementById('btn-publish-mosaic').disabled = false;
+                mosaicFinalGenerated = true;
+                
+                setTimeout(() => {
+                    document.getElementById('mosaic-progress').classList.add('hidden');
+                }, 1500);
+                
+                console.log('Final mosaic generated for:', project.title);
+            }
+        }, 500);
+    }
+
+    function publishMosaicToGallery() {
+        if (!mosaicFinalGenerated) {
+            alert('Please generate the final mosaic first');
+            return;
+        }
+        
+        const project = mosaicProjects[selectedMosaicProjectId];
+        
+        // Confirm publish
+        if (!confirm(`Publish "${project.title}" to the gallery for sale at $${project.price.toLocaleString()}?`)) {
+            return;
+        }
+        
+        // Show success message
+        alert(`✅ "${project.title}" has been published to the gallery!\n\nThis mosaic artwork is now available for collectors to purchase.\n\nPrice: $${project.price.toLocaleString()}\nContributors: ${project.faces.toLocaleString()}\n\nRevenue will be automatically split:\n• 50% to contributors\n• 50% to artist (minus 15% platform fee)`);
+        
+        // Reset the form
+        selectedMosaicProjectId = null;
+        mosaicSourceImage = null;
+        mosaicPreviewGenerated = false;
+        mosaicFinalGenerated = false;
+        
+        document.getElementById('selected-mosaic-project').classList.add('hidden');
+        document.getElementById('mosaic-source-placeholder').classList.remove('hidden');
+        document.getElementById('mosaic-source-preview').classList.add('hidden');
+        document.getElementById('mosaic-preview-img').classList.add('hidden');
+        document.getElementById('mosaic-preview-placeholder').classList.remove('hidden');
+        document.getElementById('btn-generate-final').disabled = true;
+        document.getElementById('btn-publish-mosaic').disabled = true;
+        
+        // Remove project selection
+        document.querySelectorAll('.mosaic-project-item').forEach(item => {
+            item.classList.remove('border-purple-500', 'bg-purple-500/20');
+            item.classList.add('border-white/10');
+        });
+        
+        console.log('Mosaic published to gallery:', project.title);
+    }
+
+    function savePictureMosaicsToken() {
+        const token = document.getElementById('picturemosaics-token').value;
+        if (!token) {
+            alert('Please enter a valid API token');
+            return;
+        }
+        
+        // In production, save to Supabase
+        localStorage.setItem('picturemosaics_token', token);
+        
+        // Update status
+        document.getElementById('mosaic-api-status').innerHTML = `
+            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+            <span class="text-green-400 text-sm">Connected</span>
+        `;
+        
+        alert('API token saved successfully!');
+        console.log('Picture Mosaics API token saved');
+    }
+
+    function copyServerIP() {
+        const ip = document.getElementById('server-ip').value;
+        navigator.clipboard.writeText(ip).then(() => {
+            alert('Server IP copied to clipboard!');
+        });
+    }
+
+    function viewPublishedMosaic(projectId) {
+        const project = mosaicProjects[projectId] || {
+            title: projectId.toUpperCase().replace(/-/g, ' '),
+            image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&q=80',
+            price: 20000,
+            faces: 4000
+        };
+        
+        // Show modal with mosaic details
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4';
+        modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+        
+        modal.innerHTML = `
+            <div class="bg-[#1a1a1a] max-w-4xl w-full rounded-xl overflow-hidden">
+                <div class="grid md:grid-cols-2">
+                    <div class="relative">
+                        <img src="${project.image}" class="w-full aspect-square object-cover">
+                        <img src="YH_Signature.png" alt="" class="absolute bottom-4 right-4 h-8" style="opacity: 0.85; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">
+                    </div>
+                    <div class="p-6 flex flex-col">
+                        <button onclick="this.closest('.fixed').remove()" class="absolute top-4 right-4 w-8 h-8 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white">×</button>
+                        
+                        <div class="text-xs text-purple-400 font-bold tracking-wider mb-2">PUBLISHED MOSAIC</div>
+                        <h2 class="text-2xl font-black text-white">${project.title}</h2>
+                        
+                        <div class="mt-4 space-y-3 text-sm">
+                            <div class="flex justify-between text-gray-400 border-b border-white/10 pb-2">
+                                <span>Contributors</span>
+                                <span class="text-white font-bold">${(project.faces || 4000).toLocaleString()}</span>
+                            </div>
+                            <div class="flex justify-between text-gray-400 border-b border-white/10 pb-2">
+                                <span>Status</span>
+                                <span class="text-green-400 font-bold">For Sale</span>
+                            </div>
+                            <div class="flex justify-between text-gray-400 border-b border-white/10 pb-2">
+                                <span>Price</span>
+                                <span class="text-white font-bold text-xl">$${(project.price || 20000).toLocaleString()}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-auto pt-6 space-y-3">
+                            <button class="w-full bg-red-600 hover:bg-red-700 py-3 font-bold text-white rounded" onclick="if(confirm('Remove this artwork from the gallery?')) { alert('Artwork removed'); this.closest('.fixed').remove(); }">
+                                Remove from Gallery
+                            </button>
+                            <button class="w-full bg-white/10 hover:bg-white/20 py-3 font-bold text-white rounded" onclick="this.closest('.fixed').remove()">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+    }
+
+    // Update showAdminTab to handle mosaic-generator
+    const originalShowAdminTab = showAdminTab;
+    showAdminTab = function(tab) {
+        // Map mosaic-generator to ai-generator content ID
+        const contentId = tab === 'mosaic-generator' ? 'ai-generator' : tab;
+        
+        // Hide all content
+        document.querySelectorAll('.admin-content').forEach(content => {
+            content.classList.add('hidden');
+        });
+        
+        // Show selected content
+        const targetContent = document.getElementById('admin-content-' + contentId);
+        if (targetContent) {
+            targetContent.classList.remove('hidden');
+        }
+        
+        // Update tab styles
+        document.querySelectorAll('.admin-tab').forEach(t => {
+            t.classList.remove('border-purple-500', 'text-white');
+            t.classList.add('border-transparent', 'text-gray-400');
+        });
+        
+        const activeTab = document.getElementById('admin-tab-' + contentId);
+        if (activeTab) {
+            activeTab.classList.remove('border-transparent', 'text-gray-400');
+            activeTab.classList.add('border-purple-500', 'text-white');
+        }
+    };
 
     // ==================== ADMIN: COLLABS BLOG ====================
     
