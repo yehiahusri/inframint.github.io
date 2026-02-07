@@ -1918,23 +1918,59 @@
     let availableProjects = [];
 
     async function loadProjects() {
+        const grid = document.getElementById('projects-grid');
+        if (!grid) return;
+        
+        // Show loading state
+        grid.innerHTML = `
+            <div class="col-span-full text-center py-12">
+                <div class="animate-spin w-8 h-8 border-2 border-pink-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+                <p class="text-gray-400">Loading available projects...</p>
+            </div>
+        `;
+        
+        // Add timeout (8 seconds max)
+        const timeoutId = setTimeout(() => {
+            console.log('Project loading timeout');
+            grid.innerHTML = `
+                <div class="col-span-full text-center py-12">
+                    <div class="text-4xl mb-4">⏳</div>
+                    <p class="text-gray-400 mb-2">Loading is taking longer than expected</p>
+                    <button onclick="loadProjects()" class="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">Try Again</button>
+                </div>
+            `;
+        }, 8000);
+        
         try {
+            console.log('Fetching projects from Supabase...');
             const { data: projects, error } = await supabaseClient
                 .from('projects')
                 .select('*')
                 .in('status', ['open', 'filling'])
-                .order('created_at', { ascending: false });
+                .gt('total_spots', supabaseClient.raw('filled_spots')) // Only show projects with spots left
+                .order('filled_spots', { ascending: false }); // Closest to full first
 
-            if (error) throw error;
+            clearTimeout(timeoutId);
+            
+            if (error) {
+                console.error('Supabase error loading projects:', error);
+                throw error;
+            }
+            
+            console.log('Projects fetched successfully:', projects?.length || 0);
 
             availableProjects = projects || [];
             renderProjects();
 
         } catch (error) {
+            clearTimeout(timeoutId);
             console.error('Error loading projects:', error);
-            document.getElementById('projects-grid').innerHTML = `
+            grid.innerHTML = `
                 <div class="col-span-full text-center py-12">
-                    <p class="text-red-400">Error loading projects. Please refresh.</p>
+                    <div class="text-4xl mb-4">😕</div>
+                    <p class="text-red-400 mb-2">Unable to load projects</p>
+                    <p class="text-gray-500 text-sm mb-4">${error.message || 'Please check your connection'}</p>
+                    <button onclick="loadProjects()" class="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">Try Again</button>
                 </div>
             `;
         }
@@ -1967,8 +2003,12 @@
                         <img src="${project.image_url}" alt="${project.title}" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                         
-                        <!-- YH Signature -->
-                        <img src="YH_Signature.png" alt="" class="absolute top-3 left-3 h-5 opacity-50" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));">
+                        <!-- YH Signature - Bottom Right, 85% opacity -->
+                        ${!(project.is_third_party) ? `
+                            <img src="YH_Signature.png" alt="" class="absolute bottom-14 right-3 h-6 md:h-8" style="opacity: 0.85; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">
+                        ` : `
+                            <div class="absolute top-3 left-3 bg-purple-600 text-white text-[10px] font-bold tracking-wider px-2 py-1">GUEST ARTIST</div>
+                        `}
                         
                         <!-- Selected Badge -->
                         <div class="absolute top-3 right-3 ${isSelected ? '' : 'hidden'}" id="selected-badge-${project.id}">
@@ -2008,24 +2048,52 @@
 
     // Load projects for homepage (public view)
     async function loadHomeProjects() {
+        const grid = document.getElementById('home-projects-grid');
+        if (!grid) return;
+        
+        // Show loading state
+        grid.innerHTML = `
+            <div class="col-span-full text-center py-12">
+                <div class="animate-spin w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+                <p class="text-gray-400">Loading projects...</p>
+            </div>
+        `;
+        
+        // Add timeout
+        const timeoutId = setTimeout(() => {
+            grid.innerHTML = `
+                <div class="col-span-full text-center py-12">
+                    <div class="text-4xl mb-4">⏳</div>
+                    <p class="text-gray-400 mb-2">Taking longer than expected...</p>
+                    <button onclick="loadHomeProjects()" class="text-purple-500 hover:underline">Try again</button>
+                </div>
+            `;
+        }, 8000);
+        
         try {
+            console.log('Loading home projects...');
             const { data: projects, error } = await supabaseClient
                 .from('projects')
                 .select('*')
                 .in('status', ['open', 'filling'])
-                .order('created_at', { ascending: false })
+                .order('filled_spots', { ascending: false }) // Sort by closest to full
                 .limit(6);
 
-            if (error) throw error;
-
-            const grid = document.getElementById('home-projects-grid');
-            if (!grid) return;
+            clearTimeout(timeoutId);
+            
+            if (error) {
+                console.error('Supabase error:', error);
+                throw error;
+            }
+            
+            console.log('Projects loaded:', projects?.length || 0);
 
             if (!projects || projects.length === 0) {
                 grid.innerHTML = `
                     <div class="col-span-full text-center py-12">
                         <div class="text-4xl mb-4">🎨</div>
-                        <p class="text-gray-400">No open projects right now</p>
+                        <p class="text-gray-400 mb-2">No open projects available at the moment</p>
+                        <p class="text-sm text-gray-500">Check back soon for new masterpieces!</p>
                     </div>
                 `;
                 return;
@@ -2034,39 +2102,158 @@
             grid.innerHTML = projects.map(project => {
                 const percentFilled = Math.round((project.filled_spots / project.total_spots) * 100);
                 const spotsLeft = project.total_spots - project.filled_spots;
+                const isThirdParty = project.is_third_party || false;
                 
                 return `
-                    <div class="glass-effect rounded-2xl overflow-hidden hover-lift cursor-pointer" onclick="showPage('contribute')">
-                        <div class="aspect-video relative overflow-hidden">
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer transform hover:-translate-y-1" 
+                         onclick="showProjectDetail('${project.id}')">
+                        <div class="aspect-[4/3] relative overflow-hidden">
                             <img src="${project.image_url}" alt="${project.title}" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                             
-                            <!-- YH Signature -->
-                            <img src="YH_Signature.png" alt="" class="absolute top-3 left-3 h-5 opacity-50" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));">
+                            <!-- Signature - Bottom Right, 85% opacity -->
+                            ${!isThirdParty ? `
+                                <img src="YH_Signature.png" alt="" class="absolute bottom-3 right-3 h-6 md:h-8" style="opacity: 0.85; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">
+                            ` : `
+                                <div class="absolute top-3 left-3 bg-purple-600 text-white text-[10px] font-bold tracking-wider px-2 py-1">GUEST ARTIST</div>
+                            `}
                             
-                            <!-- Progress Bar -->
+                            <!-- Progress Overlay -->
                             <div class="absolute bottom-0 left-0 right-0 p-4">
                                 <div class="flex items-center justify-between text-sm mb-2">
-                                    <span class="text-white font-medium">${project.filled_spots.toLocaleString()} / ${project.total_spots.toLocaleString()}</span>
-                                    <span class="${spotsLeft < 500 ? 'text-yellow-400' : 'text-green-400'}">${spotsLeft.toLocaleString()} spots left</span>
+                                    <span class="text-white font-semibold">${percentFilled}% filled</span>
+                                    <span class="${spotsLeft < 500 ? 'text-yellow-300' : 'text-green-300'} font-medium">${spotsLeft.toLocaleString()} spots left</span>
                                 </div>
-                                <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                                    <div class="h-full bg-gradient-to-r from-pink-500 to-purple-600" style="width: ${percentFilled}%"></div>
+                                <div class="h-2 bg-white/30 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500" style="width: ${percentFilled}%"></div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="p-4">
-                            <h3 class="text-xl font-bold mb-1">${project.title}</h3>
-                            <p class="text-gray-400 text-sm">by ${project.artist}</p>
+                        <div class="p-5">
+                            <h3 class="text-lg font-black tracking-tight mb-1">${project.title.toUpperCase()}</h3>
+                            <p class="text-gray-500 text-sm">${isThirdParty ? `by ${project.artist}` : 'InfraMint Original'}</p>
+                            <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
+                                <span class="text-xs text-gray-400">${project.total_spots.toLocaleString()} total spots</span>
+                                <span class="font-bold text-purple-600">$${(project.price || 15000).toLocaleString()}</span>
+                            </div>
                         </div>
                     </div>
                 `;
             }).join('');
 
         } catch (error) {
+            clearTimeout(timeoutId);
             console.error('Error loading home projects:', error);
+            grid.innerHTML = `
+                <div class="col-span-full text-center py-12">
+                    <div class="text-4xl mb-4">😕</div>
+                    <p class="text-gray-400 mb-2">Unable to load projects</p>
+                    <button onclick="loadHomeProjects()" class="text-purple-500 hover:underline">Try again</button>
+                </div>
+            `;
         }
+    }
+
+    // Show Project Detail Modal (when clicking from homepage)
+    function showProjectDetail(projectId) {
+        // First try to find in home projects, then fetch if needed
+        supabaseClient
+            .from('projects')
+            .select('*')
+            .eq('id', projectId)
+            .single()
+            .then(({ data: project, error }) => {
+                if (error || !project) {
+                    alert('Project not found');
+                    return;
+                }
+                
+                const percentFilled = Math.round((project.filled_spots / project.total_spots) * 100);
+                const spotsLeft = project.total_spots - project.filled_spots;
+                const isThirdParty = project.is_third_party || false;
+                
+                const modal = document.createElement('div');
+                modal.id = 'project-detail-modal';
+                modal.className = 'fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4';
+                modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+                
+                modal.innerHTML = `
+                    <div class="bg-white max-w-5xl w-full max-h-[95vh] overflow-hidden rounded-xl shadow-2xl">
+                        <div class="grid md:grid-cols-2 h-full">
+                            <!-- Left: Large Image -->
+                            <div class="relative bg-gray-100 min-h-[300px] md:min-h-[500px]">
+                                <img src="${project.image_url}" alt="${project.title}" class="w-full h-full object-cover">
+                                
+                                <!-- Signature -->
+                                ${!isThirdParty ? `
+                                    <img src="YH_Signature.png" alt="" class="absolute bottom-4 right-4 h-8 md:h-10" style="opacity: 0.85; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">
+                                ` : `
+                                    <div class="absolute top-4 left-4 bg-purple-600 text-white text-xs font-bold tracking-wider px-3 py-1">GUEST ARTIST</div>
+                                `}
+                                
+                                <!-- Progress Bar on Image -->
+                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                                    <div class="flex justify-between text-white text-sm mb-2">
+                                        <span>${project.filled_spots.toLocaleString()} / ${project.total_spots.toLocaleString()} spots filled</span>
+                                        <span class="font-bold">${percentFilled}%</span>
+                                    </div>
+                                    <div class="h-3 bg-white/30 rounded-full overflow-hidden">
+                                        <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500" style="width: ${percentFilled}%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Right: Details -->
+                            <div class="p-6 md:p-8 overflow-y-auto flex flex-col">
+                                <button onclick="document.getElementById('project-detail-modal').remove()" class="absolute top-4 right-4 w-10 h-10 bg-black/20 hover:bg-black/40 rounded-full flex items-center justify-center text-white text-xl">×</button>
+                                
+                                <div class="flex-1">
+                                    <span class="text-xs tracking-wider text-purple-600 font-bold">OPEN FOR CONTRIBUTIONS</span>
+                                    <h1 class="text-3xl md:text-4xl font-black tracking-tight mt-2">${project.title.toUpperCase()}</h1>
+                                    <p class="text-gray-500 mt-1">${isThirdParty ? `by ${project.artist}` : 'InfraMint Original'}</p>
+                                    
+                                    <div class="mt-6 space-y-4">
+                                        <div class="flex justify-between py-3 border-b border-gray-100">
+                                            <span class="text-gray-500">Print Size</span>
+                                            <span class="font-bold">${project.print_size || '120 × 120 cm'}</span>
+                                        </div>
+                                        <div class="flex justify-between py-3 border-b border-gray-100">
+                                            <span class="text-gray-500">Total Spots</span>
+                                            <span class="font-bold">${project.total_spots.toLocaleString()}</span>
+                                        </div>
+                                        <div class="flex justify-between py-3 border-b border-gray-100">
+                                            <span class="text-gray-500">Spots Remaining</span>
+                                            <span class="font-bold ${spotsLeft < 500 ? 'text-orange-500' : 'text-green-600'}">${spotsLeft.toLocaleString()}</span>
+                                        </div>
+                                        <div class="flex justify-between py-3 border-b border-gray-100">
+                                            <span class="text-gray-500">Sale Price</span>
+                                            <span class="font-black text-2xl">$${(project.price || 15000).toLocaleString()}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <p class="text-gray-600 mt-6 leading-relaxed">${project.description || 'A unique collective artwork where thousands of contributors come together to create a museum-quality masterpiece. Each face is transformed into abstract artistic elements.'}</p>
+                                    
+                                    <div class="mt-6 p-4 bg-purple-50 rounded-lg">
+                                        <p class="text-sm text-purple-800"><strong>Revenue Split:</strong> 50% to Contributors · 50% to Artist</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6 space-y-3">
+                                    <button onclick="document.getElementById('project-detail-modal').remove(); showPage('contribute');" class="w-full bg-black text-white py-4 font-bold tracking-wider hover:bg-purple-600 transition-colors rounded-lg">
+                                        CONTRIBUTE TO THIS PROJECT
+                                    </button>
+                                    <button onclick="document.getElementById('project-detail-modal').remove();" class="w-full border border-gray-300 text-gray-600 py-3 font-medium hover:bg-gray-50 transition-colors rounded-lg">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+            });
     }
 
     // Load homepage projects on initial page load
@@ -2148,7 +2335,7 @@
                         </div>
                         <!-- Only show YH Signature if NOT third-party artwork -->
                         ${!isThirdParty ? `
-                            <img src="YH_Signature.png" alt="" class="absolute bottom-2 right-2 h-3 opacity-35" style="filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2));">
+                            <img src="YH_Signature.png" alt="" class="absolute bottom-12 right-3 h-5 md:h-6" style="opacity: 0.85; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.4));">
                         ` : ''}
                         ${isThirdParty ? `
                             <div class="absolute top-3 left-3 bg-purple-600 text-white text-[9px] font-bold tracking-wider px-2 py-1">GUEST ARTIST</div>
@@ -2201,7 +2388,7 @@
                         
                         <!-- Only show YH Signature if NOT third-party artwork -->
                         ${!isThirdParty ? `
-                            <img src="YH_Signature.png" alt="" class="absolute bottom-3 right-3 h-5 opacity-45" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));">
+                            <img src="YH_Signature.png" alt="" class="absolute bottom-4 right-4 h-8 md:h-10" style="opacity: 0.85; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">
                         ` : ''}
                         
                         ${isSold ? `
